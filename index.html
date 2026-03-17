@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -8,20 +9,19 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
 .header{background:rgba(253,240,248,0.95);border-bottom:1.5px solid #f9c6e0;padding:14px 20px;position:sticky;top:0;z-index:99;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.header h1{font-size:22px;font-weight:900;color:#e91e8c}
+.header h1{font-size:20px;font-weight:900;color:#e91e8c}
 .header p{font-size:11px;color:#9e5070}
 .stats{display:flex;gap:8px;flex-wrap:wrap}
 .pill{background:white;border:1.5px solid #f9c6e0;border-radius:999px;padding:5px 12px;font-size:11px;font-weight:700;color:#e91e8c}
-.tabs{display:flex;border-bottom:1.5px solid #f9c6e0;background:rgba(253,240,248,0.95);position:sticky;top:70px;z-index:98}
-.tab{padding:11px 18px;font-size:13px;font-weight:700;color:#9e5070;cursor:pointer;border-bottom:3px solid transparent}
+.tabs{display:flex;border-bottom:1.5px solid #f9c6e0;background:rgba(253,240,248,0.95);position:sticky;top:65px;z-index:98;overflow-x:auto}
+.tab{padding:11px 14px;font-size:12px;font-weight:700;color:#9e5070;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
 .tab.active{color:#e91e8c;border-bottom-color:#e91e8c}
 .main{max-width:1200px;margin:0 auto;padding:20px 16px 60px}
 .panel{display:none}.panel.active{display:block}
-.ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:20px}
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:20px}
 .ov-card{background:white;border-radius:14px;border:1.5px solid #f9c6e0;padding:12px 14px;box-shadow:0 2px 12px rgba(233,30,140,0.07)}
 .ov-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.ov-emoji{font-size:18px}
-.ov-name{font-size:12px;font-weight:800}
+.ov-emoji{font-size:18px}.ov-name{font-size:12px;font-weight:800}
 .ov-bar-bg{background:#fce4f2;border-radius:999px;height:7px;overflow:hidden;margin-bottom:4px}
 .ov-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,#f48cb1,#e91e8c);transition:width 0.5s}
 .ov-pct{font-size:10px;font-weight:700;color:#9e5070;text-align:right}
@@ -30,44 +30,31 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
 .card{background:white;border-radius:16px;border:1.5px solid #f9c6e0;box-shadow:0 2px 12px rgba(233,30,140,0.07);overflow:hidden}
 .card-hdr{padding:12px 14px;border-bottom:1.5px solid #f9c6e0;display:flex;align-items:center;justify-content:space-between}
 .card-left{display:flex;align-items:center;gap:9px}
-.card-emoji{font-size:20px}
-.card-title{font-size:14px;font-weight:900}
+.card-emoji{font-size:20px}.card-title{font-size:14px;font-weight:900}
 .card-sub{font-size:10px;color:#9e5070;margin-top:1px}
 .card-badge{background:#fce4f2;border:1.5px solid #f9c6e0;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:800;color:#e91e8c}
 .card-prog{height:4px;background:#fce4f2}
 .card-prog-fill{height:100%;background:linear-gradient(90deg,#f48cb1,#e91e8c);transition:width 0.5s}
 .topics{padding:10px 12px;display:flex;flex-direction:column;gap:5px}
 .topic{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;cursor:pointer;user-select:none;transition:background 0.15s}
-.topic:hover{background:#fce4f2}
-.topic.done{opacity:0.5}
+.topic:hover{background:#fce4f2}.topic.done{opacity:0.5}
 .chk{width:18px;height:18px;border-radius:5px;border:2px solid #f9c6e0;background:white;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.2s}
 .topic.done .chk{background:#e91e8c;border-color:#e91e8c;color:white}
 .ttext{font-size:12px;font-weight:600;flex:1}
 .topic.done .ttext{text-decoration:line-through;color:#9e5070}
 .ttag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:999px;flex-shrink:0}
-.hot{background:#ffe4e4;color:#c0392b}
-.med{background:#fff4e0;color:#e67e22}
-.base{background:#e8f4ff;color:#2980b9}
+.hot{background:#ffe4e4;color:#c0392b}.med{background:#fff4e0;color:#e67e22}.base{background:#e8f4ff;color:#2980b9}
 .note-btn{margin:0 12px 10px;background:none;border:1.5px dashed #f9c6e0;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#9e5070;cursor:pointer;width:calc(100% - 24px);text-align:left;font-family:sans-serif;transition:all 0.2s}
 .note-btn:hover{background:#fce4f2;color:#e91e8c}
-.note-wrap{display:none;padding:0 12px 12px}
-.note-wrap.open{display:block}
+.note-wrap{display:none;padding:0 12px 12px}.note-wrap.open{display:block}
 .note-ta{width:100%;min-height:70px;border:1.5px solid #f9c6e0;border-radius:8px;padding:8px 10px;font-size:12px;font-family:sans-serif;color:#4a1a35;background:#fdf0f8;resize:vertical;outline:none}
 .note-ta:focus{border-color:#f48cb1}
 .save-btn{margin-top:5px;background:#e91e8c;border:none;border-radius:999px;padding:4px 12px;font-size:11px;font-weight:700;color:white;cursor:pointer;font-family:sans-serif}
 .saved-msg{font-size:10px;color:#9e5070;margin-left:6px;opacity:0;transition:opacity 0.3s}
 .saved-msg.show{opacity:1}
-/* accent tops */
-.ac-mat{border-top:4px solid #e91e8c}
-.ac-fis{border-top:4px solid #7c4dff}
-.ac-qui{border-top:4px solid #1976d2}
-.ac-bio{border-top:4px solid #2e7d32}
-.ac-por{border-top:4px solid #e64a19}
-.ac-ing{border-top:4px solid #ef6c00}
-.ac-his{border-top:4px solid #c62828}
-.ac-geo{border-top:4px solid #00695c}
-.ac-fil{border-top:4px solid #7b1fa2}
-.ac-soc{border-top:4px solid #f57f17}
+.ac-mat{border-top:4px solid #e91e8c}.ac-fis{border-top:4px solid #7c4dff}.ac-qui{border-top:4px solid #1976d2}
+.ac-bio{border-top:4px solid #2e7d32}.ac-por{border-top:4px solid #e64a19}.ac-ing{border-top:4px solid #ef6c00}
+.ac-his{border-top:4px solid #c62828}.ac-geo{border-top:4px solid #00695c}.ac-fil{border-top:4px solid #7b1fa2}.ac-soc{border-top:4px solid #f57f17}
 /* metas */
 .metas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
 .meta-card{background:white;border-radius:16px;border:1.5px solid #f9c6e0;box-shadow:0 2px 12px rgba(233,30,140,0.07);overflow:hidden}
@@ -93,8 +80,66 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
 .meta-prog-bg{background:#fce4f2;border-radius:999px;height:7px;overflow:hidden}
 .meta-prog-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#f48cb1,#e91e8c);transition:width 0.4s}
 .empty{font-size:11px;color:#9e5070;font-style:italic;text-align:center;padding:14px 0}
+/* cronograma */
+.cron-table{width:100%;border-collapse:separate;border-spacing:6px}
+.cron-table th{background:white;border-radius:10px;padding:10px 8px;text-align:center;font-size:12px;font-weight:800;color:#e91e8c;border:1.5px solid #f9c6e0}
+.cron-table td.time-cell{background:rgba(255,255,255,0.5);border-radius:8px;text-align:center;font-size:11px;font-weight:700;color:#e91e8c;padding:4px 6px;white-space:nowrap}
+.cron-table td.subj{border-radius:12px;padding:10px 11px;border:1.5px solid transparent;vertical-align:top}
+.cron-table td.pause-cell{background:rgba(255,255,255,0.4);border-radius:7px;border:1.5px dashed #f9c6e0;text-align:center;font-size:9px;font-weight:600;color:rgba(233,30,140,0.35);letter-spacing:1px;text-transform:uppercase;padding:4px}
+.subj-icon{font-size:18px;display:block;margin-bottom:3px}
+.subj-name{font-size:13px;font-weight:800;display:block;margin-bottom:3px}
+.subj-topics{font-size:9.5px;opacity:0.7;line-height:1.5}
+.subj-topics span{display:block}
+.cs-mat{background:linear-gradient(135deg,#ffe4f0,#ffd0e6);border-color:rgba(194,24,91,0.18)!important}
+.cs-mat .subj-name{color:#880e4f}
+.cs-fis{background:linear-gradient(135deg,#eee8ff,#ddd2ff);border-color:rgba(94,53,177,0.15)!important}
+.cs-fis .subj-name{color:#4527a0}
+.cs-qui{background:linear-gradient(135deg,#e4f1ff,#cce4ff);border-color:rgba(21,101,192,0.15)!important}
+.cs-qui .subj-name{color:#0d47a1}
+.cs-bio{background:linear-gradient(135deg,#e8fff2,#ccf5e0);border-color:rgba(27,94,32,0.15)!important}
+.cs-bio .subj-name{color:#1b5e20}
+.cs-por{background:linear-gradient(135deg,#fffce6,#fff3c0);border-color:rgba(230,81,0,0.15)!important}
+.cs-por .subj-name{color:#e65100}
+.cs-ing{background:linear-gradient(135deg,#fff4e0,#ffe0b0);border-color:rgba(239,108,0,0.15)!important}
+.cs-ing .subj-name{color:#e65100}
+.cs-his{background:linear-gradient(135deg,#fce8e8,#f8cccc);border-color:rgba(183,28,28,0.15)!important}
+.cs-his .subj-name{color:#b71c1c}
+.cs-geo{background:linear-gradient(135deg,#e4f8f8,#c6eeee);border-color:rgba(0,105,92,0.15)!important}
+.cs-geo .subj-name{color:#004d40}
+.cs-fil{background:linear-gradient(135deg,#f4e6ff,#e4ccff);border-color:rgba(123,31,162,0.15)!important}
+.cs-fil .subj-name{color:#6a1b9a}
+.cs-soc{background:linear-gradient(135deg,#fff8e0,#ffedb0);border-color:rgba(245,127,23,0.15)!important}
+.cs-soc .subj-name{color:#e65100}
+.cs-prova{background:linear-gradient(135deg,#fffde0,#fff59d);border-color:rgba(158,157,36,0.2)!important}
+.cs-prova .subj-name{color:#827717}
+.cs-rev{background:linear-gradient(135deg,#fdf2f6,#faddec);border-color:rgba(194,24,91,0.12)!important}
+.cs-rev .subj-name{color:#880e4f;font-style:italic}
+/* erros */
+.erros-top{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:24px}
+.erro-subj-card{background:white;border-radius:16px;border:1.5px solid #f9c6e0;box-shadow:0 2px 12px rgba(233,30,140,0.07);overflow:hidden}
+.erro-subj-hdr{padding:11px 14px;border-bottom:1.5px solid #f9c6e0;display:flex;align-items:center;justify-content:space-between}
+.erro-subj-left{display:flex;align-items:center;gap:8px}
+.erro-subj-name{font-size:13px;font-weight:900}
+.erro-topics-list{padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.erro-topic-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;background:#fdf0f8;border:1.5px solid #f9c6e0}
+.erro-topic-name{flex:1;font-size:12px;font-weight:600}
+.erro-controls{display:flex;align-items:center;gap:6px}
+.erro-count{font-size:13px;font-weight:900;color:#e91e8c;min-width:20px;text-align:center}
+.erro-btn{background:none;border:1.5px solid #f9c6e0;border-radius:6px;width:24px;height:24px;font-size:14px;cursor:pointer;color:#e91e8c;display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-weight:700}
+.erro-btn:hover{background:#fce4f2}
+.erro-bar-bg{background:#fce4f2;border-radius:999px;height:5px;overflow:hidden;margin-top:4px}
+.erro-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,#f48cb1,#e91e8c);transition:width 0.5s}
+.ranking-card{background:white;border-radius:16px;border:1.5px solid #f9c6e0;box-shadow:0 2px 12px rgba(233,30,140,0.07);padding:16px 18px;margin-bottom:20px}
+.ranking-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;margin-bottom:6px;background:#fdf0f8;border:1.5px solid #f9c6e0}
+.rank-pos{font-size:16px;font-weight:900;color:#e91e8c;min-width:28px;text-align:center}
+.rank-name{flex:1;font-size:13px;font-weight:700}
+.rank-count{font-size:12px;font-weight:800;color:#e91e8c}
+.rank-pct{font-size:11px;font-weight:700;color:#9e5070;background:#fce4f2;border-radius:999px;padding:2px 8px}
+.rank-bar-bg{background:#fce4f2;border-radius:999px;height:6px;overflow:hidden;margin-top:4px}
+.rank-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,#f48cb1,#e91e8c)}
+/* footer */
 .footer{margin-top:20px;background:linear-gradient(135deg,#fce4f2,#ffd6e8);border:1.5px solid #f9c6e0;border-radius:16px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.footer-q{font-size:15px;font-style:italic;color:#e91e8c;font-weight:700}
+.footer-q{font-size:14px;font-style:italic;color:#e91e8c;font-weight:700}
 .footer-r{font-size:11px;color:#9e5070;font-weight:700}
 .reset-btn{background:none;border:1.5px solid #f9c6e0;border-radius:999px;padding:4px 11px;font-size:10px;font-weight:700;color:#9e5070;cursor:pointer;font-family:sans-serif}
 </style>
@@ -106,61 +151,143 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
     <div class="pill" id="cdpill">⏳ Calculando...</div>
     <div class="pill">✅ <span id="tdone">0</span> concluídos</div>
     <div class="pill">📚 <span id="ttotal">0</span> total</div>
-    <div class="pill">🎯 <span id="tpct">0%</span> progresso</div>
+    <div class="pill">🎯 <span id="tpct">0%</span></div>
     <button class="reset-btn" onclick="resetAll()">🔄 Resetar</button>
   </div>
 </div>
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('tracker')">📋 Tracker de Tópicos</div>
+  <div class="tab active" onclick="switchTab('tracker')">📋 Tópicos</div>
+  <div class="tab" onclick="switchTab('erros')">❌ Controle de Erros</div>
   <div class="tab" onclick="switchTab('metas')">🎯 Metas Semanais</div>
+  <div class="tab" onclick="switchTab('cron')">📅 Cronograma</div>
 </div>
 <div class="main">
-  <div class="panel active" id="panel-tracker">
-    <div class="ov-grid" id="overview"></div>
-    <div class="sec-title">📌 Tópicos mais cobrados — clique para marcar</div>
-    <div class="cards-grid" id="cards"></div>
-    <div class="footer" style="margin-top:20px"><div class="footer-q">🌷 "A disciplina de hoje é a aprovação de amanhã."</div><div class="footer-r">UERJ 2027 · Você consegue! 💪</div></div>
+
+<!-- TRACKER -->
+
+<div class="panel active" id="panel-tracker">
+  <div class="ov-grid" id="overview"></div>
+  <div class="sec-title">📌 Tópicos mais cobrados — clique para marcar</div>
+  <div class="cards-grid" id="cards"></div>
+  <div class="footer"><div class="footer-q">🌷 "A disciplina de hoje é a aprovação de amanhã."</div><div class="footer-r">UERJ 2027 · Você consegue! 💪</div></div>
+</div>
+
+<!-- ERROS -->
+
+<div class="panel" id="panel-erros">
+  <div class="sec-title">❌ Controle de Erros por Assunto</div>
+  <div class="ranking-card">
+    <div class="sec-title" style="font-size:14px;margin-bottom:12px">🏆 Ranking — Assuntos que você mais erra</div>
+    <div id="ranking-list"><div class="empty">Nenhum erro registrado ainda. Adicione erros abaixo!</div></div>
   </div>
-  <div class="panel" id="panel-metas">
-    <div class="sec-title">🎯 Metas Semanais</div>
-    <div class="metas-grid">
-      <div class="meta-card">
-        <div class="meta-hdr">
-          <div class="meta-hdr-title">📅 Metas da Semana
-            <div class="week-nav">
-              <button class="wbtn" onclick="changeWeek(-1)">‹</button>
-              <span class="wlabel" id="wlabel"></span>
-              <button class="wbtn" onclick="changeWeek(1)">›</button>
-            </div>
-          </div>
-        </div>
-        <div class="meta-add">
-          <input class="meta-inp" id="minp" placeholder="Ex: Estudar funções de 1º grau..." onkeydown="if(event.key==='Enter')addMeta()">
-          <button class="meta-add-btn" onclick="addMeta()">+ Adicionar</button>
-        </div>
-        <div class="meta-list" id="mlist"></div>
-        <div class="meta-prog">
-          <div class="meta-prog-lbl"><span>Progresso da semana</span><span id="mpct">0%</span></div>
-          <div class="meta-prog-bg"><div class="meta-prog-fill" id="mfill" style="width:0%"></div></div>
-        </div>
-      </div>
-      <div class="meta-card">
-        <div class="meta-hdr"><div class="meta-hdr-title">📝 Anotações Gerais</div></div>
-        <div style="padding:14px 16px">
-          <textarea class="note-ta" id="gnote" style="min-height:180px;width:100%" placeholder="Escreva suas anotações gerais, dúvidas e lembretes..."></textarea>
-          <div style="margin-top:6px;display:flex;align-items:center;gap:8px">
-            <button class="save-btn" onclick="saveGNote()">💾 Salvar</button>
-            <span class="saved-msg" id="gnsaved">✓ Salvo!</span>
+  <div class="erros-top" id="erros-grid"></div>
+  <div class="footer"><div class="footer-q">🌷 "Erro é aprendizado. Registre e supere!"</div><div class="footer-r">UERJ 2027 · Você consegue! 💪</div></div>
+</div>
+
+<!-- METAS -->
+
+<div class="panel" id="panel-metas">
+  <div class="sec-title">🎯 Metas Semanais</div>
+  <div class="metas-grid">
+    <div class="meta-card">
+      <div class="meta-hdr">
+        <div class="meta-hdr-title">📅 Metas da Semana
+          <div class="week-nav">
+            <button class="wbtn" onclick="changeWeek(-1)">‹</button>
+            <span class="wlabel" id="wlabel"></span>
+            <button class="wbtn" onclick="changeWeek(1)">›</button>
           </div>
         </div>
       </div>
+      <div class="meta-add">
+        <input class="meta-inp" id="minp" placeholder="Ex: Estudar funções de 1º grau..." onkeydown="if(event.key==='Enter')addMeta()">
+        <button class="meta-add-btn" onclick="addMeta()">+ Adicionar</button>
+      </div>
+      <div class="meta-list" id="mlist"></div>
+      <div class="meta-prog">
+        <div class="meta-prog-lbl"><span>Progresso da semana</span><span id="mpct">0%</span></div>
+        <div class="meta-prog-bg"><div class="meta-prog-fill" id="mfill" style="width:0%"></div></div>
+      </div>
     </div>
-    <div style="margin-top:20px">
-      <div class="sec-title">📊 Histórico de Metas</div>
-      <div id="hist" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px"></div>
+    <div class="meta-card">
+      <div class="meta-hdr"><div class="meta-hdr-title">📝 Anotações Gerais</div></div>
+      <div style="padding:14px 16px">
+        <textarea class="note-ta" id="gnote" style="min-height:180px;width:100%" placeholder="Escreva suas anotações, dúvidas e lembretes..."></textarea>
+        <div style="margin-top:6px;display:flex;align-items:center;gap:8px">
+          <button class="save-btn" onclick="saveGNote()">💾 Salvar</button>
+          <span class="saved-msg" id="gnsaved">✓ Salvo!</span>
+        </div>
+      </div>
     </div>
-    <div class="footer" style="margin-top:20px"><div class="footer-q">🌷 "Uma meta por vez, uma vitória por vez."</div><div class="footer-r">UERJ 2027 · Você consegue! 💪</div></div>
   </div>
+  <div style="margin-top:20px">
+    <div class="sec-title" style="font-size:14px">📊 Histórico</div>
+    <div id="hist" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px"></div>
+  </div>
+  <div class="footer"><div class="footer-q">🌷 "Uma meta por vez, uma vitória por vez."</div><div class="footer-r">UERJ 2027 💪</div></div>
+</div>
+
+<!-- CRONOGRAMA -->
+
+<div class="panel" id="panel-cron">
+  <div class="sec-title">📅 Cronograma Semanal — 3 blocos por dia · 14h às 19h30</div>
+  <div style="overflow-x:auto">
+  <table class="cron-table">
+    <thead>
+      <tr>
+        <th style="width:70px"></th>
+        <th>☀️ Segunda</th>
+        <th>🌤️ Terça</th>
+        <th>🌸 Quarta</th>
+        <th>💫 Quinta</th>
+        <th>🌷 Sexta</th>
+        <th>🎀 Sábado</th>
+        <th>🌙 Domingo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="time-cell">14h00<br>▼<br>15h30</td>
+        <td class="subj cs-mat"><span class="subj-icon">🔢</span><span class="subj-name">Matemática</span><div class="subj-topics"><span>→ Funções 1º/2º grau</span><span>→ Geometria plana</span><span>→ Razão e proporção</span></div></td>
+        <td class="subj cs-ing"><span class="subj-icon">🇬🇧</span><span class="subj-name">Inglês</span><div class="subj-topics"><span>→ Leitura e interpretação</span><span>→ Conectivos</span><span>→ Falsos cognatos</span></div></td>
+        <td class="subj cs-mat"><span class="subj-icon">🔢</span><span class="subj-name">Matemática</span><div class="subj-topics"><span>→ Geom. analítica</span><span>→ Trigonometria</span><span>→ Combinatória</span></div></td>
+        <td class="subj cs-fis"><span class="subj-icon">⚡</span><span class="subj-name">Física</span><div class="subj-topics"><span>→ Termodinâmica</span><span>→ Óptica geométrica</span><span>→ Eletromagnetismo</span></div></td>
+        <td class="subj cs-mat"><span class="subj-icon">🔢</span><span class="subj-name">Matemática</span><div class="subj-topics"><span>→ PA e PG</span><span>→ Probabilidade</span><span>→ Exercícios UERJ</span></div></td>
+        <td class="subj cs-por"><span class="subj-icon">📝</span><span class="subj-name">Português</span><div class="subj-topics"><span>→ Interpretação</span><span>→ Gêneros textuais</span><span>→ Figuras de linguagem</span></div></td>
+        <td class="subj cs-rev" rowspan="5" style="text-align:center;vertical-align:middle"><span style="font-size:32px">🌙</span><br><span class="subj-name" style="font-size:15px">Descanso</span><br><span style="font-size:11px;color:#9e5070;font-style:italic">Você merece!<br>Descanse e<br>volte mais forte 🌸</span></td>
+      </tr>
+      <tr>
+        <td class="time-cell" style="font-size:9.5px;opacity:0.6">15h30<br>▼<br>16h00</td>
+        <td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td>
+      </tr>
+      <tr>
+        <td class="time-cell">16h00<br>▼<br>17h30</td>
+        <td class="subj cs-his"><span class="subj-icon">🌍</span><span class="subj-name">História</span><div class="subj-topics"><span>→ Guerras Mundiais</span><span>→ Era Vargas</span><span>→ Brasil República</span></div></td>
+        <td class="subj cs-fis"><span class="subj-icon">⚡</span><span class="subj-name">Física</span><div class="subj-topics"><span>→ Cinemática</span><span>→ Leis de Newton</span><span>→ Trabalho e energia</span></div></td>
+        <td class="subj cs-geo"><span class="subj-icon">🗺️</span><span class="subj-name">Geografia</span><div class="subj-topics"><span>→ Geopolítica</span><span>→ Biomas do Brasil</span><span>→ Urbanização</span></div></td>
+        <td class="subj cs-qui"><span class="subj-icon">⚗️</span><span class="subj-name">Química</span><div class="subj-topics"><span>→ Estequiometria</span><span>→ Soluções</span><span>→ Funções inorgânicas</span></div></td>
+        <td class="subj cs-fil"><span class="subj-icon">🤔</span><span class="subj-name">Filosofia</span><div class="subj-topics"><span>→ Platão · Kant</span><span>→ Iluminismo</span><span>→ Ética e política</span></div></td>
+        <td class="subj cs-bio"><span class="subj-icon">🧬</span><span class="subj-name">Biologia</span><div class="subj-topics"><span>→ Genética</span><span>→ Ecologia</span><span>→ Fisiologia humana</span></div></td>
+      </tr>
+      <tr>
+        <td class="time-cell" style="font-size:9.5px;opacity:0.6">17h30<br>▼<br>18h00</td>
+        <td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td>
+      </tr>
+      <tr>
+        <td class="time-cell">18h00<br>▼<br>19h30</td>
+        <td class="subj cs-soc"><span class="subj-icon">👥</span><span class="subj-name">Sociologia</span><div class="subj-topics"><span>→ Marx · Durkheim</span><span>→ Desigualdade social</span><span>→ Movimentos sociais</span></div></td>
+        <td class="subj cs-qui"><span class="subj-icon">⚗️</span><span class="subj-name">Química</span><div class="subj-topics"><span>→ Atomística</span><span>→ Tabela periódica</span><span>→ Ligações químicas</span></div></td>
+        <td class="subj cs-bio"><span class="subj-icon">🧬</span><span class="subj-name">Biologia</span><div class="subj-topics"><span>→ Citologia</span><span>→ Evolução</span><span>→ Botânica</span></div></td>
+        <td class="subj cs-geo"><span class="subj-icon">🗺️</span><span class="subj-name">Geografia</span><div class="subj-topics"><span>→ Pop. e migrações</span><span>→ Cartografia</span><span>→ Meio ambiente</span></div></td>
+        <td class="subj cs-ing"><span class="subj-icon">🇬🇧</span><span class="subj-name">Inglês</span><div class="subj-topics"><span>→ Vocabulário</span><span>→ Tempos verbais</span><span>→ Questões UERJ</span></div></td>
+        <td class="subj cs-prova"><span class="subj-icon">📋</span><span class="subj-name">Prova Antiga</span><div class="subj-topics"><span>→ Simulado completo</span><span>→ Cronometrado</span><span>→ Revisão de erros</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="footer" style="margin-top:16px"><div class="footer-q">🌷 "A disciplina de hoje é a aprovação de amanhã."</div><div class="footer-r">UERJ 2027 💪</div></div>
+</div>
+
 </div>
 <script>
 const S=[
@@ -169,7 +296,7 @@ const S=[
     {tx:'Juros compostos e porcentagem',tg:'hot'},{tx:'Geometria espacial',tg:'hot'},{tx:'Análise combinatória',tg:'med'},
     {tx:'Progressões (PA e PG)',tg:'med'},{tx:'Trigonometria',tg:'med'},{tx:'Geometria analítica',tg:'med'},{tx:'MMC e MDC',tg:'base'}]},
   {id:'fis',e:'⚡',n:'Física',ac:'ac-fis',t:[
-    {tx:'Cinemática (velocidade, aceleração)',tg:'hot'},{tx:'Leis de Newton',tg:'hot'},{tx:'Trabalho e energia',tg:'hot'},
+    {tx:'Cinemática',tg:'hot'},{tx:'Leis de Newton',tg:'hot'},{tx:'Trabalho e energia',tg:'hot'},
     {tx:'Eletrodinâmica (circuitos)',tg:'hot'},{tx:'Queda livre e lançamento',tg:'hot'},{tx:'Termologia',tg:'med'},
     {tx:'Óptica geométrica',tg:'med'},{tx:'Ondas e som',tg:'med'},{tx:'Eletrostática',tg:'base'}]},
   {id:'qui',e:'⚗️',n:'Química',ac:'ac-qui',t:[
@@ -177,7 +304,7 @@ const S=[
     {tx:'Atomística e tabela periódica',tg:'hot'},{tx:'Ligações químicas',tg:'med'},{tx:'Funções orgânicas',tg:'med'},
     {tx:'Reações e balanceamento',tg:'med'},{tx:'Eletroquímica',tg:'base'}]},
   {id:'bio',e:'🧬',n:'Biologia',ac:'ac-bio',t:[
-    {tx:'Genética (leis de Mendel)',tg:'hot'},{tx:'Heredogramas',tg:'hot'},{tx:'Ecologia',tg:'hot'},
+    {tx:'Genética (Mendel)',tg:'hot'},{tx:'Heredogramas',tg:'hot'},{tx:'Ecologia',tg:'hot'},
     {tx:'Fisiologia humana',tg:'hot'},{tx:'Bioquímica (fotossíntese)',tg:'med'},{tx:'Evolução (Darwin)',tg:'med'},
     {tx:'Citologia',tg:'med'},{tx:'Botânica',tg:'base'}]},
   {id:'por',e:'📝',n:'Português',ac:'ac-por',t:[
@@ -202,65 +329,51 @@ const S=[
 const K='uerj2027';
 let st={};
 try{st=JSON.parse(localStorage.getItem(K))||{};}catch(e){st={};}
-if(!st.c)st.c={};if(!st.n)st.n={};if(!st.m)st.m={};if(!st.gn)st.gn='';
+if(!st.c)st.c={};if(!st.n)st.n={};if(!st.m)st.m={};if(!st.gn)st.gn='';if(!st.er)st.er={};
 function sv(){try{localStorage.setItem(K,JSON.stringify(st));}catch(e){}}
-function cd(){
-  const t=new Date('2027-06-01'),nw=new Date(),d=Math.ceil((t-nw)/86400000);
-  document.getElementById('cdpill').textContent=d>0?'⏳ '+d+' dias para o UERJ':'🎉 Boa sorte!';
-}
+function cd(){const t=new Date('2027-06-01'),nw=new Date(),d=Math.ceil((t-nw)/86400000);document.getElementById('cdpill').textContent=d>0?'⏳ '+d+' dias para o UERJ':'🎉 Boa sorte!';}
 cd();
 function switchTab(tab){
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['tracker','metas'][i]===tab));
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['tracker','erros','metas','cron'][i]===tab));
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+tab).classList.add('active');
   if(tab==='metas')renderMetas();
+  if(tab==='erros')renderErros();
 }
-function stats(id){
-  const s=S.find(x=>x.id===id);
-  const done=s.t.filter((_,i)=>st.c[id+'_'+i]).length;
-  return{done,total:s.t.length,pct:Math.round(done/s.t.length*100)};
-}
-function totals(){
-  let d=0,t=0;S.forEach(s=>{const r=stats(s.id);d+=r.done;t+=r.total;});
-  return{done:d,total:t,pct:t?Math.round(d/t*100):0};
-}
-function renderHeader(){
-  const{done,total,pct}=totals();
-  document.getElementById('tdone').textContent=done;
-  document.getElementById('ttotal').textContent=total;
-  document.getElementById('tpct').textContent=pct+'%';
-}
-function renderOverview(){
-  document.getElementById('overview').innerHTML=S.slice(0,5).map(s=>{
-    const{done,total,pct}=stats(s.id);
-    return`<div class="ov-card"><div class="ov-top"><span class="ov-emoji">${s.e}</span><span class="ov-name">${s.n}</span></div><div class="ov-bar-bg"><div class="ov-bar" style="width:${pct}%"></div></div><div class="ov-pct">${done}/${total} · ${pct}%</div></div>`;
-  }).join('');
-}
-function renderCards(){
-  document.getElementById('cards').innerHTML=S.map(s=>{
-    const{done,total,pct}=stats(s.id);
-    const thtml=s.t.map((t,i)=>{
-      const k=s.id+'_'+i,done=!!st.c[k];
-      const tl=t.tg==='hot'?'🔥 Mais cobrado':t.tg==='med'?'⭐ Importante':'📖 Base';
-      return`<div class="topic ${done?'done':''}" onclick="toggle('${k}')"><div class="chk">${done?'✓':''}</div><span class="ttext">${t.tx}</span><span class="ttag ${t.tg}">${tl}</span></div>`;
-    }).join('');
-    const nv=st.n[s.id]||'';
-    return`<div class="card ${s.ac}">
-      <div class="card-hdr"><div class="card-left"><span class="card-emoji">${s.e}</span><div><div class="card-title">${s.n}</div><div class="card-sub">${done}/${total} tópicos</div></div></div><div class="card-badge">${pct}%</div></div>
-      <div class="card-prog"><div class="card-prog-fill" style="width:${pct}%"></div></div>
-      <div class="topics">${thtml}</div>
-      <button class="note-btn" onclick="toggleNote('${s.id}')">📝 Anotações de ${s.n}</button>
-      <div class="note-wrap" id="nw-${s.id}">
-        <textarea class="note-ta" id="nt-${s.id}" placeholder="Escreva suas anotações de ${s.n}...">${nv}</textarea>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:5px"><button class="save-btn" onclick="saveNote('${s.id}')">💾 Salvar</button><span class="saved-msg" id="sv-${s.id}">✓ Salvo!</span></div>
-      </div>
-    </div>`;
-  }).join('');
-}
+function stats(id){const s=S.find(x=>x.id===id);const done=s.t.filter((_,i)=>st.c[id+'_'+i]).length;return{done,total:s.t.length,pct:Math.round(done/s.t.length*100)};}
+function totals(){let d=0,t=0;S.forEach(s=>{const r=stats(s.id);d+=r.done;t+=r.total;});return{done:d,total:t,pct:t?Math.round(d/t*100):0};}
+function renderHeader(){const{done,total,pct}=totals();document.getElementById('tdone').textContent=done;document.getElementById('ttotal').textContent=total;document.getElementById('tpct').textContent=pct+'%';}
+function renderOverview(){document.getElementById('overview').innerHTML=S.slice(0,5).map(s=>{const{done,total,pct}=stats(s.id);return`<div class="ov-card"><div class="ov-top"><span class="ov-emoji">${s.e}</span><span class="ov-name">${s.n}</span></div><div class="ov-bar-bg"><div class="ov-bar" style="width:${pct}%"></div></div><div class="ov-pct">${done}/${total} · ${pct}%</div></div>`;}).join('');}
+function renderCards(){document.getElementById('cards').innerHTML=S.map(s=>{const{done,total,pct}=stats(s.id);const thtml=s.t.map((t,i)=>{const k=s.id+'_'+i,isDone=!!st.c[k];const tl=t.tg==='hot'?'🔥 Mais cobrado':t.tg==='med'?'⭐ Importante':'📖 Base';return`<div class="topic ${isDone?'done':''}" onclick="toggle('${k}')"><div class="chk">${isDone?'✓':''}</div><span class="ttext">${t.tx}</span><span class="ttag ${t.tg}">${tl}</span></div>`;}).join('');const nv=st.n[s.id]||'';return`<div class="card ${s.ac}"><div class="card-hdr"><div class="card-left"><span class="card-emoji">${s.e}</span><div><div class="card-title">${s.n}</div><div class="card-sub">${done}/${total} tópicos</div></div></div><div class="card-badge">${pct}%</div></div><div class="card-prog"><div class="card-prog-fill" style="width:${pct}%"></div></div><div class="topics">${thtml}</div><button class="note-btn" onclick="toggleNote('${s.id}')">📝 Anotações de ${s.n}</button><div class="note-wrap" id="nw-${s.id}"><textarea class="note-ta" id="nt-${s.id}" placeholder="Escreva suas anotações de ${s.n}...">${nv}</textarea><div style="display:flex;align-items:center;gap:6px;margin-top:5px"><button class="save-btn" onclick="saveNote('${s.id}')">💾 Salvar</button><span class="saved-msg" id="sv-${s.id}">✓ Salvo!</span></div></div></div>`;}).join('');}
 function toggle(k){st.c[k]=!st.c[k];sv();renderAll();}
 function toggleNote(id){document.getElementById('nw-'+id).classList.toggle('open');}
 function saveNote(id){st.n[id]=document.getElementById('nt-'+id).value;sv();const e=document.getElementById('sv-'+id);e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2000);}
 function saveGNote(){st.gn=document.getElementById('gnote').value;sv();const e=document.getElementById('gnsaved');e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2000);}
+// ERROS
+function addErro(sid,idx){const k=sid+'_'+idx;if(!st.er[k])st.er[k]=0;st.er[k]++;sv();renderErros();}
+function subErro(sid,idx){const k=sid+'_'+idx;if(!st.er[k])st.er[k]=0;if(st.er[k]>0)st.er[k]--;sv();renderErros();}
+function renderErros(){
+  const totalErros=Object.values(st.er).reduce((a,b)=>a+b,0);
+  // Ranking global por assunto
+  let all=[];
+  S.forEach(s=>s.t.forEach((t,i)=>{const k=s.id+'_'+i;const cnt=st.er[k]||0;if(cnt>0)all.push({name:t.tx,subj:s.n,emoji:s.e,cnt});}));
+  all.sort((a,b)=>b.cnt-a.cnt);
+  const medals=['🥇','🥈','🥉'];
+  const rkEl=document.getElementById('ranking-list');
+  if(all.length===0){rkEl.innerHTML='<div class="empty">Nenhum erro registrado ainda. Adicione erros abaixo! 🌸</div>';}
+  else{rkEl.innerHTML=all.slice(0,10).map((x,i)=>{const pct=totalErros?Math.round(x.cnt/totalErros*100):0;return`<div class="ranking-item"><div class="rank-pos">${medals[i]||'#'+(i+1)}</div><div style="flex:1"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><span>${x.emoji}</span><span class="rank-name">${x.name}</span><span style="font-size:10px;color:#9e5070">${x.subj}</span></div><div class="rank-bar-bg"><div class="rank-bar" style="width:${pct}%"></div></div></div><div style="text-align:right;flex-shrink:0;margin-left:8px"><div class="rank-count">${x.cnt} erros</div><div class="rank-pct">${pct}%</div></div></div>`;}).join('');}
+  // Cards por matéria
+  document.getElementById('erros-grid').innerHTML=S.map(s=>{
+    const totalS=s.t.reduce((a,_,i)=>a+(st.er[s.id+'_'+i]||0),0);
+    const thtml=s.t.map((t,i)=>{
+      const k=s.id+'_'+i,cnt=st.er[k]||0;
+      const pct=totalErros?Math.round(cnt/totalErros*100):0;
+      return`<div class="erro-topic-row"><div style="flex:1"><div class="erro-topic-name">${t.tx}</div><div class="erro-bar-bg"><div class="erro-bar" style="width:${Math.min(pct*3,100)}%"></div></div></div><div class="erro-controls"><button class="erro-btn" onclick="subErro('${s.id}',${i})">−</button><span class="erro-count">${cnt}</span><button class="erro-btn" onclick="addErro('${s.id}',${i})">+</button></div></div>`;
+    }).join('');
+    return`<div class="erro-subj-card ${s.ac}"><div class="erro-subj-hdr"><div class="erro-subj-left"><span class="card-emoji">${s.e}</span><span class="erro-subj-name">${s.n}</span></div><div class="card-badge">${totalS} erros</div></div><div class="erro-topics-list">${thtml}</div></div>`;
+  }).join('');
+}
+// METAS
 let wk=0;
 function wkey(o=0){const n=new Date(),d=n.getDay(),m=new Date(n);m.setDate(n.getDate()-(d===0?6:d-1)+o*7);return m.toISOString().slice(0,10);}
 function wlbl(o=0){const n=new Date(),d=n.getDay(),m=new Date(n);m.setDate(n.getDate()-(d===0?6:d-1)+o*7);const s=new Date(m);s.setDate(m.getDate()+6);const f=x=>x.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});return f(m)+' – '+f(s);}
@@ -271,22 +384,15 @@ function delMeta(k,id){if(!st.m[k])return;st.m[k]=st.m[k].filter(x=>x.id!==id);s
 function renderMetas(){
   const k=wkey(wk);
   document.getElementById('wlabel').textContent=wk===0?'Semana atual':wlbl(wk);
-  const its=st.m[k]||[];
-  const done=its.filter(x=>x.done).length;
-  const pct=its.length?Math.round(done/its.length*100):0;
-  document.getElementById('mlist').innerHTML=its.length===0
-    ?'<div class="empty">Nenhuma meta ainda. Adicione uma! 🌸</div>'
-    :its.map(m=>`<div class="meta-item ${m.done?'done-m':''}"><div class="mchk" onclick="toggleMeta('${k}',${m.id})">${m.done?'✓':''}</div><span class="mtext">${m.tx}</span><button class="mdel" onclick="delMeta('${k}',${m.id})">✕</button></div>`).join('');
+  const its=st.m[k]||[];const done=its.filter(x=>x.done).length;const pct=its.length?Math.round(done/its.length*100):0;
+  document.getElementById('mlist').innerHTML=its.length===0?'<div class="empty">Nenhuma meta ainda 🌸</div>':its.map(m=>`<div class="meta-item ${m.done?'done-m':''}"><div class="mchk" onclick="toggleMeta('${k}',${m.id})">${m.done?'✓':''}</div><span class="mtext">${m.tx}</span><button class="mdel" onclick="delMeta('${k}',${m.id})">✕</button></div>`).join('');
   document.getElementById('mpct').textContent=done+'/'+its.length+' · '+pct+'%';
   document.getElementById('mfill').style.width=pct+'%';
   document.getElementById('gnote').value=st.gn||'';
   const allw=Object.keys(st.m).sort().reverse().slice(0,8);
-  document.getElementById('hist').innerHTML=allw.map(w=>{
-    const it=st.m[w],d=it.filter(x=>x.done).length,p=it.length?Math.round(d/it.length*100):0;
-    return`<div style="background:white;border-radius:12px;border:1.5px solid ${w===k?'#e91e8c':'#f9c6e0'};padding:10px 12px;box-shadow:0 2px 10px rgba(233,30,140,0.06)"><div style="font-size:10px;font-weight:700;color:#9e5070;margin-bottom:4px">📅 ${w}</div><div style="font-size:13px;font-weight:800;color:#e91e8c;margin-bottom:4px">${d}/${it.length} metas</div><div style="background:#fce4f2;border-radius:999px;height:6px;overflow:hidden"><div style="width:${p}%;height:100%;background:linear-gradient(90deg,#f48cb1,#e91e8c);border-radius:999px"></div></div><div style="font-size:10px;color:#9e5070;margin-top:3px;text-align:right">${p}%</div></div>`;
-  }).join('')||'<div class="empty">Sem histórico ainda.</div>';
+  document.getElementById('hist').innerHTML=allw.map(w=>{const it=st.m[w],d=it.filter(x=>x.done).length,p=it.length?Math.round(d/it.length*100):0;return`<div style="background:white;border-radius:12px;border:1.5px solid ${w===k?'#e91e8c':'#f9c6e0'};padding:10px 12px"><div style="font-size:10px;font-weight:700;color:#9e5070;margin-bottom:4px">📅 ${w}</div><div style="font-size:13px;font-weight:800;color:#e91e8c;margin-bottom:4px">${d}/${it.length} metas</div><div style="background:#fce4f2;border-radius:999px;height:6px;overflow:hidden"><div style="width:${p}%;height:100%;background:linear-gradient(90deg,#f48cb1,#e91e8c);border-radius:999px"></div></div><div style="font-size:10px;color:#9e5070;margin-top:3px;text-align:right">${p}%</div></div>`;}).join('')||'<div class="empty">Sem histórico ainda.</div>';
 }
-function resetAll(){if(confirm('Resetar todo o progresso? 🥺')){st={c:{},n:{},m:{},gn:''};sv();renderAll();}}
+function resetAll(){if(confirm('Resetar todo o progresso? 🥺')){st={c:{},n:{},m:{},gn:'',er:{}};sv();renderAll();}}
 function renderAll(){renderHeader();renderOverview();renderCards();}
 renderAll();
 </script>
