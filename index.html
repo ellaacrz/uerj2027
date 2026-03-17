@@ -1,791 +1,297 @@
+cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌸 UERJ 2027 — Tracker de Estudos</title>
+<title>🌸 UERJ 2027</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap');
-
-:root {
-–pink:        #e91e8c;
-–pink-light:  #f48cb1;
-–pink-pale:   #fce4f2;
-–pink-bg:     #fdf0f8;
-–pink-card:   #fff5fb;
-–pink-border: #f9c6e0;
-–text:        #4a1a35;
-–text-soft:   #9e5070;
-–shadow:      0 4px 24px rgba(233,30,140,0.08);
-–radius:      18px;
-}
-
-- { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-font-family: ‘Nunito’, sans-serif;
-background: var(–pink-bg);
-color: var(–text);
-min-height: 100vh;
-}
-
-body::before {
-content:’’;
-position:fixed; inset:0;
-background:
-radial-gradient(ellipse 700px 400px at 5% 10%, rgba(255,182,220,0.22) 0%, transparent 60%),
-radial-gradient(ellipse 500px 350px at 95% 90%, rgba(255,160,210,0.18) 0%, transparent 60%);
-pointer-events:none; z-index:0;
-}
-
-/* ── HEADER ── */
-.header {
-position:sticky; top:0; z-index:200;
-background:rgba(253,240,248,0.93);
-backdrop-filter:blur(14px);
-border-bottom:1.5px solid var(–pink-border);
-padding:14px 28px;
-display:flex; align-items:center; justify-content:space-between;
-gap:16px;
-}
-.header-left { display:flex; align-items:center; gap:12px; }
-.header-icon { font-size:30px; }
-.header-title { font-family:‘Playfair Display’,serif; font-size:24px; font-weight:900; color:var(–pink); }
-.header-sub   { font-size:11px; color:var(–text-soft); margin-top:1px; }
-
-.header-right { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-
-.stat-pill {
-background:white; border:1.5px solid var(–pink-border);
-border-radius:999px; padding:6px 14px;
-font-size:11.5px; font-weight:700; color:var(–pink);
-display:flex; align-items:center; gap:5px;
-box-shadow:var(–shadow);
-}
-.stat-pill b { font-size:15px; font-weight:900; }
-
-.countdown-pill {
-background:linear-gradient(135deg,#fce4f2,#ffd0e8);
-border:1.5px solid var(–pink-border);
-border-radius:999px; padding:6px 16px;
-font-size:12px; font-weight:800; color:var(–pink);
-box-shadow:var(–shadow);
-}
-
-/* ── TABS ── */
-.tabs {
-position:sticky; top:65px; z-index:100;
-background:rgba(253,240,248,0.93);
-backdrop-filter:blur(10px);
-border-bottom:1.5px solid var(–pink-border);
-padding:0 28px;
-display:flex; gap:4px;
-}
-.tab {
-padding:12px 20px;
-font-size:13px; font-weight:700;
-color:var(–text-soft);
-cursor:pointer;
-border-bottom:3px solid transparent;
-transition:all 0.2s;
-display:flex; align-items:center; gap:6px;
-}
-.tab:hover { color:var(–pink); }
-.tab.active { color:var(–pink); border-bottom-color:var(–pink); }
-
-/* ── MAIN ── */
-.main {
-position:relative; z-index:1;
-max-width:1400px; margin:0 auto;
-padding:24px 24px 60px;
-}
-
-.tab-panel { display:none; }
-.tab-panel.active { display:block; }
-
-/* ── OVERVIEW CARDS ── */
-.overview {
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:12px; margin-bottom:24px;
-}
-.ov-card {
-background:white; border-radius:var(–radius);
-border:1.5px solid var(–pink-border);
-box-shadow:var(–shadow);
-padding:14px 16px;
-display:flex; flex-direction:column; gap:8px;
-transition:transform 0.2s;
-}
-.ov-card:hover { transform:translateY(-2px); }
-.ov-top { display:flex; align-items:center; gap:8px; }
-.ov-emoji { font-size:20px; }
-.ov-name  { font-size:13px; font-weight:800; }
-.ov-bar-wrap { background:var(–pink-pale); border-radius:999px; height:7px; overflow:hidden; }
-.ov-bar { height:100%; border-radius:999px; background:linear-gradient(90deg,var(–pink-light),var(–pink)); transition:width 0.5s; }
-.ov-pct { font-size:11px; font-weight:700; color:var(–text-soft); text-align:right; }
-
-/* ── SUBJECTS GRID ── */
-.subjects-grid {
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:16px;
-}
-
-.subject-card {
-background:white; border-radius:var(–radius);
-border:1.5px solid var(–pink-border);
-box-shadow:var(–shadow); overflow:hidden;
-transition:transform 0.2s, box-shadow 0.2s;
-}
-.subject-card:hover { transform:translateY(-3px); box-shadow:0 8px 32px rgba(233,30,140,0.13); }
-
-.card-header {
-padding:13px 16px;
-display:flex; align-items:center; justify-content:space-between;
-border-bottom:1.5px solid var(–pink-border);
-}
-.card-header-left { display:flex; align-items:center; gap:10px; }
-.card-emoji  { font-size:22px; }
-.card-title  { font-size:15px; font-weight:900; }
-.card-count  { font-size:10.5px; font-weight:700; color:var(–text-soft); margin-top:1px; }
-.card-pct    { background:var(–pink-pale); border:1.5px solid var(–pink-border); border-radius:999px; padding:3px 10px; font-size:12px; font-weight:800; color:var(–pink); }
-
-.card-prog-bar { height:4px; background:var(–pink-pale); }
-.card-prog-fill { height:100%; background:linear-gradient(90deg,var(–pink-light),var(–pink)); transition:width 0.5s; }
-
-.card-topics { padding:10px 14px 12px; display:flex; flex-direction:column; gap:5px; }
-
-.topic-item {
-display:flex; align-items:center; gap:9px;
-padding:6px 8px; border-radius:9px;
-cursor:pointer; transition:background 0.15s; user-select:none;
-}
-.topic-item:hover { background:var(–pink-pale); }
-.topic-item.done { opacity:0.55; }
-
-.topic-check {
-width:19px; height:19px; border-radius:5px;
-border:2px solid var(–pink-border); background:white;
-flex-shrink:0; display:flex; align-items:center; justify-content:center;
-font-size:11px; transition:all 0.2s;
-}
-.topic-item.done .topic-check { background:var(–pink); border-color:var(–pink); color:white; }
-.topic-text { font-size:12.5px; font-weight:600; flex:1; }
-.topic-item.done .topic-text { text-decoration:line-through; color:var(–text-soft); }
-
-.topic-tag { font-size:9px; font-weight:700; padding:2px 7px; border-radius:999px; text-transform:uppercase; letter-spacing:0.4px; flex-shrink:0; }
-.tag-hot  { background:#ffe4e4; color:#c0392b; }
-.tag-med  { background:#fff4e0; color:#e67e22; }
-.tag-base { background:#e8f4ff; color:#2980b9; }
-
-/* Notes toggle */
-.notes-toggle {
-margin:0 14px 10px;
-background:none; border:1.5px dashed var(–pink-border);
-border-radius:9px; padding:6px 12px;
-font-size:12px; font-weight:700; color:var(–text-soft);
-cursor:pointer; width:calc(100% - 28px);
-font-family:‘Nunito’,sans-serif;
-transition:all 0.2s; text-align:left;
-display:flex; align-items:center; gap:6px;
-}
-.notes-toggle:hover { background:var(–pink-pale); color:var(–pink); border-color:var(–pink-light); }
-
-.notes-area-wrap { display:none; padding:0 14px 14px; }
-.notes-area-wrap.open { display:block; }
-.notes-area {
-width:100%; min-height:80px;
-border:1.5px solid var(–pink-border); border-radius:10px;
-padding:10px 12px; font-size:12.5px; font-family:‘Nunito’,sans-serif;
-color:var(–text); background:var(–pink-bg);
-resize:vertical; outline:none;
-transition:border-color 0.2s;
-}
-.notes-area:focus { border-color:var(–pink-light); }
-.notes-save-btn {
-margin-top:6px; background:var(–pink);
-border:none; border-radius:999px;
-padding:5px 14px; font-size:11px; font-weight:700;
-color:white; cursor:pointer; font-family:‘Nunito’,sans-serif;
-transition:opacity 0.2s;
-}
-.notes-save-btn:hover { opacity:0.85; }
-.notes-saved { font-size:10px; color:var(–text-soft); margin-left:8px; opacity:0; transition:opacity 0.3s; }
-.notes-saved.show { opacity:1; }
-
-/* Accent borders */
-.ac-mat { border-top:4px solid #e91e8c; }
-.ac-fis { border-top:4px solid #7c4dff; }
-.ac-qui { border-top:4px solid #1976d2; }
-.ac-bio { border-top:4px solid #2e7d32; }
-.ac-por { border-top:4px solid #e64a19; }
-.ac-ing { border-top:4px solid #ef6c00; }
-.ac-his { border-top:4px solid #c62828; }
-.ac-geo { border-top:4px solid #00695c; }
-.ac-fil { border-top:4px solid #7b1fa2; }
-.ac-soc { border-top:4px solid #f57f17; }
-
-/* ── METAS TAB ── */
-.metas-layout {
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
-}
-
-.meta-card {
-background:white; border-radius:var(–radius);
-border:1.5px solid var(–pink-border);
-box-shadow:var(–shadow); overflow:hidden;
-}
-
-.meta-card-header {
-padding:14px 18px;
-background:linear-gradient(135deg,var(–pink-pale),#ffd6e8);
-border-bottom:1.5px solid var(–pink-border);
-display:flex; align-items:center; justify-content:space-between;
-}
-.meta-card-title { font-size:15px; font-weight:900; color:var(–pink); display:flex; align-items:center; gap:8px; }
-
-.meta-add-row {
-padding:14px 18px;
-display:flex; gap:8px;
-border-bottom:1.5px solid var(–pink-border);
-}
-.meta-input {
-flex:1; border:1.5px solid var(–pink-border); border-radius:10px;
-padding:8px 12px; font-size:13px; font-family:‘Nunito’,sans-serif;
-color:var(–text); background:var(–pink-bg); outline:none;
-}
-.meta-input:focus { border-color:var(–pink-light); }
-.meta-add-btn {
-background:var(–pink); border:none; border-radius:10px;
-padding:8px 16px; font-size:13px; font-weight:700;
-color:white; cursor:pointer; font-family:‘Nunito’,sans-serif;
-transition:opacity 0.2s; white-space:nowrap;
-}
-.meta-add-btn:hover { opacity:0.85; }
-
-.meta-list { padding:12px 18px; display:flex; flex-direction:column; gap:8px; min-height:80px; }
-
-.meta-item {
-display:flex; align-items:center; gap:10px;
-padding:8px 10px; border-radius:10px;
-background:var(–pink-bg); border:1.5px solid var(–pink-border);
-transition:background 0.15s;
-}
-.meta-item.done-meta { opacity:0.5; }
-
-.meta-check {
-width:20px; height:20px; border-radius:6px;
-border:2px solid var(–pink-border); background:white;
-flex-shrink:0; cursor:pointer;
-display:flex; align-items:center; justify-content:center;
-font-size:12px; transition:all 0.2s;
-}
-.meta-item.done-meta .meta-check { background:var(–pink); border-color:var(–pink); color:white; }
-
-.meta-text { flex:1; font-size:13px; font-weight:600; }
-.meta-item.done-meta .meta-text { text-decoration:line-through; color:var(–text-soft); }
-
-.meta-del {
-background:none; border:none; cursor:pointer;
-font-size:14px; color:var(–text-soft); opacity:0.5;
-transition:opacity 0.2s; padding:2px 4px;
-}
-.meta-del:hover { opacity:1; color:#e74c3c; }
-
-.meta-empty { font-size:12px; color:var(–text-soft); font-style:italic; text-align:center; padding:16px 0; }
-
-.meta-progress-wrap { padding:12px 18px; border-top:1.5px solid var(–pink-border); }
-.meta-prog-label { font-size:11px; font-weight:700; color:var(–text-soft); margin-bottom:6px; display:flex; justify-content:space-between; }
-.meta-prog-bar { background:var(–pink-pale); border-radius:999px; height:8px; overflow:hidden; }
-.meta-prog-fill { height:100%; border-radius:999px; background:linear-gradient(90deg,var(–pink-light),var(–pink)); transition:width 0.4s; }
-
-/* Week selector */
-.week-selector {
-display:flex; align-items:center; gap:10px;
-}
-.week-btn {
-background:none; border:1.5px solid var(–pink-border);
-border-radius:999px; width:28px; height:28px;
-font-size:14px; cursor:pointer; color:var(–pink);
-display:flex; align-items:center; justify-content:center;
-transition:background 0.2s;
-}
-.week-btn:hover { background:var(–pink-pale); }
-.week-label { font-size:12px; font-weight:700; color:var(–text-soft); white-space:nowrap; }
-
-/* ── FOOTER ── */
-.footer-bar {
-margin-top:24px;
-background:linear-gradient(135deg,#fce4f2,#ffd6e8);
-border:1.5px solid var(–pink-border);
-border-radius:var(–radius);
-padding:16px 24px;
-display:flex; align-items:center; justify-content:space-between;
-}
-.footer-quote { font-family:‘Playfair Display’,serif; font-size:17px; font-style:italic; color:var(–pink); }
-.footer-right { font-size:12px; color:var(–text-soft); font-weight:700; }
-
-.reset-btn {
-background:none; border:1.5px solid var(–pink-border);
-border-radius:999px; padding:5px 13px;
-font-size:11px; font-weight:700; color:var(–text-soft);
-cursor:pointer; transition:all 0.2s; font-family:‘Nunito’,sans-serif;
-}
-.reset-btn:hover { background:var(–pink-pale); color:var(–pink); }
-
-.section-title {
-font-family:‘Playfair Display’,serif;
-font-size:19px; font-weight:700; color:var(–pink);
-margin-bottom:14px;
-display:flex; align-items:center; gap:8px;
-}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
+.header{background:rgba(253,240,248,0.95);border-bottom:1.5px solid #f9c6e0;padding:14px 20px;position:sticky;top:0;z-index:99;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.header h1{font-size:22px;font-weight:900;color:#e91e8c}
+.header p{font-size:11px;color:#9e5070}
+.stats{display:flex;gap:8px;flex-wrap:wrap}
+.pill{background:white;border:1.5px solid #f9c6e0;border-radius:999px;padding:5px 12px;font-size:11px;font-weight:700;color:#e91e8c}
+.tabs{display:flex;border-bottom:1.5px solid #f9c6e0;background:rgba(253,240,248,0.95);position:sticky;top:70px;z-index:98}
+.tab{padding:11px 18px;font-size:13px;font-weight:700;color:#9e5070;cursor:pointer;border-bottom:3px solid transparent}
+.tab.active{color:#e91e8c;border-bottom-color:#e91e8c}
+.main{max-width:1200px;margin:0 auto;padding:20px 16px 60px}
+.panel{display:none}.panel.active{display:block}
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:20px}
+.ov-card{background:white;border-radius:14px;border:1.5px solid #f9c6e0;padding:12px 14px;box-shadow:0 2px 12px rgba(233,30,140,0.07)}
+.ov-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ov-emoji{font-size:18px}
+.ov-name{font-size:12px;font-weight:800}
+.ov-bar-bg{background:#fce4f2;border-radius:999px;height:7px;overflow:hidden;margin-bottom:4px}
+.ov-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,#f48cb1,#e91e8c);transition:width 0.5s}
+.ov-pct{font-size:10px;font-weight:700;color:#9e5070;text-align:right}
+.sec-title{font-size:17px;font-weight:900;color:#e91e8c;margin-bottom:14px}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.card{background:white;border-radius:16px;border:1.5px solid #f9c6e0;box-shadow:0 2px 12px rgba(233,30,140,0.07);overflow:hidden}
+.card-hdr{padding:12px 14px;border-bottom:1.5px solid #f9c6e0;display:flex;align-items:center;justify-content:space-between}
+.card-left{display:flex;align-items:center;gap:9px}
+.card-emoji{font-size:20px}
+.card-title{font-size:14px;font-weight:900}
+.card-sub{font-size:10px;color:#9e5070;margin-top:1px}
+.card-badge{background:#fce4f2;border:1.5px solid #f9c6e0;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:800;color:#e91e8c}
+.card-prog{height:4px;background:#fce4f2}
+.card-prog-fill{height:100%;background:linear-gradient(90deg,#f48cb1,#e91e8c);transition:width 0.5s}
+.topics{padding:10px 12px;display:flex;flex-direction:column;gap:5px}
+.topic{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;cursor:pointer;user-select:none;transition:background 0.15s}
+.topic:hover{background:#fce4f2}
+.topic.done{opacity:0.5}
+.chk{width:18px;height:18px;border-radius:5px;border:2px solid #f9c6e0;background:white;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.2s}
+.topic.done .chk{background:#e91e8c;border-color:#e91e8c;color:white}
+.ttext{font-size:12px;font-weight:600;flex:1}
+.topic.done .ttext{text-decoration:line-through;color:#9e5070}
+.ttag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:999px;flex-shrink:0}
+.hot{background:#ffe4e4;color:#c0392b}
+.med{background:#fff4e0;color:#e67e22}
+.base{background:#e8f4ff;color:#2980b9}
+.note-btn{margin:0 12px 10px;background:none;border:1.5px dashed #f9c6e0;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#9e5070;cursor:pointer;width:calc(100% - 24px);text-align:left;font-family:sans-serif;transition:all 0.2s}
+.note-btn:hover{background:#fce4f2;color:#e91e8c}
+.note-wrap{display:none;padding:0 12px 12px}
+.note-wrap.open{display:block}
+.note-ta{width:100%;min-height:70px;border:1.5px solid #f9c6e0;border-radius:8px;padding:8px 10px;font-size:12px;font-family:sans-serif;color:#4a1a35;background:#fdf0f8;resize:vertical;outline:none}
+.note-ta:focus{border-color:#f48cb1}
+.save-btn{margin-top:5px;background:#e91e8c;border:none;border-radius:999px;padding:4px 12px;font-size:11px;font-weight:700;color:white;cursor:pointer;font-family:sans-serif}
+.saved-msg{font-size:10px;color:#9e5070;margin-left:6px;opacity:0;transition:opacity 0.3s}
+.saved-msg.show{opacity:1}
+/* accent tops */
+.ac-mat{border-top:4px solid #e91e8c}
+.ac-fis{border-top:4px solid #7c4dff}
+.ac-qui{border-top:4px solid #1976d2}
+.ac-bio{border-top:4px solid #2e7d32}
+.ac-por{border-top:4px solid #e64a19}
+.ac-ing{border-top:4px solid #ef6c00}
+.ac-his{border-top:4px solid #c62828}
+.ac-geo{border-top:4px solid #00695c}
+.ac-fil{border-top:4px solid #7b1fa2}
+.ac-soc{border-top:4px solid #f57f17}
+/* metas */
+.metas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.meta-card{background:white;border-radius:16px;border:1.5px solid #f9c6e0;box-shadow:0 2px 12px rgba(233,30,140,0.07);overflow:hidden}
+.meta-hdr{padding:12px 16px;background:linear-gradient(135deg,#fce4f2,#ffd6e8);border-bottom:1.5px solid #f9c6e0}
+.meta-hdr-title{font-size:14px;font-weight:900;color:#e91e8c;display:flex;align-items:center;justify-content:space-between}
+.week-nav{display:flex;align-items:center;gap:8px}
+.wbtn{background:none;border:1.5px solid #f9c6e0;border-radius:999px;width:26px;height:26px;font-size:13px;cursor:pointer;color:#e91e8c;display:flex;align-items:center;justify-content:center}
+.wlabel{font-size:10px;font-weight:700;color:#9e5070}
+.meta-add{padding:12px 16px;border-bottom:1.5px solid #f9c6e0;display:flex;gap:8px}
+.meta-inp{flex:1;border:1.5px solid #f9c6e0;border-radius:8px;padding:7px 10px;font-size:12px;font-family:sans-serif;color:#4a1a35;background:#fdf0f8;outline:none}
+.meta-inp:focus{border-color:#f48cb1}
+.meta-add-btn{background:#e91e8c;border:none;border-radius:8px;padding:7px 13px;font-size:12px;font-weight:700;color:white;cursor:pointer;font-family:sans-serif}
+.meta-list{padding:10px 16px;display:flex;flex-direction:column;gap:7px;min-height:60px}
+.meta-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:9px;background:#fdf0f8;border:1.5px solid #f9c6e0}
+.meta-item.done-m{opacity:0.5}
+.mchk{width:19px;height:19px;border-radius:5px;border:2px solid #f9c6e0;background:white;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.2s}
+.meta-item.done-m .mchk{background:#e91e8c;border-color:#e91e8c;color:white}
+.mtext{flex:1;font-size:12px;font-weight:600}
+.meta-item.done-m .mtext{text-decoration:line-through;color:#9e5070}
+.mdel{background:none;border:none;cursor:pointer;font-size:13px;color:#9e5070;padding:2px 4px}
+.meta-prog{padding:10px 16px;border-top:1.5px solid #f9c6e0}
+.meta-prog-lbl{font-size:10px;font-weight:700;color:#9e5070;margin-bottom:5px;display:flex;justify-content:space-between}
+.meta-prog-bg{background:#fce4f2;border-radius:999px;height:7px;overflow:hidden}
+.meta-prog-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#f48cb1,#e91e8c);transition:width 0.4s}
+.empty{font-size:11px;color:#9e5070;font-style:italic;text-align:center;padding:14px 0}
+.footer{margin-top:20px;background:linear-gradient(135deg,#fce4f2,#ffd6e8);border:1.5px solid #f9c6e0;border-radius:16px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.footer-q{font-size:15px;font-style:italic;color:#e91e8c;font-weight:700}
+.footer-r{font-size:11px;color:#9e5070;font-weight:700}
+.reset-btn{background:none;border:1.5px solid #f9c6e0;border-radius:999px;padding:4px 11px;font-size:10px;font-weight:700;color:#9e5070;cursor:pointer;font-family:sans-serif}
 </style>
-
 </head>
 <body>
-
-<!-- HEADER -->
-
 <div class="header">
-  <div class="header-left">
-    <div class="header-icon">🌸</div>
-    <div>
-      <div class="header-title">UERJ 2027 — Tracker de Estudos</div>
-      <div class="header-sub">Seu painel completo de acompanhamento para o vestibular</div>
-    </div>
-  </div>
-  <div class="header-right">
-    <div class="countdown-pill" id="countdown-pill">⏳ Calculando...</div>
-    <div class="stat-pill">✅ <b id="total-done">0</b> concluídos</div>
-    <div class="stat-pill">📚 <b id="total-topics">0</b> total</div>
-    <div class="stat-pill">🎯 <b id="total-pct">0%</b> progresso</div>
+  <div><h1>🌸 UERJ 2027 — Tracker de Estudos</h1><p>Seu painel completo de acompanhamento para o vestibular</p></div>
+  <div class="stats">
+    <div class="pill" id="cdpill">⏳ Calculando...</div>
+    <div class="pill">✅ <span id="tdone">0</span> concluídos</div>
+    <div class="pill">📚 <span id="ttotal">0</span> total</div>
+    <div class="pill">🎯 <span id="tpct">0%</span> progresso</div>
     <button class="reset-btn" onclick="resetAll()">🔄 Resetar</button>
   </div>
 </div>
-
-<!-- TABS -->
-
 <div class="tabs">
   <div class="tab active" onclick="switchTab('tracker')">📋 Tracker de Tópicos</div>
   <div class="tab" onclick="switchTab('metas')">🎯 Metas Semanais</div>
 </div>
-
 <div class="main">
-
-  <!-- ══ TAB: TRACKER ══ -->
-
-  <div class="tab-panel active" id="panel-tracker">
-    <div class="overview" id="overview"></div>
-    <div class="section-title">📌 Tópicos mais cobrados — clique para marcar o que estudou</div>
-    <div class="subjects-grid" id="subjects-grid"></div>
-    <div class="footer-bar">
-      <div class="footer-quote">🌷 "A disciplina de hoje é a aprovação de amanhã."</div>
-      <div class="footer-right">UERJ 2027 · Você consegue! 💪</div>
-    </div>
+  <div class="panel active" id="panel-tracker">
+    <div class="ov-grid" id="overview"></div>
+    <div class="sec-title">📌 Tópicos mais cobrados — clique para marcar</div>
+    <div class="cards-grid" id="cards"></div>
+    <div class="footer" style="margin-top:20px"><div class="footer-q">🌷 "A disciplina de hoje é a aprovação de amanhã."</div><div class="footer-r">UERJ 2027 · Você consegue! 💪</div></div>
   </div>
-
-  <!-- ══ TAB: METAS ══ -->
-
-  <div class="tab-panel" id="panel-metas">
-    <div class="section-title">🎯 Metas Semanais</div>
-    <div class="metas-layout">
-
-```
-  <!-- Semana atual -->
-  <div class="meta-card">
-    <div class="meta-card-header">
-      <div class="meta-card-title">
-        📅 Metas da Semana
-        <div class="week-selector">
-          <button class="week-btn" onclick="changeWeek(-1)">‹</button>
-          <span class="week-label" id="week-label"></span>
-          <button class="week-btn" onclick="changeWeek(1)">›</button>
+  <div class="panel" id="panel-metas">
+    <div class="sec-title">🎯 Metas Semanais</div>
+    <div class="metas-grid">
+      <div class="meta-card">
+        <div class="meta-hdr">
+          <div class="meta-hdr-title">📅 Metas da Semana
+            <div class="week-nav">
+              <button class="wbtn" onclick="changeWeek(-1)">‹</button>
+              <span class="wlabel" id="wlabel"></span>
+              <button class="wbtn" onclick="changeWeek(1)">›</button>
+            </div>
+          </div>
+        </div>
+        <div class="meta-add">
+          <input class="meta-inp" id="minp" placeholder="Ex: Estudar funções de 1º grau..." onkeydown="if(event.key==='Enter')addMeta()">
+          <button class="meta-add-btn" onclick="addMeta()">+ Adicionar</button>
+        </div>
+        <div class="meta-list" id="mlist"></div>
+        <div class="meta-prog">
+          <div class="meta-prog-lbl"><span>Progresso da semana</span><span id="mpct">0%</span></div>
+          <div class="meta-prog-bg"><div class="meta-prog-fill" id="mfill" style="width:0%"></div></div>
+        </div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-hdr"><div class="meta-hdr-title">📝 Anotações Gerais</div></div>
+        <div style="padding:14px 16px">
+          <textarea class="note-ta" id="gnote" style="min-height:180px;width:100%" placeholder="Escreva suas anotações gerais, dúvidas e lembretes..."></textarea>
+          <div style="margin-top:6px;display:flex;align-items:center;gap:8px">
+            <button class="save-btn" onclick="saveGNote()">💾 Salvar</button>
+            <span class="saved-msg" id="gnsaved">✓ Salvo!</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="meta-add-row">
-      <input class="meta-input" id="meta-input" placeholder="Ex: Estudar funções de 1º grau..." onkeydown="if(event.key==='Enter') addMeta()">
-      <button class="meta-add-btn" onclick="addMeta()">+ Adicionar</button>
+    <div style="margin-top:20px">
+      <div class="sec-title">📊 Histórico de Metas</div>
+      <div id="hist" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px"></div>
     </div>
-    <div class="meta-list" id="meta-list"></div>
-    <div class="meta-progress-wrap">
-      <div class="meta-prog-label">
-        <span>Progresso da semana</span>
-        <span id="meta-pct-label">0%</span>
-      </div>
-      <div class="meta-prog-bar">
-        <div class="meta-prog-fill" id="meta-prog-fill" style="width:0%"></div>
-      </div>
-    </div>
+    <div class="footer" style="margin-top:20px"><div class="footer-q">🌷 "Uma meta por vez, uma vitória por vez."</div><div class="footer-r">UERJ 2027 · Você consegue! 💪</div></div>
   </div>
-
-  <!-- Anotações rápidas -->
-  <div class="meta-card">
-    <div class="meta-card-header">
-      <div class="meta-card-title">📝 Anotações Gerais</div>
-    </div>
-    <div style="padding:14px 18px; flex:1;">
-      <textarea class="notes-area" id="general-notes" style="width:100%; min-height:220px;" placeholder="Escreva aqui suas anotações gerais, dúvidas, lembretes importantes..."></textarea>
-      <div style="margin-top:8px; display:flex; align-items:center; gap:8px;">
-        <button class="notes-save-btn" onclick="saveGeneralNotes()">💾 Salvar</button>
-        <span class="notes-saved" id="general-saved">✓ Salvo!</span>
-      </div>
-    </div>
-  </div>
-
 </div>
-
-<!-- Histórico de semanas -->
-<div style="margin-top:20px;">
-  <div class="section-title">📊 Histórico de Metas</div>
-  <div id="history-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px;"></div>
-</div>
-
-<div class="footer-bar" style="margin-top:20px;">
-  <div class="footer-quote">🌷 "Uma meta por vez, uma vitória por vez."</div>
-  <div class="footer-right">UERJ 2027 · Você consegue! 💪</div>
-</div>
-```
-
-  </div>
-
-</div>
-
 <script>
-// ─── DATA ───
-const SUBJECTS = [
-  { id:'mat', emoji:'🔢', name:'Matemática', ac:'ac-mat', topics:[
-    {text:'Funções de 1º e 2º grau', tag:'hot'},
-    {text:'Geometria plana (áreas e perímetros)', tag:'hot'},
-    {text:'Probabilidade e estatística', tag:'hot'},
-    {text:'Juros compostos e porcentagem', tag:'hot'},
-    {text:'Geometria espacial (volumes)', tag:'hot'},
-    {text:'Análise combinatória', tag:'med'},
-    {text:'Progressões (PA e PG)', tag:'med'},
-    {text:'Trigonometria', tag:'med'},
-    {text:'Geometria analítica', tag:'med'},
-    {text:'MMC, MDC e fatoração', tag:'base'},
-  ]},
-  { id:'fis', emoji:'⚡', name:'Física', ac:'ac-fis', topics:[
-    {text:'Cinemática (velocidade, aceleração)', tag:'hot'},
-    {text:'Leis de Newton (dinâmica)', tag:'hot'},
-    {text:'Trabalho e energia mecânica', tag:'hot'},
-    {text:'Eletrodinâmica (circuitos)', tag:'hot'},
-    {text:'Queda livre e lançamento', tag:'hot'},
-    {text:'Termologia (calor, dilatação)', tag:'med'},
-    {text:'Óptica geométrica', tag:'med'},
-    {text:'Ondas e som', tag:'med'},
-    {text:'Eletrostática', tag:'base'},
-  ]},
-  { id:'qui', emoji:'⚗️', name:'Química', ac:'ac-qui', topics:[
-    {text:'Funções inorgânicas (ácidos, bases)', tag:'hot'},
-    {text:'Estequiometria (cálculos)', tag:'hot'},
-    {text:'Soluções (concentração, diluição)', tag:'hot'},
-    {text:'Atomística e tabela periódica', tag:'hot'},
-    {text:'Ligações químicas', tag:'med'},
-    {text:'Funções orgânicas (nomenclatura)', tag:'med'},
-    {text:'Reações e balanceamento', tag:'med'},
-    {text:'Eletroquímica', tag:'base'},
-  ]},
-  { id:'bio', emoji:'🧬', name:'Biologia', ac:'ac-bio', topics:[
-    {text:'Genética (leis de Mendel)', tag:'hot'},
-    {text:'Heredogramas', tag:'hot'},
-    {text:'Ecologia (cadeias e ciclos)', tag:'hot'},
-    {text:'Fisiologia humana (sistemas)', tag:'hot'},
-    {text:'Bioquímica (fotossíntese)', tag:'med'},
-    {text:'Evolução (Darwin)', tag:'med'},
-    {text:'Citologia (célula e divisão)', tag:'med'},
-    {text:'Botânica', tag:'base'},
-  ]},
-  { id:'por', emoji:'📝', name:'Português', ac:'ac-por', topics:[
-    {text:'Interpretação de texto', tag:'hot'},
-    {text:'Gêneros textuais', tag:'hot'},
-    {text:'Figuras de linguagem', tag:'hot'},
-    {text:'Elementos não verbais (charge)', tag:'hot'},
-    {text:'Coesão e coerência textual', tag:'med'},
-    {text:'Funções da linguagem', tag:'med'},
-    {text:'Variação linguística', tag:'base'},
-  ]},
-  { id:'ing', emoji:'🇬🇧', name:'Inglês', ac:'ac-ing', topics:[
-    {text:'Interpretação de textos', tag:'hot'},
-    {text:'Falsos cognatos', tag:'hot'},
-    {text:'Conectivos (however, therefore)', tag:'hot'},
-    {text:'Vocabulário contextual', tag:'med'},
-    {text:'Tempos verbais em leitura', tag:'med'},
-    {text:'Passive voice', tag:'base'},
-  ]},
-  { id:'his', emoji:'🌍', name:'História', ac:'ac-his', topics:[
-    {text:'1ª e 2ª Guerra Mundial', tag:'hot'},
-    {text:'Guerra Fria', tag:'hot'},
-    {text:'Era Vargas e Estado Novo', tag:'hot'},
-    {text:'Ditadura Militar no Brasil', tag:'hot'},
-    {text:'Revolução Francesa e Americana', tag:'med'},
-    {text:'Colonização e escravidão no Brasil', tag:'med'},
-    {text:'Redemocratização (1985–1988)', tag:'base'},
-  ]},
-  { id:'geo', emoji:'🗺️', name:'Geografia', ac:'ac-geo', topics:[
-    {text:'Geopolítica e blocos econômicos', tag:'hot'},
-    {text:'Biomas e clima do Brasil', tag:'hot'},
-    {text:'Urbanização e problemas urbanos', tag:'hot'},
-    {text:'Questões ambientais', tag:'hot'},
-    {text:'Dinâmica populacional', tag:'med'},
-    {text:'Cartografia (escalas)', tag:'med'},
-    {text:'Relevo e hidrografia', tag:'base'},
-  ]},
-  { id:'fil', emoji:'🤔', name:'Filosofia', ac:'ac-fil', topics:[
-    {text:'Filosofia grega (Platão, Aristóteles)', tag:'hot'},
-    {text:'Iluminismo (Locke, Rousseau)', tag:'hot'},
-    {text:'Ética e política', tag:'hot'},
-    {text:'Filosofia moderna (Kant, Descartes)', tag:'med'},
-    {text:'Empirismo vs Racionalismo', tag:'med'},
-    {text:'Filosofia contemporânea', tag:'base'},
-  ]},
-  { id:'soc', emoji:'👥', name:'Sociologia', ac:'ac-soc', topics:[
-    {text:'Marx, Durkheim e Weber', tag:'hot'},
-    {text:'Desigualdade social no Brasil', tag:'hot'},
-    {text:'Movimentos sociais', tag:'hot'},
-    {text:'Racismo e questão racial', tag:'hot'},
-    {text:'Conceitos: cultura e identidade', tag:'med'},
-    {text:'Globalização e impactos', tag:'med'},
-  ]},
+const S=[
+  {id:'mat',e:'🔢',n:'Matemática',ac:'ac-mat',t:[
+    {tx:'Funções de 1º e 2º grau',tg:'hot'},{tx:'Geometria plana',tg:'hot'},{tx:'Probabilidade e estatística',tg:'hot'},
+    {tx:'Juros compostos e porcentagem',tg:'hot'},{tx:'Geometria espacial',tg:'hot'},{tx:'Análise combinatória',tg:'med'},
+    {tx:'Progressões (PA e PG)',tg:'med'},{tx:'Trigonometria',tg:'med'},{tx:'Geometria analítica',tg:'med'},{tx:'MMC e MDC',tg:'base'}]},
+  {id:'fis',e:'⚡',n:'Física',ac:'ac-fis',t:[
+    {tx:'Cinemática (velocidade, aceleração)',tg:'hot'},{tx:'Leis de Newton',tg:'hot'},{tx:'Trabalho e energia',tg:'hot'},
+    {tx:'Eletrodinâmica (circuitos)',tg:'hot'},{tx:'Queda livre e lançamento',tg:'hot'},{tx:'Termologia',tg:'med'},
+    {tx:'Óptica geométrica',tg:'med'},{tx:'Ondas e som',tg:'med'},{tx:'Eletrostática',tg:'base'}]},
+  {id:'qui',e:'⚗️',n:'Química',ac:'ac-qui',t:[
+    {tx:'Funções inorgânicas',tg:'hot'},{tx:'Estequiometria',tg:'hot'},{tx:'Soluções',tg:'hot'},
+    {tx:'Atomística e tabela periódica',tg:'hot'},{tx:'Ligações químicas',tg:'med'},{tx:'Funções orgânicas',tg:'med'},
+    {tx:'Reações e balanceamento',tg:'med'},{tx:'Eletroquímica',tg:'base'}]},
+  {id:'bio',e:'🧬',n:'Biologia',ac:'ac-bio',t:[
+    {tx:'Genética (leis de Mendel)',tg:'hot'},{tx:'Heredogramas',tg:'hot'},{tx:'Ecologia',tg:'hot'},
+    {tx:'Fisiologia humana',tg:'hot'},{tx:'Bioquímica (fotossíntese)',tg:'med'},{tx:'Evolução (Darwin)',tg:'med'},
+    {tx:'Citologia',tg:'med'},{tx:'Botânica',tg:'base'}]},
+  {id:'por',e:'📝',n:'Português',ac:'ac-por',t:[
+    {tx:'Interpretação de texto',tg:'hot'},{tx:'Gêneros textuais',tg:'hot'},{tx:'Figuras de linguagem',tg:'hot'},
+    {tx:'Elementos não verbais',tg:'hot'},{tx:'Coesão e coerência',tg:'med'},{tx:'Funções da linguagem',tg:'med'},{tx:'Variação linguística',tg:'base'}]},
+  {id:'ing',e:'🇬🇧',n:'Inglês',ac:'ac-ing',t:[
+    {tx:'Interpretação de textos',tg:'hot'},{tx:'Falsos cognatos',tg:'hot'},{tx:'Conectivos',tg:'hot'},
+    {tx:'Vocabulário contextual',tg:'med'},{tx:'Tempos verbais em leitura',tg:'med'},{tx:'Passive voice',tg:'base'}]},
+  {id:'his',e:'🌍',n:'História',ac:'ac-his',t:[
+    {tx:'1ª e 2ª Guerra Mundial',tg:'hot'},{tx:'Guerra Fria',tg:'hot'},{tx:'Era Vargas',tg:'hot'},
+    {tx:'Ditadura Militar no Brasil',tg:'hot'},{tx:'Revolução Francesa',tg:'med'},{tx:'Colonização e escravidão',tg:'med'},{tx:'Redemocratização',tg:'base'}]},
+  {id:'geo',e:'🗺️',n:'Geografia',ac:'ac-geo',t:[
+    {tx:'Geopolítica e blocos econômicos',tg:'hot'},{tx:'Biomas e clima do Brasil',tg:'hot'},{tx:'Urbanização',tg:'hot'},
+    {tx:'Questões ambientais',tg:'hot'},{tx:'Dinâmica populacional',tg:'med'},{tx:'Cartografia',tg:'med'},{tx:'Relevo e hidrografia',tg:'base'}]},
+  {id:'fil',e:'🤔',n:'Filosofia',ac:'ac-fil',t:[
+    {tx:'Filosofia grega (Platão, Aristóteles)',tg:'hot'},{tx:'Iluminismo',tg:'hot'},{tx:'Ética e política',tg:'hot'},
+    {tx:'Filosofia moderna (Kant)',tg:'med'},{tx:'Empirismo vs Racionalismo',tg:'med'},{tx:'Filosofia contemporânea',tg:'base'}]},
+  {id:'soc',e:'👥',n:'Sociologia',ac:'ac-soc',t:[
+    {tx:'Marx, Durkheim e Weber',tg:'hot'},{tx:'Desigualdade social no Brasil',tg:'hot'},{tx:'Movimentos sociais',tg:'hot'},
+    {tx:'Racismo e questão racial',tg:'hot'},{tx:'Cultura e identidade',tg:'med'},{tx:'Globalização',tg:'med'}]}
 ];
-
-// ─── STATE ───
-const KEY = 'uerj2027_v2';
-let state = {};
-try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { state = {}; }
-function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {} }
-
-if (!state.checks)  state.checks  = {};
-if (!state.notes)   state.notes   = {};
-if (!state.metas)   state.metas   = {};
-if (!state.genNote) state.genNote = '';
-
-// ─── COUNTDOWN ───
-function updateCountdown() {
-  const target = new Date('2027-06-01');
-  const now = new Date();
-  const diff = Math.ceil((target - now) / (1000*60*60*24));
-  const el = document.getElementById('countdown-pill');
-  if (diff > 0) el.textContent = `⏳ ${diff} dias para o UERJ`;
-  else el.textContent = '🎉 Boa sorte na prova!';
+const K='uerj2027';
+let st={};
+try{st=JSON.parse(localStorage.getItem(K))||{};}catch(e){st={};}
+if(!st.c)st.c={};if(!st.n)st.n={};if(!st.m)st.m={};if(!st.gn)st.gn='';
+function sv(){try{localStorage.setItem(K,JSON.stringify(st));}catch(e){}}
+function cd(){
+  const t=new Date('2027-06-01'),nw=new Date(),d=Math.ceil((t-nw)/86400000);
+  document.getElementById('cdpill').textContent=d>0?'⏳ '+d+' dias para o UERJ':'🎉 Boa sorte!';
 }
-updateCountdown();
-
-// ─── TABS ───
-function switchTab(tab) {
-  document.querySelectorAll('.tab').forEach((t,i) => {
-    t.classList.toggle('active', ['tracker','metas'][i] === tab);
-  });
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+cd();
+function switchTab(tab){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['tracker','metas'][i]===tab));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+tab).classList.add('active');
-  if (tab === 'metas') renderMetas();
+  if(tab==='metas')renderMetas();
 }
-
-// ─── TOTALS ───
-function getTotals() {
-  let done=0, total=0;
-  SUBJECTS.forEach(s => {
-    s.topics.forEach((_,i) => {
-      total++;
-      if (state.checks[`${s.id}_${i}`]) done++;
-    });
-  });
-  return { done, total, pct: total ? Math.round(done/total*100) : 0 };
+function stats(id){
+  const s=S.find(x=>x.id===id);
+  const done=s.t.filter((_,i)=>st.c[id+'_'+i]).length;
+  return{done,total:s.t.length,pct:Math.round(done/s.t.length*100)};
 }
-
-function getSubjStats(id) {
-  const s = SUBJECTS.find(x => x.id===id);
-  const done = s.topics.filter((_,i) => state.checks[`${id}_${i}`]).length;
-  return { done, total:s.topics.length, pct: Math.round(done/s.topics.length*100) };
+function totals(){
+  let d=0,t=0;S.forEach(s=>{const r=stats(s.id);d+=r.done;t+=r.total;});
+  return{done:d,total:t,pct:t?Math.round(d/t*100):0};
 }
-
-function renderHeader() {
-  const {done,total,pct} = getTotals();
-  document.getElementById('total-done').textContent = done;
-  document.getElementById('total-topics').textContent = total;
-  document.getElementById('total-pct').textContent = pct+'%';
+function renderHeader(){
+  const{done,total,pct}=totals();
+  document.getElementById('tdone').textContent=done;
+  document.getElementById('ttotal').textContent=total;
+  document.getElementById('tpct').textContent=pct+'%';
 }
-
-// ─── OVERVIEW ───
-function renderOverview() {
-  const top5 = ['mat','fis','qui','bio','his'];
-  document.getElementById('overview').innerHTML = top5.map(id => {
-    const s = SUBJECTS.find(x=>x.id===id);
-    const {done,total,pct} = getSubjStats(id);
-    return `<div class="ov-card">
-      <div class="ov-top"><span class="ov-emoji">${s.emoji}</span><span class="ov-name">${s.name}</span></div>
-      <div class="ov-bar-wrap"><div class="ov-bar" style="width:${pct}%"></div></div>
-      <div class="ov-pct">${done}/${total} · ${pct}%</div>
+function renderOverview(){
+  document.getElementById('overview').innerHTML=S.slice(0,5).map(s=>{
+    const{done,total,pct}=stats(s.id);
+    return`<div class="ov-card"><div class="ov-top"><span class="ov-emoji">${s.e}</span><span class="ov-name">${s.n}</span></div><div class="ov-bar-bg"><div class="ov-bar" style="width:${pct}%"></div></div><div class="ov-pct">${done}/${total} · ${pct}%</div></div>`;
+  }).join('');
+}
+function renderCards(){
+  document.getElementById('cards').innerHTML=S.map(s=>{
+    const{done,total,pct}=stats(s.id);
+    const thtml=s.t.map((t,i)=>{
+      const k=s.id+'_'+i,done=!!st.c[k];
+      const tl=t.tg==='hot'?'🔥 Mais cobrado':t.tg==='med'?'⭐ Importante':'📖 Base';
+      return`<div class="topic ${done?'done':''}" onclick="toggle('${k}')"><div class="chk">${done?'✓':''}</div><span class="ttext">${t.tx}</span><span class="ttag ${t.tg}">${tl}</span></div>`;
+    }).join('');
+    const nv=st.n[s.id]||'';
+    return`<div class="card ${s.ac}">
+      <div class="card-hdr"><div class="card-left"><span class="card-emoji">${s.e}</span><div><div class="card-title">${s.n}</div><div class="card-sub">${done}/${total} tópicos</div></div></div><div class="card-badge">${pct}%</div></div>
+      <div class="card-prog"><div class="card-prog-fill" style="width:${pct}%"></div></div>
+      <div class="topics">${thtml}</div>
+      <button class="note-btn" onclick="toggleNote('${s.id}')">📝 Anotações de ${s.n}</button>
+      <div class="note-wrap" id="nw-${s.id}">
+        <textarea class="note-ta" id="nt-${s.id}" placeholder="Escreva suas anotações de ${s.n}...">${nv}</textarea>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:5px"><button class="save-btn" onclick="saveNote('${s.id}')">💾 Salvar</button><span class="saved-msg" id="sv-${s.id}">✓ Salvo!</span></div>
+      </div>
     </div>`;
   }).join('');
 }
-
-// ─── SUBJECTS ───
-function renderSubjects() {
-  document.getElementById('subjects-grid').innerHTML = SUBJECTS.map(s => {
-    const {done,total,pct} = getSubjStats(s.id);
-    const noteVal = (state.notes[s.id]||'').replace(/"/g,'&quot;');
-    const topicsHtml = s.topics.map((t,i) => {
-      const key = `${s.id}_${i}`;
-      const isDone = !!state.checks[key];
-      const tagLabel = t.tag==='hot' ? '🔥 Mais cobrado' : t.tag==='med' ? '⭐ Importante' : '📖 Base';
-      return `<div class="topic-item ${isDone?'done':''}" onclick="toggleCheck('${key}')">
-        <div class="topic-check">${isDone?'✓':''}</div>
-        <span class="topic-text">${t.text}</span>
-        <span class="topic-tag tag-${t.tag}">${tagLabel}</span>
-      </div>`;
-    }).join('');
-    return `<div class="subject-card ${s.ac}">
-      <div class="card-header">
-        <div class="card-header-left">
-          <span class="card-emoji">${s.emoji}</span>
-          <div><div class="card-title">${s.name}</div><div class="card-count">${done} de ${total} tópicos</div></div>
-        </div>
-        <div class="card-pct">${pct}%</div>
-      </div>
-      <div class="card-prog-bar"><div class="card-prog-fill" style="width:${pct}%"></div></div>
-      <div class="card-topics">${topicsHtml}</div>
-      <button class="notes-toggle" onclick="toggleNotes('${s.id}')">📝 Anotações de ${s.name}</button>
-      <div class="notes-area-wrap" id="notes-wrap-${s.id}">
-        <textarea class="notes-area" id="notes-${s.id}" placeholder="Escreva suas dúvidas, resumos e anotações de ${s.name}...">${state.notes[s.id]||''}</textarea>
-
-```
-    <div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
-      <button class="notes-save-btn" onclick="saveNote('${s.id}')">💾 Salvar</button>
-      <span class="notes-saved" id="saved-${s.id}">✓ Salvo!</span>
-    </div>
-  </div>
-</div>`;
-```
-
-}).join(’’);
+function toggle(k){st.c[k]=!st.c[k];sv();renderAll();}
+function toggleNote(id){document.getElementById('nw-'+id).classList.toggle('open');}
+function saveNote(id){st.n[id]=document.getElementById('nt-'+id).value;sv();const e=document.getElementById('sv-'+id);e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2000);}
+function saveGNote(){st.gn=document.getElementById('gnote').value;sv();const e=document.getElementById('gnsaved');e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2000);}
+let wk=0;
+function wkey(o=0){const n=new Date(),d=n.getDay(),m=new Date(n);m.setDate(n.getDate()-(d===0?6:d-1)+o*7);return m.toISOString().slice(0,10);}
+function wlbl(o=0){const n=new Date(),d=n.getDay(),m=new Date(n);m.setDate(n.getDate()-(d===0?6:d-1)+o*7);const s=new Date(m);s.setDate(m.getDate()+6);const f=x=>x.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});return f(m)+' – '+f(s);}
+function changeWeek(dir){wk+=dir;renderMetas();}
+function addMeta(){const inp=document.getElementById('minp'),txt=inp.value.trim();if(!txt)return;const k=wkey(wk);if(!st.m[k])st.m[k]=[];st.m[k].push({tx:txt,done:false,id:Date.now()});sv();inp.value='';renderMetas();}
+function toggleMeta(k,id){const item=st.m[k]?.find(x=>x.id===id);if(item){item.done=!item.done;sv();renderMetas();}}
+function delMeta(k,id){if(!st.m[k])return;st.m[k]=st.m[k].filter(x=>x.id!==id);sv();renderMetas();}
+function renderMetas(){
+  const k=wkey(wk);
+  document.getElementById('wlabel').textContent=wk===0?'Semana atual':wlbl(wk);
+  const its=st.m[k]||[];
+  const done=its.filter(x=>x.done).length;
+  const pct=its.length?Math.round(done/its.length*100):0;
+  document.getElementById('mlist').innerHTML=its.length===0
+    ?'<div class="empty">Nenhuma meta ainda. Adicione uma! 🌸</div>'
+    :its.map(m=>`<div class="meta-item ${m.done?'done-m':''}"><div class="mchk" onclick="toggleMeta('${k}',${m.id})">${m.done?'✓':''}</div><span class="mtext">${m.tx}</span><button class="mdel" onclick="delMeta('${k}',${m.id})">✕</button></div>`).join('');
+  document.getElementById('mpct').textContent=done+'/'+its.length+' · '+pct+'%';
+  document.getElementById('mfill').style.width=pct+'%';
+  document.getElementById('gnote').value=st.gn||'';
+  const allw=Object.keys(st.m).sort().reverse().slice(0,8);
+  document.getElementById('hist').innerHTML=allw.map(w=>{
+    const it=st.m[w],d=it.filter(x=>x.done).length,p=it.length?Math.round(d/it.length*100):0;
+    return`<div style="background:white;border-radius:12px;border:1.5px solid ${w===k?'#e91e8c':'#f9c6e0'};padding:10px 12px;box-shadow:0 2px 10px rgba(233,30,140,0.06)"><div style="font-size:10px;font-weight:700;color:#9e5070;margin-bottom:4px">📅 ${w}</div><div style="font-size:13px;font-weight:800;color:#e91e8c;margin-bottom:4px">${d}/${it.length} metas</div><div style="background:#fce4f2;border-radius:999px;height:6px;overflow:hidden"><div style="width:${p}%;height:100%;background:linear-gradient(90deg,#f48cb1,#e91e8c);border-radius:999px"></div></div><div style="font-size:10px;color:#9e5070;margin-top:3px;text-align:right">${p}%</div></div>`;
+  }).join('')||'<div class="empty">Sem histórico ainda.</div>';
 }
-
-function toggleCheck(key) {
-state.checks[key] = !state.checks[key];
-save(); renderAll();
-}
-
-function toggleNotes(id) {
-const wrap = document.getElementById(‘notes-wrap-’+id);
-wrap.classList.toggle(‘open’);
-}
-
-function saveNote(id) {
-state.notes[id] = document.getElementById(‘notes-’+id).value;
-save();
-const el = document.getElementById(‘saved-’+id);
-el.classList.add(‘show’);
-setTimeout(() => el.classList.remove(‘show’), 2000);
-}
-
-// ─── GENERAL NOTES ───
-function saveGeneralNotes() {
-state.genNote = document.getElementById(‘general-notes’).value;
-save();
-const el = document.getElementById(‘general-saved’);
-el.classList.add(‘show’);
-setTimeout(() => el.classList.remove(‘show’), 2000);
-}
-
-// ─── METAS ───
-let currentWeekOffset = 0;
-
-function getWeekKey(offset=0) {
-const now = new Date();
-const day = now.getDay();
-const monday = new Date(now);
-monday.setDate(now.getDate() - (day===0?6:day-1) + offset*7);
-return monday.toISOString().slice(0,10);
-}
-
-function getWeekLabel(offset=0) {
-const now = new Date();
-const day = now.getDay();
-const monday = new Date(now);
-monday.setDate(now.getDate() - (day===0?6:day-1) + offset*7);
-const sunday = new Date(monday); sunday.setDate(monday.getDate()+6);
-const fmt = d => d.toLocaleDateString(‘pt-BR’,{day:‘2-digit’,month:‘2-digit’});
-return `${fmt(monday)} – ${fmt(sunday)}`;
-}
-
-function changeWeek(dir) {
-currentWeekOffset += dir;
-renderMetas();
-}
-
-function addMeta() {
-const input = document.getElementById(‘meta-input’);
-const text = input.value.trim();
-if (!text) return;
-const wk = getWeekKey(currentWeekOffset);
-if (!state.metas[wk]) state.metas[wk] = [];
-state.metas[wk].push({ text, done:false, id: Date.now() });
-save(); input.value=’’; renderMetas();
-}
-
-function toggleMeta(wk, id) {
-const item = state.metas[wk]?.find(m => m.id===id);
-if (item) { item.done = !item.done; save(); renderMetas(); }
-}
-
-function deleteMeta(wk, id) {
-if (!state.metas[wk]) return;
-state.metas[wk] = state.metas[wk].filter(m => m.id!==id);
-save(); renderMetas();
-}
-
-function renderMetas() {
-const wk = getWeekKey(currentWeekOffset);
-const label = currentWeekOffset===0 ? `Semana atual (${getWeekLabel(0)})` :
-currentWeekOffset< 0  ? `${getWeekLabel(currentWeekOffset)}` :
-`${getWeekLabel(currentWeekOffset)}`;
-document.getElementById(‘week-label’).textContent = label;
-
-const items = state.metas[wk] || [];
-const done  = items.filter(m=>m.done).length;
-const pct   = items.length ? Math.round(done/items.length*100) : 0;
-
-document.getElementById(‘meta-list’).innerHTML = items.length===0
-? `<div class="meta-empty">Nenhuma meta ainda. Adicione uma acima! 🌸</div>`
-: items.map(m => ` <div class="meta-item ${m.done?'done-meta':''}"> <div class="meta-check" onclick="toggleMeta('${wk}',${m.id})">${m.done?'✓':''}</div> <span class="meta-text">${m.text}</span> <button class="meta-del" onclick="deleteMeta('${wk}',${m.id})">✕</button> </div>`).join(’’);
-
-document.getElementById(‘meta-pct-label’).textContent = `${done}/${items.length} · ${pct}%`;
-document.getElementById(‘meta-prog-fill’).style.width = pct+’%’;
-
-// General notes
-document.getElementById(‘general-notes’).value = state.genNote || ‘’;
-
-// History
-const allWeeks = Object.keys(state.metas).sort().reverse().slice(0,8);
-document.getElementById(‘history-grid’).innerHTML = allWeeks.map(w => {
-const its = state.metas[w];
-const d = its.filter(x=>x.done).length;
-const p = its.length ? Math.round(d/its.length*100) : 0;
-const isActive = w===wk;
-return `<div style="background:white;border-radius:14px;border:1.5px solid ${isActive?'var(--pink)':'var(--pink-border)'};padding:12px 14px;box-shadow:var(--shadow);"> <div style="font-size:11px;font-weight:700;color:var(--text-soft);margin-bottom:6px;">📅 ${w}</div> <div style="font-size:13px;font-weight:800;color:var(--pink);margin-bottom:4px;">${d}/${its.length} metas</div> <div style="background:var(--pink-pale);border-radius:999px;height:6px;overflow:hidden;"> <div style="width:${p}%;height:100%;background:linear-gradient(90deg,var(--pink-light),var(--pink));border-radius:999px;"></div> </div> <div style="font-size:10px;color:var(--text-soft);margin-top:4px;text-align:right;">${p}%</div> </div>`;
-}).join(’’) || ‘<div style="font-size:12px;color:var(--text-soft);font-style:italic;">Sem histórico ainda.</div>’;
-}
-
-// ─── RESET ───
-function resetAll() {
-if (confirm(‘Tem certeza que quer resetar TODO o progresso? 🥺\n(Metas e anotações também serão apagadas)’)) {
-state = { checks:{}, notes:{}, metas:{}, genNote:’’ };
-save(); renderAll();
-}
-}
-
-function renderAll() {
-renderHeader(); renderOverview(); renderSubjects();
-}
-
+function resetAll(){if(confirm('Resetar todo o progresso? 🥺')){st={c:{},n:{},m:{},gn:''};sv();renderAll();}}
+function renderAll(){renderHeader();renderOverview();renderCards();}
 renderAll();
 </script>
-
 </body>
 </html>
+HTMLEOF
+wc -c /mnt/user-data/outputs/index.html
