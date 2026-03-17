@@ -8,158 +8,313 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
-.header{background:rgba(253,240,248,0.95);border-bottom:1.5px solid #f9c6e0;padding:14px 20px;position:sticky;top:0;z-index:99;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.header h1{font-size:20px;font-weight:900;color:#e91e8c}
-.header p{font-size:11px;color:#9e5070}
-.stats{display:flex;gap:8px;flex-wrap:wrap}
-.pill{background:white;border:1.5px solid #f9c6e0;border-radius:999px;padding:5px 12px;font-size:11px;font-weight:700;color:#e91e8c}
-.tabs{display:flex;border-bottom:1.5px solid #f9c6e0;background:rgba(253,240,248,0.95);position:sticky;top:65px;z-index:98;overflow-x:auto}
-.tab{padding:11px 14px;font-size:12px;font-weight:700;color:#9e5070;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.header{background:rgba(253,240,248,0.95);border-bottom:1.5px solid #f9c6e0;padding:12px 20px;position:sticky;top:0;z-index:99;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.header h1{font-size:19px;font-weight:900;color:#e91e8c}
+.header p{font-size:10px;color:#9e5070}
+.stats{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.pill{background:white;border:1.5px solid #f9c6e0;border-radius:999px;padding:4px 11px;font-size:11px;font-weight:700;color:#e91e8c}
+.pill.streak{background:linear-gradient(135deg,#fff3e0,#ffe0b0);border-color:rgba(239,108,0,0.3);color:#e65100}
+.tabs{display:flex;border-bottom:1.5px solid #f9c6e0;background:rgba(253,240,248,0.95);position:sticky;top:62px;z-index:98;overflow-x:auto}
+.tab{padding:10px 12px;font-size:11px;font-weight:700;color:#9e5070;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
 .tab.active{color:#e91e8c;border-bottom-color:#e91e8c}
-.main{max-width:1200px;margin:0 auto;padding:20px 16px 60px}
+.main{max-width:1200px;margin:0 auto;padding:18px 14px 60px}
 .panel{display:none}.panel.active{display:block}
-.ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:20px}
-.ov-card{background:white;border-radius:14px;border:1.5px solid #f9c6e0;padding:12px 14px;box-shadow:0 2px 12px rgba(233,30,140,0.07)}
-.ov-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.ov-emoji{font-size:18px}.ov-name{font-size:12px;font-weight:800}
-.ov-bar-bg{background:#fce4f2;border-radius:999px;height:7px;overflow:hidden;margin-bottom:4px}
+.sec-title{font-size:16px;font-weight:900;color:#e91e8c;margin-bottom:12px}
+.empty{font-size:11px;color:#9e5070;font-style:italic;text-align:center;padding:12px 0}
+.footer{margin-top:18px;background:linear-gradient(135deg,#fce4f2,#ffd6e8);border:1.5px solid #f9c6e0;border-radius:15px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px}
+.footer-q{font-size:13px;font-style:italic;color:#e91e8c;font-weight:700}
+.reset-btn{background:none;border:1.5px solid #f9c6e0;border-radius:999px;padding:4px 10px;font-size:10px;font-weight:700;color:#9e5070;cursor:pointer;font-family:sans-serif}
+/* overview */
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px;margin-bottom:18px}
+.ov-card{background:white;border-radius:13px;border:1.5px solid #f9c6e0;padding:11px 13px;box-shadow:0 2px 10px rgba(233,30,140,0.07)}
+.ov-top{display:flex;align-items:center;gap:7px;margin-bottom:7px}
+.ov-emoji{font-size:17px}.ov-name{font-size:11.5px;font-weight:800}
+.ov-bar-bg{background:#fce4f2;border-radius:999px;height:6px;overflow:hidden;margin-bottom:3px}
 .ov-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,#f48cb1,#e91e8c);transition:width 0.5s}
 .ov-pct{font-size:10px;font-weight:700;color:#9e5070;text-align:right}
-.sec-title{font-size:17px;font-weight:900;color:#e91e8c;margin-bottom:14px}
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
-.card{background:white;border-radius:16px;border:1.5px solid #f9c6e0;box-shadow:0 2px 12px rgba(233,30,140,0.07);overflow:hidden}
-.card-hdr{padding:12px 14px;border-bottom:1.5px solid #f9c6e0;display:flex;align-items:center;justify-content:space-between}
-.card-left{display:flex;align-items:center;gap:9px}
-.card-emoji{font-size:20px}.card-title{font-size:14px;font-weight:900}
+/* topic cards */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:13px}
+.card{background:white;border-radius:15px;border:1.5px solid #f9c6e0;box-shadow:0 2px 10px rgba(233,30,140,0.07);overflow:hidden;transition:transform 0.2s}
+.card:hover{transform:translateY(-2px)}
+.card-hdr{padding:11px 13px;border-bottom:1.5px solid #f9c6e0;display:flex;align-items:center;justify-content:space-between}
+.card-left{display:flex;align-items:center;gap:8px}
+.card-emoji{font-size:19px}.card-title{font-size:13.5px;font-weight:900}
 .card-sub{font-size:10px;color:#9e5070;margin-top:1px}
-.card-badge{background:#fce4f2;border:1.5px solid #f9c6e0;border-radius:999px;padding:3px 9px;font-size:11px;font-weight:800;color:#e91e8c}
+.card-badge{background:#fce4f2;border:1.5px solid #f9c6e0;border-radius:999px;padding:2px 8px;font-size:11px;font-weight:800;color:#e91e8c}
 .card-prog{height:4px;background:#fce4f2}
 .card-prog-fill{height:100%;background:linear-gradient(90deg,#f48cb1,#e91e8c);transition:width 0.5s}
-.topics{padding:10px 12px;display:flex;flex-direction:column;gap:5px}
-.topic{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;cursor:pointer;user-select:none;transition:background 0.15s}
-.topic:hover{background:#fce4f2}.topic.done{opacity:0.5}
-.chk{width:18px;height:18px;border-radius:5px;border:2px solid #f9c6e0;background:white;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.2s}
-.topic.done .chk{background:#e91e8c;border-color:#e91e8c;color:white}
-.ttext{font-size:12px;font-weight:600;flex:1}
-.topic.done .ttext{text-decoration:line-through;color:#9e5070}
-.ttag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:999px;flex-shrink:0}
+.topics{padding:9px 11px;display:flex;flex-direction:column;gap:5px}
+.topic{display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:8px;user-select:none;border:1.5px solid transparent;transition:all 0.2s}
+.topic[data-s="0"]{background:#fff5fb}
+.topic[data-s="1"]{background:#fffce6;border-color:rgba(245,127,23,0.25)}
+.topic[data-s="2"]{background:#e8f3ff;border-color:rgba(25,118,210,0.25)}
+.topic[data-s="3"]{background:#e8fff2;border-color:rgba(46,125,50,0.25);opacity:0.65}
+.status-btn{flex-shrink:0;border-radius:999px;padding:2px 7px;font-size:9px;font-weight:800;text-align:center;border:none;cursor:pointer;font-family:sans-serif;transition:all 0.2s}
+.s0{background:#fce4f2;color:#9e5070}.s1{background:#fff3e0;color:#e65100}
+.s2{background:#e8f0ff;color:#1565c0}.s3{background:#e8fff2;color:#2e7d32}
+.ttext{font-size:11.5px;font-weight:600;flex:1}
+.topic[data-s="3"] .ttext{text-decoration:line-through;color:#9e5070}
+.ttag{font-size:8px;font-weight:700;padding:2px 5px;border-radius:999px;flex-shrink:0}
 .hot{background:#ffe4e4;color:#c0392b}.med{background:#fff4e0;color:#e67e22}.base{background:#e8f4ff;color:#2980b9}
-.note-btn{margin:0 12px 10px;background:none;border:1.5px dashed #f9c6e0;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#9e5070;cursor:pointer;width:calc(100% - 24px);text-align:left;font-family:sans-serif;transition:all 0.2s}
-.note-btn:hover{background:#fce4f2;color:#e91e8c}
-.note-wrap{display:none;padding:0 12px 12px}.note-wrap.open{display:block}
-.note-ta{width:100%;min-height:70px;border:1.5px solid #f9c6e0;border-radius:8px;padding:8px 10px;font-size:12px;font-family:sans-serif;color:#4a1a35;background:#fdf0f8;resize:vertical;outline:none}
+/* notes + mood */
+.note-section{padding:0 11px 12px;display:none}.note-section.open{display:block}
+.note-toggle{margin:0 11px 10px;background:none;border:1.5px dashed #f9c6e0;border-radius:7px;padding:5px 9px;font-size:10.5px;font-weight:700;color:#9e5070;cursor:pointer;width:calc(100% - 22px);text-align:left;font-family:sans-serif}
+.note-toggle:hover{background:#fce4f2;color:#e91e8c}
+.mood-row{display:flex;gap:5px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.mood-label{font-size:10px;font-weight:700;color:#9e5070;margin-right:2px}
+.mood-opt{font-size:20px;cursor:pointer;padding:3px 5px;border-radius:8px;border:2px solid transparent;transition:all 0.15s;background:none;line-height:1}
+.mood-opt:hover{background:#fce4f2}
+.mood-opt.sel{border-color:#e91e8c;background:#fce4f2}
+.mood-history{font-size:10px;color:#9e5070;margin-bottom:6px;font-style:italic}
+.note-ta{width:100%;min-height:60px;border:1.5px solid #f9c6e0;border-radius:7px;padding:7px 9px;font-size:11.5px;font-family:sans-serif;color:#4a1a35;background:#fdf0f8;resize:vertical;outline:none}
 .note-ta:focus{border-color:#f48cb1}
-.save-btn{margin-top:5px;background:#e91e8c;border:none;border-radius:999px;padding:4px 12px;font-size:11px;font-weight:700;color:white;cursor:pointer;font-family:sans-serif}
-.saved-msg{font-size:10px;color:#9e5070;margin-left:6px;opacity:0;transition:opacity 0.3s}
-.saved-msg.show{opacity:1}
+.save-btn{margin-top:4px;background:#e91e8c;border:none;border-radius:999px;padding:4px 11px;font-size:10.5px;font-weight:700;color:white;cursor:pointer;font-family:sans-serif}
+.saved-msg{font-size:10px;color:#9e5070;margin-left:5px;opacity:0;transition:opacity 0.3s}.saved-msg.show{opacity:1}
 .ac-mat{border-top:4px solid #e91e8c}.ac-fis{border-top:4px solid #7c4dff}.ac-qui{border-top:4px solid #1976d2}
 .ac-bio{border-top:4px solid #2e7d32}.ac-por{border-top:4px solid #e64a19}.ac-ing{border-top:4px solid #ef6c00}
 .ac-his{border-top:4px solid #c62828}.ac-geo{border-top:4px solid #00695c}.ac-fil{border-top:4px solid #7b1fa2}.ac-soc{border-top:4px solid #f57f17}
-/* metas */
-.metas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
-.meta-card{background:white;border-radius:16px;border:1.5px solid #f9c6e0;box-shadow:0 2px 12px rgba(233,30,140,0.07);overflow:hidden}
-.meta-hdr{padding:12px 16px;background:linear-gradient(135deg,#fce4f2,#ffd6e8);border-bottom:1.5px solid #f9c6e0}
-.meta-hdr-title{font-size:14px;font-weight:900;color:#e91e8c;display:flex;align-items:center;justify-content:space-between}
-.week-nav{display:flex;align-items:center;gap:8px}
-.wbtn{background:none;border:1.5px solid #f9c6e0;border-radius:999px;width:26px;height:26px;font-size:13px;cursor:pointer;color:#e91e8c;display:flex;align-items:center;justify-content:center}
-.wlabel{font-size:10px;font-weight:700;color:#9e5070}
-.meta-add{padding:12px 16px;border-bottom:1.5px solid #f9c6e0;display:flex;gap:8px}
-.meta-inp{flex:1;border:1.5px solid #f9c6e0;border-radius:8px;padding:7px 10px;font-size:12px;font-family:sans-serif;color:#4a1a35;background:#fdf0f8;outline:none}
-.meta-inp:focus{border-color:#f48cb1}
-.meta-add-btn{background:#e91e8c;border:none;border-radius:8px;padding:7px 13px;font-size:12px;font-weight:700;color:white;cursor:pointer;font-family:sans-serif}
-.meta-list{padding:10px 16px;display:flex;flex-direction:column;gap:7px;min-height:60px}
-.meta-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:9px;background:#fdf0f8;border:1.5px solid #f9c6e0}
-.meta-item.done-m{opacity:0.5}
-.mchk{width:19px;height:19px;border-radius:5px;border:2px solid #f9c6e0;background:white;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.2s}
-.meta-item.done-m .mchk{background:#e91e8c;border-color:#e91e8c;color:white}
-.mtext{flex:1;font-size:12px;font-weight:600}
-.meta-item.done-m .mtext{text-decoration:line-through;color:#9e5070}
-.mdel{background:none;border:none;cursor:pointer;font-size:13px;color:#9e5070;padding:2px 4px}
-.meta-prog{padding:10px 16px;border-top:1.5px solid #f9c6e0}
-.meta-prog-lbl{font-size:10px;font-weight:700;color:#9e5070;margin-bottom:5px;display:flex;justify-content:space-between}
-.meta-prog-bg{background:#fce4f2;border-radius:999px;height:7px;overflow:hidden}
-.meta-prog-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#f48cb1,#e91e8c);transition:width 0.4s}
-.empty{font-size:11px;color:#9e5070;font-style:italic;text-align:center;padding:14px 0}
-/* cronograma */
-.cron-table{width:100%;border-collapse:separate;border-spacing:6px}
-.cron-table th{background:white;border-radius:10px;padding:10px 8px;text-align:center;font-size:12px;font-weight:800;color:#e91e8c;border:1.5px solid #f9c6e0}
-.cron-table td.time-cell{background:rgba(255,255,255,0.5);border-radius:8px;text-align:center;font-size:11px;font-weight:700;color:#e91e8c;padding:4px 6px;white-space:nowrap}
-.cron-table td.subj{border-radius:12px;padding:10px 11px;border:1.5px solid transparent;vertical-align:top}
-.cron-table td.pause-cell{background:rgba(255,255,255,0.4);border-radius:7px;border:1.5px dashed #f9c6e0;text-align:center;font-size:9px;font-weight:600;color:rgba(233,30,140,0.35);letter-spacing:1px;text-transform:uppercase;padding:4px}
-.subj-icon{font-size:18px;display:block;margin-bottom:3px}
-.subj-name{font-size:13px;font-weight:800;display:block;margin-bottom:3px}
-.subj-topics{font-size:9.5px;opacity:0.7;line-height:1.5}
-.subj-topics span{display:block}
-.cs-mat{background:linear-gradient(135deg,#ffe4f0,#ffd0e6);border-color:rgba(194,24,91,0.18)!important}
-.cs-mat .subj-name{color:#880e4f}
-.cs-fis{background:linear-gradient(135deg,#eee8ff,#ddd2ff);border-color:rgba(94,53,177,0.15)!important}
-.cs-fis .subj-name{color:#4527a0}
-.cs-qui{background:linear-gradient(135deg,#e4f1ff,#cce4ff);border-color:rgba(21,101,192,0.15)!important}
-.cs-qui .subj-name{color:#0d47a1}
-.cs-bio{background:linear-gradient(135deg,#e8fff2,#ccf5e0);border-color:rgba(27,94,32,0.15)!important}
-.cs-bio .subj-name{color:#1b5e20}
-.cs-por{background:linear-gradient(135deg,#fffce6,#fff3c0);border-color:rgba(230,81,0,0.15)!important}
-.cs-por .subj-name{color:#e65100}
-.cs-ing{background:linear-gradient(135deg,#fff4e0,#ffe0b0);border-color:rgba(239,108,0,0.15)!important}
-.cs-ing .subj-name{color:#e65100}
-.cs-his{background:linear-gradient(135deg,#fce8e8,#f8cccc);border-color:rgba(183,28,28,0.15)!important}
-.cs-his .subj-name{color:#b71c1c}
-.cs-geo{background:linear-gradient(135deg,#e4f8f8,#c6eeee);border-color:rgba(0,105,92,0.15)!important}
-.cs-geo .subj-name{color:#004d40}
-.cs-fil{background:linear-gradient(135deg,#f4e6ff,#e4ccff);border-color:rgba(123,31,162,0.15)!important}
-.cs-fil .subj-name{color:#6a1b9a}
-.cs-soc{background:linear-gradient(135deg,#fff8e0,#ffedb0);border-color:rgba(245,127,23,0.15)!important}
-.cs-soc .subj-name{color:#e65100}
-.cs-prova{background:linear-gradient(135deg,#fffde0,#fff59d);border-color:rgba(158,157,36,0.2)!important}
-.cs-prova .subj-name{color:#827717}
-.cs-rev{background:linear-gradient(135deg,#fdf2f6,#faddec);border-color:rgba(194,24,91,0.12)!important}
-.cs-rev .subj-name{color:#880e4f;font-style:italic}
-/* erros */
-.erros-top{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:24px}
-.erro-subj-card{background:white;border-radius:16px;border:1.5px solid #f9c6e0;box-shadow:0 2px 12px rgba(233,30,140,0.07);overflow:hidden}
-.erro-subj-hdr{padding:11px 14px;border-bottom:1.5px solid #f9c6e0;display:flex;align-items:center;justify-content:space-between}
-.erro-subj-left{display:flex;align-items:center;gap:8px}
-.erro-subj-name{font-size:13px;font-weight:900}
-.erro-topics-list{padding:10px 12px;display:flex;flex-direction:column;gap:6px}
-.erro-topic-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;background:#fdf0f8;border:1.5px solid #f9c6e0}
-.erro-topic-name{flex:1;font-size:12px;font-weight:600}
-.erro-controls{display:flex;align-items:center;gap:6px}
-.erro-count{font-size:13px;font-weight:900;color:#e91e8c;min-width:20px;text-align:center}
-.erro-btn{background:none;border:1.5px solid #f9c6e0;border-radius:6px;width:24px;height:24px;font-size:14px;cursor:pointer;color:#e91e8c;display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-weight:700}
-.erro-btn:hover{background:#fce4f2}
-.erro-bar-bg{background:#fce4f2;border-radius:999px;height:5px;overflow:hidden;margin-top:4px}
-.erro-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,#f48cb1,#e91e8c);transition:width 0.5s}
-.ranking-card{background:white;border-radius:16px;border:1.5px solid #f9c6e0;box-shadow:0 2px 12px rgba(233,30,140,0.07);padding:16px 18px;margin-bottom:20px}
-.ranking-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;margin-bottom:6px;background:#fdf0f8;border:1.5px solid #f9c6e0}
-.rank-pos{font-size:16px;font-weight:900;color:#e91e8c;min-width:28px;text-align:center}
-.rank-name{flex:1;font-size:13px;font-weight:700}
-.rank-count{font-size:12px;font-weight:800;color:#e91e8c}
-.rank-pct{font-size:11px;font-weight:700;color:#9e5070;background:#fce4f2;border-radius:999px;padding:2px 8px}
-.rank-bar-bg{background:#fce4f2;border-radius:999px;height:6px;overflow:hidden;margin-top:4px}
+/* PROGRESSO */
+.prog-top{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+@media(max-width:600px){.prog-top{grid-template-columns:1fr}}
+.chart-card{background:white;border-radius:15px;border:1.5px solid #f9c6e0;padding:16px;box-shadow:0 2px 10px rgba(233,30,140,0.07)}
+.chart-title{font-size:13px;font-weight:900;color:#e91e8c;margin-bottom:10px;text-align:center}
+.prio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.prio-card{border-radius:13px;padding:12px 14px;border:2px solid transparent;transition:transform 0.2s;cursor:default}
+.prio-card:hover{transform:translateY(-1px)}
+.prio-green{background:linear-gradient(135deg,#e8fff2,#ccf5e0);border-color:#66bb6a}
+.prio-yellow{background:linear-gradient(135deg,#fffde0,#fff59d);border-color:#ffa726}
+.prio-red{background:linear-gradient(135deg,#fce8e8,#f8cccc);border-color:#ef5350;animation:pulseRed 2s infinite}
+@keyframes pulseRed{0%,100%{box-shadow:0 0 0 0 rgba(239,83,80,0)}50%{box-shadow:0 0 0 5px rgba(239,83,80,0.15)}}
+.prio-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.prio-left{display:flex;align-items:center;gap:8px}
+.prio-emoji{font-size:20px}.prio-name{font-size:13px;font-weight:900}
+.prio-badge{border-radius:999px;padding:2px 9px;font-size:10px;font-weight:800}
+.badge-green{background:#e8fff2;color:#2e7d32}
+.badge-yellow{background:#fff8e0;color:#e65100}
+.badge-red{background:#fce8e8;color:#c62828}
+.prio-bars{display:flex;flex-direction:column;gap:4px}
+.prio-bar-row{display:flex;align-items:center;gap:6px}
+.prio-bar-label{font-size:9.5px;font-weight:700;width:65px;flex-shrink:0;color:#4a1a35}
+.prio-bar-bg{flex:1;background:rgba(255,255,255,0.6);border-radius:999px;height:6px;overflow:hidden}
+.prio-bar-fill{height:100%;border-radius:999px;transition:width 0.5s}
+.fill-green{background:#66bb6a}.fill-blue{background:#42a5f5}.fill-orange{background:#ffa726}
+.prio-bar-n{font-size:9px;font-weight:700;color:#9e5070;min-width:22px;text-align:right}
+/* ERROS */
+.erro-layout{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:13px}
+.erro-card{background:white;border-radius:15px;border:1.5px solid #f9c6e0;box-shadow:0 2px 10px rgba(233,30,140,0.07);overflow:hidden}
+.erro-hdr{padding:10px 13px;border-bottom:1.5px solid #f9c6e0;display:flex;align-items:center;justify-content:space-between}
+.erro-list{padding:9px 11px;display:flex;flex-direction:column;gap:5px}
+.erro-row{background:#fdf0f8;border:1.5px solid #f9c6e0;border-radius:9px;padding:8px 10px}
+.erro-row-top{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.erro-name{flex:1;font-size:11.5px;font-weight:700}
+.erro-cnt{font-size:14px;font-weight:900;color:#e91e8c;min-width:18px;text-align:center}
+.ebtn{background:none;border:1.5px solid #f9c6e0;border-radius:5px;width:22px;height:22px;font-size:13px;cursor:pointer;color:#e91e8c;display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-weight:700}
+.ebtn:hover{background:#fce4f2}
+.causa-row{display:flex;gap:5px;flex-wrap:wrap}
+.causa-btn{font-size:9px;font-weight:700;padding:2px 7px;border-radius:999px;cursor:pointer;border:1.5px solid transparent;font-family:sans-serif;transition:all 0.15s;background:#fce4f2;color:#9e5070}
+.causa-btn.active-nunca{background:#fce8e8;color:#c62828;border-color:#ef9a9a}
+.causa-btn.active-inter{background:#e8f0ff;color:#1565c0;border-color:#90caf9}
+.causa-btn.active-mem{background:#fff8e0;color:#f57f17;border-color:#ffcc80}
+.causa-btn.active-calc{background:#f4e6ff;color:#6a1b9a;border-color:#ce93d8}
+.causa-btn.active-tempo{background:#e8fff2;color:#2e7d32;border-color:#a5d6a7}
+.ranking-card{background:white;border-radius:15px;border:1.5px solid #f9c6e0;padding:14px 16px;margin-bottom:16px;box-shadow:0 2px 10px rgba(233,30,140,0.07)}
+.rank-item{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:9px;margin-bottom:5px;background:#fdf0f8;border:1.5px solid #f9c6e0}
+.rank-pos{font-size:15px;font-weight:900;color:#e91e8c;min-width:26px;text-align:center}
+.rank-name{flex:1;font-size:12px;font-weight:700}
+.rank-cnt{font-size:12px;font-weight:800;color:#e91e8c}
+.rank-pct{font-size:10px;font-weight:700;color:#9e5070;background:#fce4f2;border-radius:999px;padding:2px 7px}
+.rank-bar-bg{background:#fce4f2;border-radius:999px;height:4px;overflow:hidden;margin-top:3px}
 .rank-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,#f48cb1,#e91e8c)}
-/* footer */
-.footer{margin-top:20px;background:linear-gradient(135deg,#fce4f2,#ffd6e8);border:1.5px solid #f9c6e0;border-radius:16px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.footer-q{font-size:14px;font-style:italic;color:#e91e8c;font-weight:700}
-.footer-r{font-size:11px;color:#9e5070;font-weight:700}
-.reset-btn{background:none;border:1.5px solid #f9c6e0;border-radius:999px;padding:4px 11px;font-size:10px;font-weight:700;color:#9e5070;cursor:pointer;font-family:sans-serif}
+.causa-summary{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.cs-item{background:white;border:1.5px solid #f9c6e0;border-radius:10px;padding:6px 10px;font-size:10.5px;font-weight:700;color:#4a1a35;text-align:center}
+.cs-num{font-size:16px;font-weight:900;color:#e91e8c;display:block}
+/* FLASHCARDS */
+.fc-filter{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.fc-filter-btn{background:white;border:1.5px solid #f9c6e0;border-radius:999px;padding:5px 12px;font-size:11px;font-weight:700;color:#9e5070;cursor:pointer;font-family:sans-serif}
+.fc-filter-btn.active{background:#e91e8c;border-color:#e91e8c;color:white}
+.fc-stats{display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap}
+.fc-stat{background:white;border:1.5px solid #f9c6e0;border-radius:11px;padding:8px 13px;font-size:11px;font-weight:700;color:#9e5070;text-align:center}
+.fc-stat b{display:block;font-size:17px;font-weight:900;color:#e91e8c}
+.fc-area{display:flex;flex-direction:column;align-items:center;gap:12px}
+.fc-card-wrap{width:100%;max-width:580px;perspective:1000px}
+.fc-card{width:100%;min-height:190px;position:relative;transform-style:preserve-3d;transition:transform 0.5s;cursor:pointer}
+.fc-card.flipped{transform:rotateY(180deg)}
+.fc-front,.fc-back{position:absolute;width:100%;min-height:190px;border-radius:17px;border:1.5px solid #f9c6e0;box-shadow:0 4px 18px rgba(233,30,140,0.1);backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 22px;text-align:center}
+.fc-front{background:linear-gradient(135deg,white,#fff5fb)}
+.fc-back{background:linear-gradient(135deg,#fce4f2,#ffd6e8);transform:rotateY(180deg)}
+.fc-label{font-size:9.5px;font-weight:700;color:#9e5070;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.fc-subj-badge{font-size:10px;font-weight:700;background:rgba(233,30,140,0.1);color:#e91e8c;border-radius:999px;padding:3px 10px;margin-bottom:7px}
+.fc-question{font-size:16px;font-weight:800;color:#4a1a35;line-height:1.4}
+.fc-answer{font-size:14px;font-weight:700;color:#880e4f;line-height:1.5}
+.fc-hint{font-size:10px;color:#9e5070;margin-top:7px;font-style:italic}
+.fc-controls{display:flex;gap:9px;align-items:center}
+.fc-btn{background:white;border:1.5px solid #f9c6e0;border-radius:999px;padding:7px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:sans-serif;color:#4a1a35}
+.fc-btn.green{background:#e8fff2;border-color:rgba(27,94,32,0.2);color:#2e7d32}
+.fc-btn.red{background:#fce8e8;border-color:rgba(183,28,28,0.2);color:#b71c1c}
+.fc-prog-text{font-size:12px;font-weight:700;color:#9e5070}
+/* SIMULADOS */
+.sim-layout{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.sim-layout{grid-template-columns:1fr}}
+.sim-card{background:white;border-radius:15px;border:1.5px solid #f9c6e0;box-shadow:0 2px 10px rgba(233,30,140,0.07);overflow:hidden}
+.sim-hdr{padding:11px 15px;background:linear-gradient(135deg,#fce4f2,#ffd6e8);border-bottom:1.5px solid #f9c6e0;font-size:13px;font-weight:900;color:#e91e8c}
+.sim-body{padding:13px 15px}
+.sim-row{display:flex;align-items:center;gap:8px;margin-bottom:9px;flex-wrap:wrap}
+.sim-label{font-size:11px;font-weight:700;color:#9e5070;min-width:80px}
+.sim-inp{flex:1;min-width:80px;border:1.5px solid #f9c6e0;border-radius:7px;padding:6px 9px;font-size:11.5px;font-family:sans-serif;color:#4a1a35;background:#fdf0f8;outline:none}
+.sim-inp:focus{border-color:#f48cb1}
+.sim-add-btn{background:#e91e8c;border:none;border-radius:7px;padding:6px 13px;font-size:11.5px;font-weight:700;color:white;cursor:pointer;font-family:sans-serif;margin-top:4px}
+.sim-list{display:flex;flex-direction:column;gap:6px;max-height:240px;overflow-y:auto;margin-top:10px}
+.sim-item{padding:8px 10px;border-radius:9px;background:#fdf0f8;border:1.5px solid #f9c6e0}
+.sim-item-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.sim-nome{font-size:12px;font-weight:700}
+.sim-del{background:none;border:none;cursor:pointer;color:#9e5070;font-size:11px}
+.sim-notas-row{display:flex;gap:5px;flex-wrap:wrap}
+.sim-nota-tag{border-radius:999px;padding:2px 8px;font-size:10px;font-weight:700}
+.nota-a{background:#e8fff2;color:#2e7d32}
+.nota-b{background:#fffce6;color:#f57f17}
+.nota-c{background:#fce8e8;color:#c62828}
+.materia-notas{display:flex;flex-direction:column;gap:4px;margin-top:8px}
+.mat-nota-row{display:flex;align-items:center;gap:7px}
+.mat-nota-name{font-size:10.5px;font-weight:700;width:70px;flex-shrink:0}
+.mat-nota-bar-bg{flex:1;background:#fce4f2;border-radius:999px;height:7px;overflow:hidden}
+.mat-nota-bar{height:100%;border-radius:999px;transition:width 0.5s}
+.mat-nota-val{font-size:10px;font-weight:700;color:#e91e8c;min-width:30px;text-align:right}
+/* REVISÃO */
+.rev-layout{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:13px}
+.rev-card{background:white;border-radius:15px;border:1.5px solid #f9c6e0;box-shadow:0 2px 10px rgba(233,30,140,0.07);overflow:hidden}
+.rev-hdr{padding:10px 14px;background:linear-gradient(135deg,#fce4f2,#ffd6e8);border-bottom:1.5px solid #f9c6e0;font-size:13px;font-weight:900;color:#e91e8c}
+.rev-body{padding:12px 14px}
+.rev-add-row{display:flex;gap:7px;margin-bottom:10px;flex-wrap:wrap}
+.rev-inp{flex:1;min-width:120px;border:1.5px solid #f9c6e0;border-radius:7px;padding:6px 9px;font-size:11.5px;font-family:sans-serif;color:#4a1a35;background:#fdf0f8;outline:none}
+.rev-add-btn{background:#e91e8c;border:none;border-radius:7px;padding:6px 12px;font-size:11.5px;font-weight:700;color:white;cursor:pointer;font-family:sans-serif}
+.rev-list{display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto}
+.rev-item{padding:8px 10px;border-radius:9px;background:#fdf0f8;border:1.5px solid #f9c6e0}
+.rev-item.urgent{background:linear-gradient(135deg,#fce8e8,#f8cccc);border-color:#ef9a9a;animation:pulseRed 2s infinite}
+.rev-item.soon{background:linear-gradient(135deg,#fffde0,#fff59d);border-color:#ffcc80}
+.rev-item.ok{background:linear-gradient(135deg,#e8fff2,#ccf5e0);border-color:#a5d6a7;opacity:0.7}
+@keyframes pulseRed{0%,100%{box-shadow:none}50%{box-shadow:0 0 0 3px rgba(239,83,80,0.2)}}
+.rev-item-top{display:flex;align-items:center;justify-content:space-between}
+.rev-topic-name{font-size:12px;font-weight:700;flex:1}
+.rev-date{font-size:10px;color:#9e5070;margin-top:2px}
+.rev-status{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:999px}
+.rs-urgent{background:#fce8e8;color:#c62828}
+.rs-soon{background:#fff8e0;color:#f57f17}
+.rs-ok{background:#e8fff2;color:#2e7d32}
+.rev-del{background:none;border:none;cursor:pointer;color:#9e5070;font-size:11px}
+.rev-mark-btn{background:#e91e8c;border:none;border-radius:999px;padding:3px 10px;font-size:10px;font-weight:700;color:white;cursor:pointer;font-family:sans-serif;margin-top:5px}
+/* CONTROLE */
+.ctrl-layout{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:13px}
+.ctrl-card{background:white;border-radius:15px;border:1.5px solid #f9c6e0;box-shadow:0 2px 10px rgba(233,30,140,0.07);overflow:hidden}
+.ctrl-hdr{padding:10px 14px;background:linear-gradient(135deg,#fce4f2,#ffd6e8);border-bottom:1.5px solid #f9c6e0;font-size:13px;font-weight:900;color:#e91e8c}
+.ctrl-body{padding:12px 14px}
+.ctrl-row{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.ctrl-label{font-size:11px;font-weight:700;color:#9e5070;min-width:90px}
+.ctrl-inp{flex:1;border:1.5px solid #f9c6e0;border-radius:7px;padding:6px 9px;font-size:11.5px;font-family:sans-serif;color:#4a1a35;background:#fdf0f8;outline:none}
+.ctrl-add-btn{background:#e91e8c;border:none;border-radius:7px;padding:6px 13px;font-size:11.5px;font-weight:700;color:white;cursor:pointer;font-family:sans-serif}
+.streak-display{text-align:center;padding:12px 0}
+.streak-num{font-size:50px;font-weight:900;color:#e65100;line-height:1}
+.streak-label{font-size:11px;font-weight:700;color:#9e5070;margin-top:3px}
+.log-list,.sim-log-list{display:flex;flex-direction:column;gap:5px;max-height:200px;overflow-y:auto;margin-top:8px}
+.log-item{display:flex;align-items:center;justify-content:space-between;padding:6px 9px;border-radius:8px;background:#fdf0f8;border:1.5px solid #f9c6e0}
+.log-date{font-size:10.5px;font-weight:700;color:#9e5070}
+.log-hours{font-size:12px;font-weight:800;color:#e91e8c}
+.log-del{background:none;border:none;cursor:pointer;color:#9e5070;font-size:11px}
+/* METAS */
+.metas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:15px}
+.meta-card{background:white;border-radius:15px;border:1.5px solid #f9c6e0;box-shadow:0 2px 10px rgba(233,30,140,0.07);overflow:hidden}
+.meta-hdr{padding:11px 15px;background:linear-gradient(135deg,#fce4f2,#ffd6e8);border-bottom:1.5px solid #f9c6e0}
+.meta-hdr-title{font-size:13px;font-weight:900;color:#e91e8c;display:flex;align-items:center;justify-content:space-between}
+.week-nav{display:flex;align-items:center;gap:7px}
+.wbtn{background:none;border:1.5px solid #f9c6e0;border-radius:999px;width:25px;height:25px;font-size:12px;cursor:pointer;color:#e91e8c;display:flex;align-items:center;justify-content:center}
+.wlabel{font-size:10px;font-weight:700;color:#9e5070}
+.meta-add{padding:10px 14px;border-bottom:1.5px solid #f9c6e0;display:flex;gap:7px}
+.meta-inp{flex:1;border:1.5px solid #f9c6e0;border-radius:7px;padding:6px 9px;font-size:11.5px;font-family:sans-serif;color:#4a1a35;background:#fdf0f8;outline:none}
+.meta-add-btn{background:#e91e8c;border:none;border-radius:7px;padding:6px 12px;font-size:11.5px;font-weight:700;color:white;cursor:pointer;font-family:sans-serif}
+.meta-list{padding:9px 14px;display:flex;flex-direction:column;gap:6px;min-height:50px}
+.meta-item{display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:8px;background:#fdf0f8;border:1.5px solid #f9c6e0}
+.meta-item.done-m{opacity:0.5}
+.mchk{width:18px;height:18px;border-radius:4px;border:2px solid #f9c6e0;background:white;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all 0.2s}
+.meta-item.done-m .mchk{background:#e91e8c;border-color:#e91e8c;color:white}
+.mtext{flex:1;font-size:11.5px;font-weight:600}
+.meta-item.done-m .mtext{text-decoration:line-through;color:#9e5070}
+.mdel{background:none;border:none;cursor:pointer;font-size:12px;color:#9e5070;padding:2px 3px}
+.meta-prog{padding:9px 14px;border-top:1.5px solid #f9c6e0}
+.meta-prog-lbl{font-size:10px;font-weight:700;color:#9e5070;margin-bottom:4px;display:flex;justify-content:space-between}
+.meta-prog-bg{background:#fce4f2;border-radius:999px;height:6px;overflow:hidden}
+.meta-prog-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#f48cb1,#e91e8c);transition:width 0.4s}
+/* CRONOGRAMA */
+.cron-table{width:100%;border-collapse:separate;border-spacing:5px}
+.cron-table th{background:white;border-radius:9px;padding:9px 7px;text-align:center;font-size:11.5px;font-weight:800;color:#e91e8c;border:1.5px solid #f9c6e0}
+.time-cell{background:rgba(255,255,255,0.5);border-radius:7px;text-align:center;font-size:10px;font-weight:700;color:#e91e8c;padding:3px 5px;white-space:nowrap}
+.subj{border-radius:11px;padding:9px 10px;border:1.5px solid transparent;vertical-align:top}
+.pause-cell{background:rgba(255,255,255,0.4);border-radius:6px;border:1.5px dashed #f9c6e0;text-align:center;font-size:9px;font-weight:600;color:rgba(233,30,140,0.35);letter-spacing:1px;text-transform:uppercase;padding:3px}
+.subj-icon{font-size:17px;display:block;margin-bottom:2px}
+.subj-name{font-size:12px;font-weight:800;display:block;margin-bottom:2px}
+.subj-topics{font-size:9px;opacity:0.7;line-height:1.5}
+.subj-topics span{display:block}
+.cs-mat{background:linear-gradient(135deg,#ffe4f0,#ffd0e6);border-color:rgba(194,24,91,0.18)!important}.cs-mat .subj-name{color:#880e4f}
+.cs-fis{background:linear-gradient(135deg,#eee8ff,#ddd2ff);border-color:rgba(94,53,177,0.15)!important}.cs-fis .subj-name{color:#4527a0}
+.cs-qui{background:linear-gradient(135deg,#e4f1ff,#cce4ff);border-color:rgba(21,101,192,0.15)!important}.cs-qui .subj-name{color:#0d47a1}
+.cs-bio{background:linear-gradient(135deg,#e8fff2,#ccf5e0);border-color:rgba(27,94,32,0.15)!important}.cs-bio .subj-name{color:#1b5e20}
+.cs-por{background:linear-gradient(135deg,#fffce6,#fff3c0);border-color:rgba(230,81,0,0.15)!important}.cs-por .subj-name{color:#e65100}
+.cs-ing{background:linear-gradient(135deg,#fff4e0,#ffe0b0);border-color:rgba(239,108,0,0.15)!important}.cs-ing .subj-name{color:#e65100}
+.cs-his{background:linear-gradient(135deg,#fce8e8,#f8cccc);border-color:rgba(183,28,28,0.15)!important}.cs-his .subj-name{color:#b71c1c}
+.cs-geo{background:linear-gradient(135deg,#e4f8f8,#c6eeee);border-color:rgba(0,105,92,0.15)!important}.cs-geo .subj-name{color:#004d40}
+.cs-fil{background:linear-gradient(135deg,#f4e6ff,#e4ccff);border-color:rgba(123,31,162,0.15)!important}.cs-fil .subj-name{color:#6a1b9a}
+.cs-soc{background:linear-gradient(135deg,#fff8e0,#ffedb0);border-color:rgba(245,127,23,0.15)!important}.cs-soc .subj-name{color:#e65100}
+.cs-prova{background:linear-gradient(135deg,#fffde0,#fff59d);border-color:rgba(158,157,36,0.2)!important}.cs-prova .subj-name{color:#827717}
+.cs-rev{background:linear-gradient(135deg,#fdf2f6,#faddec);border-color:rgba(194,24,91,0.12)!important}.cs-rev .subj-name{color:#880e4f;font-style:italic}
+/* DIA DA PROVA */
+.diaprova-layout{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:13px}
+.diaprova-card{background:white;border-radius:15px;border:1.5px solid #f9c6e0;box-shadow:0 2px 10px rgba(233,30,140,0.07);overflow:hidden}
+.diaprova-hdr{padding:11px 14px;background:linear-gradient(135deg,#fce4f2,#ffd6e8);border-bottom:1.5px solid #f9c6e0;font-size:13px;font-weight:900;color:#e91e8c;display:flex;align-items:center;gap:7px}
+.diaprova-list{padding:10px 13px;display:flex;flex-direction:column;gap:6px}
+.diaprova-item{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:9px;background:#fdf0f8;border:1.5px solid #f9c6e0;cursor:pointer;user-select:none;transition:background 0.15s}
+.diaprova-item:hover{background:#fce4f2}
+.diaprova-item.checked{background:#e8fff2;border-color:#a5d6a7;opacity:0.7}
+.dp-chk{width:18px;height:18px;border-radius:5px;border:2px solid #f9c6e0;background:white;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all 0.2s}
+.diaprova-item.checked .dp-chk{background:#2e7d32;border-color:#2e7d32;color:white}
+.dp-text{font-size:12px;font-weight:600;flex:1}
+.diaprova-item.checked .dp-text{text-decoration:line-through;color:#9e5070}
+.dp-reset{background:none;border:1.5px solid #f9c6e0;border-radius:999px;padding:4px 11px;font-size:10px;font-weight:700;color:#9e5070;cursor:pointer;margin:10px 13px;font-family:sans-serif}
+/* DICAS */
+.dicas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:13px}
+.dica-card{background:white;border-radius:15px;border:1.5px solid #f9c6e0;box-shadow:0 2px 10px rgba(233,30,140,0.07);overflow:hidden}
+.dica-hdr{padding:11px 14px;border-bottom:1.5px solid #f9c6e0;font-size:13px;font-weight:900;color:#e91e8c;display:flex;align-items:center;gap:8px}
+.dica-body{padding:11px 13px;display:flex;flex-direction:column;gap:7px}
+.dica-item{padding:8px 10px;border-radius:9px;background:#fdf0f8;border:1.5px solid #f9c6e0}
+.dica-title{font-size:12px;font-weight:800;color:#4a1a35;margin-bottom:2px}
+.dica-text{font-size:11px;color:#9e5070;line-height:1.5}
+.dica-link{display:inline-block;margin-top:4px;font-size:10.5px;font-weight:700;color:#e91e8c;text-decoration:none;background:#fce4f2;border-radius:999px;padding:2px 9px}
+.link-card{background:linear-gradient(135deg,#fce4f2,#ffd6e8);border-radius:15px;border:2px solid rgba(233,30,140,0.2);padding:14px 18px;text-align:center;margin-bottom:16px}
+.link-card h3{font-size:14px;font-weight:900;color:#e91e8c;margin-bottom:5px}
+.link-card p{font-size:11px;color:#9e5070;margin-bottom:10px}
+.link-btn{display:inline-block;background:#e91e8c;color:white;border-radius:999px;padding:8px 20px;font-size:12px;font-weight:700;text-decoration:none}
 </style>
 </head>
 <body>
 <div class="header">
-  <div><h1>🌸 UERJ 2027 — Tracker de Estudos</h1><p>Seu painel completo de acompanhamento para o vestibular</p></div>
+  <div><h1>🌸 UERJ 2027 — Painel de Estudos</h1><p>Seu controle completo para o vestibular</p></div>
   <div class="stats">
-    <div class="pill" id="cdpill">⏳ Calculando...</div>
-    <div class="pill">✅ <span id="tdone">0</span> concluídos</div>
-    <div class="pill">📚 <span id="ttotal">0</span> total</div>
+    <div class="pill" id="cdpill">⏳ ...</div>
+    <div class="pill streak" id="streakpill">🔥 0 dias</div>
+    <div class="pill">✅ <span id="tdone">0</span>/<span id="ttotal">0</span></div>
     <div class="pill">🎯 <span id="tpct">0%</span></div>
-    <button class="reset-btn" onclick="resetAll()">🔄 Resetar</button>
+    <button class="reset-btn" style="background:none;border:1.5px solid #f9c6e0;border-radius:999px;padding:4px 10px;font-size:10px;font-weight:700;color:#9e5070;cursor:pointer;font-family:sans-serif" onclick="resetAll()">🔄 Resetar</button>
   </div>
 </div>
 <div class="tabs">
   <div class="tab active" onclick="switchTab('tracker')">📋 Tópicos</div>
-  <div class="tab" onclick="switchTab('erros')">❌ Controle de Erros</div>
-  <div class="tab" onclick="switchTab('metas')">🎯 Metas Semanais</div>
+  <div class="tab" onclick="switchTab('progresso')">📊 Progresso</div>
+  <div class="tab" onclick="switchTab('erros')">❌ Erros</div>
+  <div class="tab" onclick="switchTab('flash')">🃏 Flashcards</div>
+  <div class="tab" onclick="switchTab('simul')">📝 Simulados</div>
+  <div class="tab" onclick="switchTab('revisao')">📆 Revisão</div>
+  <div class="tab" onclick="switchTab('ctrl')">⏱️ Controle</div>
+  <div class="tab" onclick="switchTab('metas')">🎯 Metas</div>
   <div class="tab" onclick="switchTab('cron')">📅 Cronograma</div>
+  <div class="tab" onclick="switchTab('diaprova')">✅ Dia da Prova</div>
+  <div class="tab" onclick="switchTab('dicas')">💡 Dicas</div>
 </div>
 <div class="main">
 
@@ -167,21 +322,173 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
 
 <div class="panel active" id="panel-tracker">
   <div class="ov-grid" id="overview"></div>
-  <div class="sec-title">📌 Tópicos mais cobrados — clique para marcar</div>
+  <div class="sec-title">📌 Tópicos — clique no status para alterar</div>
+  <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+    <span style="font-size:11px;font-weight:700;color:#9e5070">Status:</span>
+    <span style="background:#fce4f2;color:#9e5070;border-radius:999px;padding:2px 8px;font-size:10px;font-weight:700">📚 Não vi</span>
+    <span style="background:#fff3e0;color:#e65100;border-radius:999px;padding:2px 8px;font-size:10px;font-weight:700">📖 Estudando</span>
+    <span style="background:#e8f0ff;color:#1565c0;border-radius:999px;padding:2px 8px;font-size:10px;font-weight:700">🔄 Revisando</span>
+    <span style="background:#e8fff2;color:#2e7d32;border-radius:999px;padding:2px 8px;font-size:10px;font-weight:700">✅ Dominei</span>
+  </div>
   <div class="cards-grid" id="cards"></div>
-  <div class="footer"><div class="footer-q">🌷 "A disciplina de hoje é a aprovação de amanhã."</div><div class="footer-r">UERJ 2027 · Você consegue! 💪</div></div>
+  <div class="footer"><div class="footer-q" style="font-size:13px;font-style:italic;color:#e91e8c;font-weight:700">🌷 "A disciplina de hoje é a aprovação de amanhã."</div></div>
+</div>
+
+<!-- PROGRESSO -->
+
+<div class="panel" id="panel-progresso">
+  <div class="sec-title">📊 Progresso por Matéria</div>
+  <div class="prog-top">
+    <div class="chart-card">
+      <div class="chart-title">🍕 Distribuição de Domínio</div>
+      <canvas id="pizza-chart" width="260" height="260"></canvas>
+      <div id="pizza-legend" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">📈 Progresso por Matéria</div>
+      <canvas id="bar-chart" width="400" height="260"></canvas>
+    </div>
+  </div>
+  <div class="sec-title">🚦 Alerta de Prioridade</div>
+  <div class="prio-grid" id="prio-grid"></div>
+  <div class="footer" style="margin-top:16px"><div class="footer-q" style="font-size:13px;font-style:italic;color:#e91e8c;font-weight:700">🌷 "Visualize seu progresso e celebre cada vitória!"</div></div>
 </div>
 
 <!-- ERROS -->
 
 <div class="panel" id="panel-erros">
-  <div class="sec-title">❌ Controle de Erros por Assunto</div>
+  <div class="sec-title">❌ Controle de Erros</div>
   <div class="ranking-card">
-    <div class="sec-title" style="font-size:14px;margin-bottom:12px">🏆 Ranking — Assuntos que você mais erra</div>
-    <div id="ranking-list"><div class="empty">Nenhum erro registrado ainda. Adicione erros abaixo!</div></div>
+    <div class="sec-title" style="font-size:13px;margin-bottom:8px">🏆 Ranking — o que você mais erra</div>
+    <div id="ranking-list"><div class="empty">Nenhum erro ainda!</div></div>
+    <div class="causa-summary" id="causa-summary"></div>
   </div>
-  <div class="erros-top" id="erros-grid"></div>
-  <div class="footer"><div class="footer-q">🌷 "Erro é aprendizado. Registre e supere!"</div><div class="footer-r">UERJ 2027 · Você consegue! 💪</div></div>
+  <div class="erro-layout" id="erros-grid"></div>
+  <div class="footer" style="margin-top:14px"><div class="footer-q" style="font-size:13px;font-style:italic;color:#e91e8c;font-weight:700">🌷 "Erro é aprendizado. Registre e supere!"</div></div>
+</div>
+
+<!-- FLASHCARDS -->
+
+<div class="panel" id="panel-flash">
+  <div class="sec-title">🃏 Flashcards — clique para virar</div>
+  <div class="fc-filter" id="fc-filter"></div>
+  <div class="fc-stats">
+    <div class="fc-stat"><b id="fc-total">0</b>cards</div>
+    <div class="fc-stat"><b id="fc-acertos" style="color:#2e7d32">0</b>acertos</div>
+    <div class="fc-stat"><b id="fc-errados" style="color:#c62828">0</b>erros</div>
+    <div class="fc-stat"><b id="fc-pct">0%</b>aproveit.</div>
+  </div>
+  <div class="fc-area">
+    <div class="fc-card-wrap">
+      <div class="fc-card" id="fc-card" onclick="flipCard()">
+        <div class="fc-front">
+          <div class="fc-label">pergunta</div>
+          <div class="fc-subj-badge" id="fc-subj-badge"></div>
+          <div class="fc-question" id="fc-question">Selecione uma matéria acima!</div>
+          <div class="fc-hint" id="fc-hint"></div>
+        </div>
+        <div class="fc-back">
+          <div class="fc-label">resposta</div>
+          <div class="fc-answer" id="fc-answer"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-prog-text" id="fc-prog-text"></div>
+    <div class="fc-controls">
+      <button class="fc-btn red" onclick="fcErro()">❌ Errei</button>
+      <button class="fc-btn" onclick="fcPular()">⏭️ Pular</button>
+      <button class="fc-btn green" onclick="fcAcerto()">✅ Acertei</button>
+    </div>
+  </div>
+  <div class="footer" style="margin-top:18px"><div class="footer-q" style="font-size:13px;font-style:italic;color:#e91e8c;font-weight:700">🌷 "Revisar é a chave da memória!"</div></div>
+</div>
+
+<!-- SIMULADOS -->
+
+<div class="panel" id="panel-simul">
+  <div class="sec-title">📝 Simuladômetro por Matéria</div>
+  <div class="sim-layout">
+    <div class="sim-card">
+      <div class="sim-hdr">➕ Adicionar Simulado</div>
+      <div class="sim-body">
+        <div class="sim-row"><span class="sim-label">Nome</span><input class="sim-inp" id="snome" placeholder="Ex: UERJ 2024 - 1º Exame"></div>
+        <div class="sim-row"><span class="sim-label">Data</span><input class="sim-inp" type="date" id="sdata"></div>
+        <div style="font-size:11px;font-weight:700;color:#9e5070;margin-bottom:8px">Acertos por matéria (0–10):</div>
+        <div id="sim-inputs-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px"></div>
+        <button class="sim-add-btn" onclick="addSim()">+ Registrar simulado</button>
+      </div>
+    </div>
+    <div class="sim-card">
+      <div class="sim-hdr">📊 Histórico de Simulados</div>
+      <div class="sim-body">
+        <div id="sim-list"><div class="empty">Nenhum simulado ainda!</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer" style="margin-top:14px"><div class="footer-q" style="font-size:13px;font-style:italic;color:#e91e8c;font-weight:700">🌷 "Simule, analise e evolua!"</div></div>
+</div>
+
+<!-- REVISÃO -->
+
+<div class="panel" id="panel-revisao">
+  <div class="sec-title">📆 Calendário de Revisão Espaçada</div>
+  <p style="font-size:11.5px;color:#9e5070;margin-bottom:14px">Adicione um tópico que você estudou hoje. O sistema vai te avisar quando revisar: <strong>1 dia → 3 dias → 7 dias → 14 dias → 30 dias depois.</strong></p>
+  <div class="rev-layout">
+    <div class="rev-card">
+      <div class="rev-hdr">📌 Adicionar para revisão</div>
+      <div class="rev-body">
+        <div class="rev-add-row">
+          <input class="rev-inp" id="rev-inp" placeholder="Ex: Funções de 1º grau, Lei de Mendel...">
+          <button class="rev-add-btn" onclick="addRev()">+ Adicionar</button>
+        </div>
+        <div class="rev-list" id="rev-urgent">
+          <div style="font-size:11px;font-weight:700;color:#c62828;margin-bottom:5px">🔴 Revisar HOJE ou atrasado</div>
+          <div id="rev-list-urgent"><div class="empty">Nada urgente!</div></div>
+        </div>
+        <div style="margin-top:10px">
+          <div style="font-size:11px;font-weight:700;color:#f57f17;margin-bottom:5px">🟡 Revisar em breve</div>
+          <div id="rev-list-soon"><div class="empty">Nada em breve!</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-hdr">✅ Revisados / em dia</div>
+      <div class="rev-body">
+        <div id="rev-list-ok"><div class="empty">Nenhum tópico ainda.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer" style="margin-top:14px"><div class="footer-q" style="font-size:13px;font-style:italic;color:#e91e8c;font-weight:700">🌷 "Revisar certo é estudar menos e aprender mais!"</div></div>
+</div>
+
+<!-- CONTROLE -->
+
+<div class="panel" id="panel-ctrl">
+  <div class="sec-title">⏱️ Controle de Estudos</div>
+  <div class="ctrl-layout">
+    <div class="ctrl-card">
+      <div class="ctrl-hdr">🔥 Streak — Dias Seguidos</div>
+      <div class="ctrl-body">
+        <div class="streak-display">
+          <div style="font-size:32px">🔥</div>
+          <div class="streak-num" id="streak-num">0</div>
+          <div class="streak-label">dias estudando seguidos</div>
+        </div>
+        <button class="ctrl-add-btn" style="width:100%;margin-top:4px" onclick="registrarHoje()">✅ Estudei hoje!</button>
+        <div style="font-size:10px;color:#9e5070;text-align:center;margin-top:6px" id="hoje-status"></div>
+      </div>
+    </div>
+    <div class="ctrl-card">
+      <div class="ctrl-hdr">⏱️ Horas por Dia</div>
+      <div class="ctrl-body">
+        <div class="ctrl-row"><span class="ctrl-label">Data</span><input class="ctrl-inp" type="date" id="log-data"></div>
+        <div class="ctrl-row"><span class="ctrl-label">Horas</span><input class="ctrl-inp" type="number" id="log-horas" placeholder="Ex: 3.5" step="0.5" min="0" max="24"></div>
+        <button class="ctrl-add-btn" onclick="addLog()">+ Registrar</button>
+        <div class="log-list" id="log-list"></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer" style="margin-top:14px"><div class="footer-q" style="font-size:13px;font-style:italic;color:#e91e8c;font-weight:700">🌷 "Consistência bate intensidade todos os dias!"</div></div>
 </div>
 
 <!-- METAS -->
@@ -201,91 +508,158 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
       </div>
       <div class="meta-add">
         <input class="meta-inp" id="minp" placeholder="Ex: Estudar funções de 1º grau..." onkeydown="if(event.key==='Enter')addMeta()">
-        <button class="meta-add-btn" onclick="addMeta()">+ Adicionar</button>
+        <button class="meta-add-btn" onclick="addMeta()">+ Add</button>
       </div>
       <div class="meta-list" id="mlist"></div>
       <div class="meta-prog">
-        <div class="meta-prog-lbl"><span>Progresso da semana</span><span id="mpct">0%</span></div>
+        <div class="meta-prog-lbl"><span>Progresso</span><span id="mpct">0%</span></div>
         <div class="meta-prog-bg"><div class="meta-prog-fill" id="mfill" style="width:0%"></div></div>
       </div>
     </div>
     <div class="meta-card">
       <div class="meta-hdr"><div class="meta-hdr-title">📝 Anotações Gerais</div></div>
-      <div style="padding:14px 16px">
-        <textarea class="note-ta" id="gnote" style="min-height:180px;width:100%" placeholder="Escreva suas anotações, dúvidas e lembretes..."></textarea>
-        <div style="margin-top:6px;display:flex;align-items:center;gap:8px">
+      <div style="padding:12px 14px">
+        <textarea class="note-ta" id="gnote" style="min-height:170px;width:100%;border:1.5px solid #f9c6e0;border-radius:7px;padding:7px 9px;font-size:11.5px;font-family:sans-serif;color:#4a1a35;background:#fdf0f8;resize:vertical;outline:none" placeholder="Suas anotações, dúvidas e lembretes..."></textarea>
+        <div style="margin-top:5px;display:flex;align-items:center;gap:7px">
           <button class="save-btn" onclick="saveGNote()">💾 Salvar</button>
           <span class="saved-msg" id="gnsaved">✓ Salvo!</span>
         </div>
       </div>
     </div>
   </div>
-  <div style="margin-top:20px">
-    <div class="sec-title" style="font-size:14px">📊 Histórico</div>
-    <div id="hist" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px"></div>
+  <div style="margin-top:16px">
+    <div class="sec-title" style="font-size:13px">📊 Histórico</div>
+    <div id="hist" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px"></div>
   </div>
-  <div class="footer"><div class="footer-q">🌷 "Uma meta por vez, uma vitória por vez."</div><div class="footer-r">UERJ 2027 💪</div></div>
+  <div class="footer" style="margin-top:14px"><div class="footer-q" style="font-size:13px;font-style:italic;color:#e91e8c;font-weight:700">🌷 "Uma meta por vez, uma vitória por vez."</div></div>
 </div>
 
 <!-- CRONOGRAMA -->
 
 <div class="panel" id="panel-cron">
-  <div class="sec-title">📅 Cronograma Semanal — 3 blocos por dia · 14h às 19h30</div>
+  <div class="sec-title">📅 Cronograma Semanal — 3 blocos · 14h–19h30</div>
   <div style="overflow-x:auto">
   <table class="cron-table">
-    <thead>
-      <tr>
-        <th style="width:70px"></th>
-        <th>☀️ Segunda</th>
-        <th>🌤️ Terça</th>
-        <th>🌸 Quarta</th>
-        <th>💫 Quinta</th>
-        <th>🌷 Sexta</th>
-        <th>🎀 Sábado</th>
-        <th>🌙 Domingo</th>
-      </tr>
-    </thead>
+    <thead><tr>
+      <th style="width:65px"></th>
+      <th>☀️ Segunda</th><th>🌤️ Terça</th><th>🌸 Quarta</th>
+      <th>💫 Quinta</th><th>🌷 Sexta</th><th>🎀 Sábado</th><th>🌙 Domingo</th>
+    </tr></thead>
     <tbody>
       <tr>
         <td class="time-cell">14h00<br>▼<br>15h30</td>
-        <td class="subj cs-mat"><span class="subj-icon">🔢</span><span class="subj-name">Matemática</span><div class="subj-topics"><span>→ Funções 1º/2º grau</span><span>→ Geometria plana</span><span>→ Razão e proporção</span></div></td>
-        <td class="subj cs-ing"><span class="subj-icon">🇬🇧</span><span class="subj-name">Inglês</span><div class="subj-topics"><span>→ Leitura e interpretação</span><span>→ Conectivos</span><span>→ Falsos cognatos</span></div></td>
-        <td class="subj cs-mat"><span class="subj-icon">🔢</span><span class="subj-name">Matemática</span><div class="subj-topics"><span>→ Geom. analítica</span><span>→ Trigonometria</span><span>→ Combinatória</span></div></td>
-        <td class="subj cs-fis"><span class="subj-icon">⚡</span><span class="subj-name">Física</span><div class="subj-topics"><span>→ Termodinâmica</span><span>→ Óptica geométrica</span><span>→ Eletromagnetismo</span></div></td>
-        <td class="subj cs-mat"><span class="subj-icon">🔢</span><span class="subj-name">Matemática</span><div class="subj-topics"><span>→ PA e PG</span><span>→ Probabilidade</span><span>→ Exercícios UERJ</span></div></td>
-        <td class="subj cs-por"><span class="subj-icon">📝</span><span class="subj-name">Português</span><div class="subj-topics"><span>→ Interpretação</span><span>→ Gêneros textuais</span><span>→ Figuras de linguagem</span></div></td>
-        <td class="subj cs-rev" rowspan="5" style="text-align:center;vertical-align:middle"><span style="font-size:32px">🌙</span><br><span class="subj-name" style="font-size:15px">Descanso</span><br><span style="font-size:11px;color:#9e5070;font-style:italic">Você merece!<br>Descanse e<br>volte mais forte 🌸</span></td>
+        <td class="subj cs-mat"><span class="subj-icon">🔢</span><span class="subj-name">Matemática</span><div class="subj-topics"><span>→ Funções 1º/2º grau</span><span>→ Geometria plana</span></div></td>
+        <td class="subj cs-ing"><span class="subj-icon">🇬🇧</span><span class="subj-name">Inglês</span><div class="subj-topics"><span>→ Leitura e interpretação</span><span>→ Conectivos</span></div></td>
+        <td class="subj cs-mat"><span class="subj-icon">🔢</span><span class="subj-name">Matemática</span><div class="subj-topics"><span>→ Geom. analítica</span><span>→ Trigonometria</span></div></td>
+        <td class="subj cs-fis"><span class="subj-icon">⚡</span><span class="subj-name">Física</span><div class="subj-topics"><span>→ Termodinâmica</span><span>→ Óptica</span></div></td>
+        <td class="subj cs-mat"><span class="subj-icon">🔢</span><span class="subj-name">Matemática</span><div class="subj-topics"><span>→ PA e PG</span><span>→ Probabilidade</span></div></td>
+        <td class="subj cs-por"><span class="subj-icon">📝</span><span class="subj-name">Português</span><div class="subj-topics"><span>→ Interpretação</span><span>→ Gêneros textuais</span></div></td>
+        <td class="subj cs-rev" rowspan="5" style="text-align:center;vertical-align:middle"><span style="font-size:26px">🌙</span><br><span class="subj-name">Descanso</span><br><span style="font-size:10px;color:#9e5070;font-style:italic">Você merece! 🌸</span></td>
       </tr>
       <tr>
-        <td class="time-cell" style="font-size:9.5px;opacity:0.6">15h30<br>▼<br>16h00</td>
-        <td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td>
+        <td class="time-cell" style="font-size:9px;opacity:0.6">15h30<br>▼<br>16h00</td>
+        <td class="pause-cell">☕</td><td class="pause-cell">☕</td><td class="pause-cell">☕</td><td class="pause-cell">☕</td><td class="pause-cell">☕</td><td class="pause-cell">☕</td>
       </tr>
       <tr>
         <td class="time-cell">16h00<br>▼<br>17h30</td>
-        <td class="subj cs-his"><span class="subj-icon">🌍</span><span class="subj-name">História</span><div class="subj-topics"><span>→ Guerras Mundiais</span><span>→ Era Vargas</span><span>→ Brasil República</span></div></td>
-        <td class="subj cs-fis"><span class="subj-icon">⚡</span><span class="subj-name">Física</span><div class="subj-topics"><span>→ Cinemática</span><span>→ Leis de Newton</span><span>→ Trabalho e energia</span></div></td>
-        <td class="subj cs-geo"><span class="subj-icon">🗺️</span><span class="subj-name">Geografia</span><div class="subj-topics"><span>→ Geopolítica</span><span>→ Biomas do Brasil</span><span>→ Urbanização</span></div></td>
-        <td class="subj cs-qui"><span class="subj-icon">⚗️</span><span class="subj-name">Química</span><div class="subj-topics"><span>→ Estequiometria</span><span>→ Soluções</span><span>→ Funções inorgânicas</span></div></td>
-        <td class="subj cs-fil"><span class="subj-icon">🤔</span><span class="subj-name">Filosofia</span><div class="subj-topics"><span>→ Platão · Kant</span><span>→ Iluminismo</span><span>→ Ética e política</span></div></td>
-        <td class="subj cs-bio"><span class="subj-icon">🧬</span><span class="subj-name">Biologia</span><div class="subj-topics"><span>→ Genética</span><span>→ Ecologia</span><span>→ Fisiologia humana</span></div></td>
+        <td class="subj cs-his"><span class="subj-icon">🌍</span><span class="subj-name">História</span><div class="subj-topics"><span>→ Guerras Mundiais</span><span>→ Era Vargas</span></div></td>
+        <td class="subj cs-fis"><span class="subj-icon">⚡</span><span class="subj-name">Física</span><div class="subj-topics"><span>→ Cinemática</span><span>→ Newton</span></div></td>
+        <td class="subj cs-geo"><span class="subj-icon">🗺️</span><span class="subj-name">Geografia</span><div class="subj-topics"><span>→ Geopolítica</span><span>→ Biomas</span></div></td>
+        <td class="subj cs-qui"><span class="subj-icon">⚗️</span><span class="subj-name">Química</span><div class="subj-topics"><span>→ Estequiometria</span><span>→ Soluções</span></div></td>
+        <td class="subj cs-fil"><span class="subj-icon">🤔</span><span class="subj-name">Filosofia</span><div class="subj-topics"><span>→ Platão · Kant</span><span>→ Ética</span></div></td>
+        <td class="subj cs-bio"><span class="subj-icon">🧬</span><span class="subj-name">Biologia</span><div class="subj-topics"><span>→ Genética</span><span>→ Ecologia</span></div></td>
       </tr>
       <tr>
-        <td class="time-cell" style="font-size:9.5px;opacity:0.6">17h30<br>▼<br>18h00</td>
-        <td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td><td class="pause-cell">☕ pausa</td>
+        <td class="time-cell" style="font-size:9px;opacity:0.6">17h30<br>▼<br>18h00</td>
+        <td class="pause-cell">☕</td><td class="pause-cell">☕</td><td class="pause-cell">☕</td><td class="pause-cell">☕</td><td class="pause-cell">☕</td><td class="pause-cell">☕</td>
       </tr>
       <tr>
         <td class="time-cell">18h00<br>▼<br>19h30</td>
-        <td class="subj cs-soc"><span class="subj-icon">👥</span><span class="subj-name">Sociologia</span><div class="subj-topics"><span>→ Marx · Durkheim</span><span>→ Desigualdade social</span><span>→ Movimentos sociais</span></div></td>
-        <td class="subj cs-qui"><span class="subj-icon">⚗️</span><span class="subj-name">Química</span><div class="subj-topics"><span>→ Atomística</span><span>→ Tabela periódica</span><span>→ Ligações químicas</span></div></td>
-        <td class="subj cs-bio"><span class="subj-icon">🧬</span><span class="subj-name">Biologia</span><div class="subj-topics"><span>→ Citologia</span><span>→ Evolução</span><span>→ Botânica</span></div></td>
-        <td class="subj cs-geo"><span class="subj-icon">🗺️</span><span class="subj-name">Geografia</span><div class="subj-topics"><span>→ Pop. e migrações</span><span>→ Cartografia</span><span>→ Meio ambiente</span></div></td>
-        <td class="subj cs-ing"><span class="subj-icon">🇬🇧</span><span class="subj-name">Inglês</span><div class="subj-topics"><span>→ Vocabulário</span><span>→ Tempos verbais</span><span>→ Questões UERJ</span></div></td>
-        <td class="subj cs-prova"><span class="subj-icon">📋</span><span class="subj-name">Prova Antiga</span><div class="subj-topics"><span>→ Simulado completo</span><span>→ Cronometrado</span><span>→ Revisão de erros</span></div></td>
+        <td class="subj cs-soc"><span class="subj-icon">👥</span><span class="subj-name">Sociologia</span><div class="subj-topics"><span>→ Marx · Durkheim</span><span>→ Desigualdade</span></div></td>
+        <td class="subj cs-qui"><span class="subj-icon">⚗️</span><span class="subj-name">Química</span><div class="subj-topics"><span>→ Atomística</span><span>→ Ligações</span></div></td>
+        <td class="subj cs-bio"><span class="subj-icon">🧬</span><span class="subj-name">Biologia</span><div class="subj-topics"><span>→ Citologia</span><span>→ Evolução</span></div></td>
+        <td class="subj cs-geo"><span class="subj-icon">🗺️</span><span class="subj-name">Geografia</span><div class="subj-topics"><span>→ Pop. e migrações</span><span>→ Meio ambiente</span></div></td>
+        <td class="subj cs-ing"><span class="subj-icon">🇬🇧</span><span class="subj-name">Inglês</span><div class="subj-topics"><span>→ Vocabulário</span><span>→ Questões UERJ</span></div></td>
+        <td class="subj cs-prova"><span class="subj-icon">📋</span><span class="subj-name">Prova Antiga</span><div class="subj-topics"><span>→ Simulado completo</span><span>→ Revisão de erros</span></div></td>
       </tr>
     </tbody>
   </table>
   </div>
-  <div class="footer" style="margin-top:16px"><div class="footer-q">🌷 "A disciplina de hoje é a aprovação de amanhã."</div><div class="footer-r">UERJ 2027 💪</div></div>
+  <div class="footer" style="margin-top:12px"><div class="footer-q" style="font-size:13px;font-style:italic;color:#e91e8c;font-weight:700">🌷 "A disciplina de hoje é a aprovação de amanhã."</div></div>
+</div>
+
+<!-- DIA DA PROVA -->
+
+<div class="panel" id="panel-diaprova">
+  <div class="sec-title">✅ Checklist do Dia da Prova</div>
+  <div class="diaprova-layout">
+    <div class="diaprova-card">
+      <div class="diaprova-hdr">📅 1 semana antes</div>
+      <div class="diaprova-list" id="dp-semana"></div>
+      <button class="dp-reset" onclick="resetDP('semana')">🔄 Resetar</button>
+    </div>
+    <div class="diaprova-card">
+      <div class="diaprova-hdr">🌙 Na véspera</div>
+      <div class="diaprova-list" id="dp-vespera"></div>
+      <button class="dp-reset" onclick="resetDP('vespera')">🔄 Resetar</button>
+    </div>
+    <div class="diaprova-card">
+      <div class="diaprova-hdr">☀️ Na manhã da prova</div>
+      <div class="diaprova-list" id="dp-manha"></div>
+      <button class="dp-reset" onclick="resetDP('manha')">🔄 Resetar</button>
+    </div>
+    <div class="diaprova-card">
+      <div class="diaprova-hdr">📋 Durante a prova</div>
+      <div class="diaprova-list" id="dp-durante"></div>
+      <button class="dp-reset" onclick="resetDP('durante')">🔄 Resetar</button>
+    </div>
+  </div>
+  <div class="footer" style="margin-top:14px"><div class="footer-q" style="font-size:13px;font-style:italic;color:#e91e8c;font-weight:700">🌷 "Preparação é metade da vitória!"</div></div>
+</div>
+
+<!-- DICAS -->
+
+<div class="panel" id="panel-dicas">
+  <div class="link-card">
+    <h3>🔗 Site Oficial — Vestibular UERJ 2027</h3>
+    <p>Acompanhe o edital, datas e comunicados oficiais</p>
+    <a class="link-btn" href="https://www.vestibular.uerj.br" target="_blank">Acessar vestibular.uerj.br →</a>
+  </div>
+  <div class="dicas-grid">
+    <div class="dica-card">
+      <div class="dica-hdr">📱 Apps Gratuitos</div>
+      <div class="dica-body">
+        <div class="dica-item"><div class="dica-title">Anki</div><div class="dica-text">Flashcards com repetição espaçada. Ótimo para fórmulas e datas.</div><a class="dica-link" href="https://apps.ankiweb.net" target="_blank">ankiweb.net →</a></div>
+        <div class="dica-item"><div class="dica-title">Khan Academy</div><div class="dica-text">Aulas gratuitas de Mat, Fís, Qui e Bio com exercícios.</div><a class="dica-link" href="https://pt.khanacademy.org" target="_blank">khanacademy.org →</a></div>
+        <div class="dica-item"><div class="dica-title">Duolingo</div><div class="dica-text">10-15 min por dia de inglês fazem muita diferença!</div><a class="dica-link" href="https://duolingo.com" target="_blank">duolingo.com →</a></div>
+      </div>
+    </div>
+    <div class="dica-card">
+      <div class="dica-hdr">🌐 Sites de Estudo</div>
+      <div class="dica-body">
+        <div class="dica-item"><div class="dica-title">Stoodi</div><div class="dica-text">Videoaulas e exercícios focados em vestibular com conteúdo UERJ.</div><a class="dica-link" href="https://www.stoodi.com.br" target="_blank">stoodi.com.br →</a></div>
+        <div class="dica-item"><div class="dica-title">Brasil Escola</div><div class="dica-text">Resumos completos de todas as matérias para revisão rápida.</div><a class="dica-link" href="https://brasilescola.uol.com.br" target="_blank">brasilescola.uol.com.br →</a></div>
+        <div class="dica-item"><div class="dica-title">Descomplica</div><div class="dica-text">Videoaulas curtas e objetivas para todo o conteúdo.</div><a class="dica-link" href="https://descomplica.com.br" target="_blank">descomplica.com.br →</a></div>
+      </div>
+    </div>
+    <div class="dica-card">
+      <div class="dica-hdr">💡 Como Estudar Melhor</div>
+      <div class="dica-body">
+        <div class="dica-item"><div class="dica-title">Técnica Pomodoro</div><div class="dica-text">25 min foco + 5 min pausa. Após 4 ciclos, pause 20 min.</div></div>
+        <div class="dica-item"><div class="dica-title">Revisão espaçada</div><div class="dica-text">Revise 1, 3, 7, 14 e 30 dias depois. A memória consolida muito melhor.</div></div>
+        <div class="dica-item"><div class="dica-title">Durma bem</div><div class="dica-text">O cérebro consolida o aprendizado no sono. 7-8h faz parte do estudo!</div></div>
+      </div>
+    </div>
+    <div class="dica-card">
+      <div class="dica-hdr">🎯 Dicas Específicas UERJ</div>
+      <div class="dica-body">
+        <div class="dica-item"><div class="dica-title">Leia o enunciado inteiro</div><div class="dica-text">A UERJ tem enunciados longos. Leia tudo com calma antes de responder.</div></div>
+        <div class="dica-item"><div class="dica-title">Interdisciplinaridade</div><div class="dica-text">A prova mistura matérias. Uma questão pode unir Bio, Port e Mat.</div></div>
+        <div class="dica-item"><div class="dica-title">Gerencie o tempo</div><div class="dica-text">60 questões = ~2 min por questão. Treine sempre com cronômetro.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer" style="margin-top:14px"><div class="footer-q" style="font-size:13px;font-style:italic;color:#e91e8c;font-weight:700">🌷 "Informação + dedicação = aprovação!"</div></div>
 </div>
 
 </div>
@@ -297,7 +671,7 @@ const S=[
     {tx:'Progressões (PA e PG)',tg:'med'},{tx:'Trigonometria',tg:'med'},{tx:'Geometria analítica',tg:'med'},{tx:'MMC e MDC',tg:'base'}]},
   {id:'fis',e:'⚡',n:'Física',ac:'ac-fis',t:[
     {tx:'Cinemática',tg:'hot'},{tx:'Leis de Newton',tg:'hot'},{tx:'Trabalho e energia',tg:'hot'},
-    {tx:'Eletrodinâmica (circuitos)',tg:'hot'},{tx:'Queda livre e lançamento',tg:'hot'},{tx:'Termologia',tg:'med'},
+    {tx:'Eletrodinâmica e lei de Ohm',tg:'hot'},{tx:'Queda livre',tg:'hot'},{tx:'Termologia',tg:'med'},
     {tx:'Óptica geométrica',tg:'med'},{tx:'Ondas e som',tg:'med'},{tx:'Eletrostática',tg:'base'}]},
   {id:'qui',e:'⚗️',n:'Química',ac:'ac-qui',t:[
     {tx:'Funções inorgânicas',tg:'hot'},{tx:'Estequiometria',tg:'hot'},{tx:'Soluções',tg:'hot'},
@@ -326,75 +700,540 @@ const S=[
     {tx:'Marx, Durkheim e Weber',tg:'hot'},{tx:'Desigualdade social no Brasil',tg:'hot'},{tx:'Movimentos sociais',tg:'hot'},
     {tx:'Racismo e questão racial',tg:'hot'},{tx:'Cultura e identidade',tg:'med'},{tx:'Globalização',tg:'med'}]}
 ];
-const K='uerj2027';
+const MOODS=['😴','😕','😐','🙂','🤩'];
+const MOOD_LABELS=['Muito cansado','Não rendeu','Mais ou menos','Fui bem','Me sai muito bem!'];
+const FC={
+  mat:[
+    {q:'Fórmula de Bhaskara',a:'x = (-b ± √Δ) / 2a, sendo Δ = b² - 4ac',h:'🔥 Cai toda prova!'},
+    {q:'Como calcular porcentagem? Ex: 30% de 200',a:'Valor × % ÷ 100. Ex: 200×30÷100 = 60',h:'🔥 Questões do cotidiano'},
+    {q:'Fórmula da probabilidade',a:'P = casos favoráveis ÷ casos totais (resultado entre 0 e 1)',h:'🔥 Muito cobrado'},
+    {q:'Juros compostos: fórmula',a:'M = C(1+i)ⁿ — M=montante, C=capital, i=taxa, n=período',h:'🔥 UERJ adora esse tema'},
+    {q:'Área do círculo e comprimento',a:'A = πr²  |  C = 2πr',h:'⭐ Geometria plana'},
+    {q:'Termo geral da PA',a:'aₙ = a₁ + (n−1)r   Soma: Sₙ = n(a₁+aₙ)/2',h:'⭐ PA e PG'},
+    {q:'Volume do cilindro',a:'V = πr²h (área da base × altura)',h:'🔥 Geom. espacial cresce na UERJ'},
+    {q:'Função do 1º grau: gráfico',a:'f(x) = ax + b. Gráfico = reta. a>0: crescente. a<0: decrescente.',h:'🔥 Base de tudo'},
+    {q:'Permutação vs Combinação',a:'Permutação: ordem importa (P=n!). Combinação: ordem NÃO importa (C=n!/k!(n-k)!)',h:'⭐'},
+    {q:'Área do triângulo',a:'A = (base × altura) / 2',h:'⭐ Base da geometria'}
+  ],
+  fis:[
+    {q:'Lei de Ohm',a:'V = R × I (Tensão = Resistência × Corrente). V=Volts, R=Ohms, I=Amperes.',h:'🔥 MAIS cobrado em Física na UERJ!'},
+    {q:'Energia cinética',a:'Ec = mv²/2. Dobrar a velocidade QUADRUPLICA a energia!',h:'🔥 Situações do cotidiano'},
+    {q:'Princípio de Arquimedes',a:'Empuxo = peso do fluido deslocado. E = d×V×g',h:'🔥 Cai com frequência'},
+    {q:'3 Leis de Newton',a:'1ª: Inércia. 2ª: F=ma. 3ª: Ação e reação iguais e opostas.',h:'⭐ Base de Física'},
+    {q:'Calor específico',a:'Q = m × c × ΔT. c = calor p/ elevar 1g em 1°C.',h:'🔥 Termologia muito cobrada'},
+    {q:'Equações do MUV',a:'v = v₀+at | s = s₀+v₀t+at²/2 | v² = v₀²+2aΔs',h:'⭐ MUV cai todo ano'},
+    {q:'Velocidade média',a:'vm = Δs/Δt = distância ÷ tempo',h:'⭐ Questões de trânsito'},
+    {q:'Potência elétrica',a:'P = V×I = V²/R = R×I² (Watts)',h:'⭐ Contas de luz, chuveiro'},
+    {q:'Queda livre',a:'Queda sob só a gravidade. g≈10m/s². Usa fórmulas MUV com a=g.',h:'⭐'},
+    {q:'Eletrostática: tipos de eletrização',a:'Atrito: troca de e⁻ por fricção. Contato: transferência direta. Indução: sem toque.',h:'🔥'}
+  ],
+  qui:[
+    {q:'Atomística: prótons, nêutrons, elétrons',a:'Prótons(+) e nêutrons(0) no núcleo. Elétrons(−) na eletrosfera. Z = nº de prótons.',h:'🔥 Base de Química'},
+    {q:'Funções inorgânicas: como identificar',a:'Ácido: libera H⁺. Base: libera OH⁻. Sal: cátion≠H⁺ e ânion≠OH⁻. Óxido: O + outro elemento.',h:'🔥 MUITO cobrado na UERJ'},
+    {q:'Estequiometria: passo a passo',a:'1) Balancear. 2) Converter para mols (m/M). 3) Proporção dos coeficientes. 4) Converter de volta.',h:'🔥 Recorrente'},
+    {q:'pH e escala',a:'pH<7=ácido | pH=7=neutro | pH>7=básico. pH = -log[H⁺]',h:'🔥 Situações do dia a dia'},
+    {q:'Ligações químicas',a:'Iônica: metal+não-metal (troca e⁻). Covalente: não-metal+não-metal (compartilha). Metálica: metal+metal.',h:'🔥'},
+    {q:'Concentração de soluções',a:'C = m/V (g/L) | Cm = n/V (mol/L). Diluição: C₁V₁ = C₂V₂',h:'⭐'},
+    {q:'Funções orgânicas: grupos funcionais',a:'Álcool: −OH. Ácido carboxílico: −COOH. Éster: −COO−. Aldeído: −CHO. Cetona: C=O interno.',h:'⭐'},
+    {q:'Reações: tipos principais',a:'Síntese: A+B→AB. Decomposição: AB→A+B. Simples troca: A+BC→AC+B. Dupla troca: AB+CD→AD+CB.',h:'⭐'},
+    {q:'Isótopos',a:'Mesmo Z (prótons), diferente A (nêutrons). Ex: ¹²C e ¹⁴C',h:'⭐'},
+    {q:'Exotérmica vs Endotérmica',a:'Exotérmica: libera calor (ΔH<0). Endotérmica: absorve calor (ΔH>0).',h:'⭐ Termoquímica'}
+  ],
+  bio:[
+    {q:'1ª Lei de Mendel',a:'Cada característica é determinada por um par de fatores que se separam na formação dos gametas.',h:'🔥 MAIS cobrado em Bio na UERJ!'},
+    {q:'2ª Lei de Mendel',a:'Fatores de pares diferentes se combinam independentemente (dihíbridos).',h:'🔥'},
+    {q:'Como ler um heredograma',a:'□=homem, ○=mulher, símbolo preenchido=afetado. Analise dominante/recessivo e autossômico/ligado ao sexo.',h:'🔥 Questão clássica da UERJ'},
+    {q:'Fases da fotossíntese',a:'Clara (tilacoides): usa luz, produz ATP e O₂. Escura (ciclo Calvin): usa ATP para fixar CO₂ e produzir glicose.',h:'🔥'},
+    {q:'Proteínas: estrutura',a:'Formadas por aminoácidos ligados por pontes peptídicas. Funções: enzimas, hormônios, anticorpos, estruturais.',h:'🔥 Bioquímica é eixo central'},
+    {q:'DNA vs RNA',a:'DNA: dupla fita, bases ATCG, no núcleo. RNA: fita simples, base U (uracila), síntese proteica.',h:'⭐'},
+    {q:'Cadeia alimentar',a:'Produtor→Consumidor primário→Secundário→Terciário→Decompositor.',h:'⭐ Ecologia'},
+    {q:'Respiração celular',a:'Glicose+O₂ → CO₂+H₂O+ATP. Ocorre na mitocôndria. ~38 ATPs por glicose.',h:'⭐'},
+    {q:'Mitose vs Meiose',a:'Mitose: 2 células idênticas (crescimento). Meiose: 4 células com metade dos cromossomos (gametas).',h:'⭐'},
+    {q:'Seleção natural (Darwin)',a:'Organismos com características mais adaptadas ao ambiente sobrevivem e se reproduzem mais.',h:'⭐'}
+  ],
+  his:[
+    {q:'Guerra Fria: o que foi e quais lados',a:'Disputa ideológica (1947-1991): EUA (capitalismo) vs URSS (socialismo). Sem confronto direto.',h:'🔥 MAIS cobrado em História na UERJ'},
+    {q:'Era Vargas: períodos',a:'1930-37: Governo Provisório. 1937-45: Estado Novo (ditadura). 1950-54: volta eleito. CLT, trabalhismo, industrialização.',h:'🔥'},
+    {q:'Ditadura Militar: datas e atos',a:'1964-1985. AI-5 (1968): mais duro — fechou Congresso, cassou habeas corpus. Abertura gradual. Diretas Já (1984).',h:'🔥'},
+    {q:'O que foi o AI-5',a:'Ato Institucional nº 5 (13/12/1968): fechou Congresso, suspendeu habeas corpus, permitiu cassações e tortura.',h:'🔥 Questão clássica'},
+    {q:'EUA após 2ª Guerra',a:'Plano Marshall (reconstrução Europa), ONU, NATO, dólar como moeda global (Bretton Woods).',h:'🔥 Contexto Guerra Fria'},
+    {q:'República Oligárquica (1894-1930)',a:'Política café-com-leite (SP e MG se alternavam). Coronelismo, voto de cabresto. Terminou com Revolução de 1930.',h:'⭐'},
+    {q:'2ª Guerra: causas e consequências',a:'Causas: crise 1929, nazifascismo, expansionismo. Consequências: ONU, Guerra Fria, criação de Israel.',h:'⭐'},
+    {q:'Revolução Francesa (1789)',a:'Causas: crise fiscal, iluminismo, desigualdade. Fases: Monarquia → República → Terror → Napoleão.',h:'⭐'},
+    {q:'Imperialismo do século XIX',a:'Expansão europeia sobre África e Ásia. Busca por matérias-primas e mercados. Causa da 1ª Guerra.',h:'⭐'},
+    {q:'Por que Vargas é central na história?',a:'Governou 1930-1945 e 1950-1954. Criou CLT, Petrobrás, voto feminino. Símbolo do trabalhismo.',h:'⭐'}
+  ],
+  geo:[
+    {q:'Urbanização brasileira',a:'Êxodo rural (1950-80) gerou megalópoles. Problemas: favelização, falta de saneamento, violência, segregação.',h:'🔥 MUITO cobrado (esp. Rio de Janeiro)'},
+    {q:'6 biomas brasileiros',a:'Amazônia (Norte), Cerrado (Centro-Oeste), Caatinga (Nordeste), Mata Atlântica (costa), Pampa (Sul), Pantanal (MT/MS).',h:'🔥 Questão clássica'},
+    {q:'Fontes de energia: renováveis vs não',a:'Renováveis: solar, eólica, hidrelétrica, biomassa. Não-renováveis: petróleo, carvão, gás natural.',h:'🔥'},
+    {q:'O que é segregação socioespacial',a:'Separação de grupos sociais no espaço urbano: ricos nos bairros nobres, pobres nas periferias/favelas.',h:'🔥 Tema recorrente UERJ'},
+    {q:'Efeito estufa e aquecimento global',a:'Gases (CO₂, metano) retêm calor. Consequências: geleiras derretem, nível do mar sobe, eventos extremos.',h:'⭐'},
+    {q:'O que é escala cartográfica',a:'Relação entre distância no mapa e na realidade. 1:100.000 = 1cm no mapa = 1km real.',h:'⭐'},
+    {q:'Blocos econômicos principais',a:'Mercosul (América do Sul), União Europeia, USMCA (América do Norte). Objetivo: facilitar comércio.',h:'⭐'},
+    {q:'Êxodo rural',a:'Migração em massa do campo para a cidade. Causas: mecanização da agricultura, busca por emprego.',h:'⭐'},
+    {q:'Pop. brasileira: características',a:'~215 milhões, 87% urbana, concentrada no Sudeste, envelhecimento crescente, alta miscigenação.',h:'⭐'},
+    {q:'O que é território',a:'Espaço definido por relações de poder. O Estado exerce soberania sobre seu território.',h:'⭐'}
+  ],
+  por:[
+    {q:'Estratégias UERJ: interpretação',a:'1) Leia o enunciado ANTES. 2) Identifique tese e argumentos. 3) Atenção a elementos não verbais. 4) Nunca extrapole.',h:'🔥 Habilidade PRINCIPAL da UERJ'},
+    {q:'Intertextualidade',a:'Relação entre textos: um referencia, parodia ou dialoga com outro. UERJ usa muito charge + texto verbal.',h:'🔥 Cai em quase todas as provas'},
+    {q:'Metáfora vs Metonímia',a:'Metáfora: comparação implícita ("Sua voz é mel"). Metonímia: parte pelo todo ("Bebeu o copo todo").',h:'🔥'},
+    {q:'Ironia: como identificar',a:'Dizer o contrário do que se quer expressar, com intenção crítica ou humorística. Pistas: contexto, exagero.',h:'⭐ Frequente em charges'},
+    {q:'Funções da linguagem',a:'Referencial: informar. Emotiva: sentimentos. Conativa: persuadir. Poética: forma. Fática: contato. Metalinguística: sobre a língua.',h:'⭐'},
+    {q:'Gêneros textuais mais cobrados na UERJ',a:'Crônica, charge, artigo de opinião, reportagem, poema, infográfico, anúncio. A UERJ adora textos multimodais.',h:'🔥'},
+    {q:'Coesão textual',a:'Articulação por conectivos, pronomes anafóricos, elipse e sinônimos. Garante a continuidade do texto.',h:'⭐'},
+    {q:'Conectivos mais cobrados',a:'Causa: porque/pois. Contraste: mas/porém/contudo. Conclusão: portanto/logo/assim.',h:'⭐ Essencial também para inglês'},
+    {q:'Variação linguística',a:'Variações por região (dialeto), classe social, faixa etária e situação (formal/informal).',h:'⭐'},
+    {q:'Hipérbole, eufemismo e antítese',a:'Hipérbole: exagero. Eufemismo: suavizar. Antítese: oposição de ideias.',h:'⭐'}
+  ]
+};
+const DP_ITEMS={
+  semana:['✏️ Resolver uma prova antiga completa cronometrada','📖 Fazer revisão leve dos tópicos mais cobrados','😴 Dormir cedo e regularizar o sono','📋 Separar todos os documentos necessários','🗺️ Verificar o local da prova e como chegar','📵 Reduzir redes sociais e estímulos desnecessários','🧘 Fazer algo relaxante que você goste'],
+  vespera:['📄 Separar documentos: RG/CPF e comprovante de inscrição','🎒 Preparar a mochila com caneta preta (2+), lápis, borracha','🍽️ Fazer uma refeição leve e nutritiva','🚫 NÃO estudar conteúdo novo — só revisão muito leve','⏰ Conferir o horário e o endereço da prova','📵 Evitar redes sociais e notícias','😴 Dormir cedo — pelo menos 7-8h de sono'],
+  manha:['☕ Tomar café da manhã leve e nutritivo','⏰ Sair com bastante antecedência (pelo menos 1h antes)','📄 Conferir se está com todos os documentos','🚫 Evitar conversar sobre conteúdo na fila','🧘 Respirar fundo e manter a calma','💧 Levar água e lanche leve','😊 Acreditar em você — você se preparou!'],
+  durante:['📖 Ler o enunciado inteiro antes de responder','🕐 Não gastar mais de 2 min por questão','⏭️ Pular questões difíceis e voltar depois','✏️ Rascunhar cálculos antes de marcar','🔍 Revisar as respostas antes de entregar','😤 Manter a calma se travar em uma questão','📝 Preencher o gabarito com atenção']
+};
+const K='uerj2027v3';
 let st={};
-try{st=JSON.parse(localStorage.getItem(K))||{};}catch(e){st={};}
-if(!st.c)st.c={};if(!st.n)st.n={};if(!st.m)st.m={};if(!st.gn)st.gn='';if(!st.er)st.er={};
+try{st=JSON.parse(localStorage.getItem(K))||{};}catch(e){}
+if(!st.s)st.s={};// status: 0=nao vi, 1=estudando, 2=revisando, 3=dominei
+if(!st.n)st.n={};// notes
+if(!st.md)st.md={};// moods
+if(!st.er)st.er={};// erros count
+if(!st.ec)st.ec={};// erro causas
+if(!st.m)st.m={};// metas
+if(!st.gn)st.gn='';
+if(!st.log)st.log=[];
+if(!st.streak)st.streak={count:0,lastDate:''};
+if(!st.sim)st.sim=[];
+if(!st.rev)st.rev=[];
+if(!st.dp)st.dp={};
+if(!st.fc)st.fc={acertos:0,erros:0};
 function sv(){try{localStorage.setItem(K,JSON.stringify(st));}catch(e){}}
-function cd(){const t=new Date('2027-06-01'),nw=new Date(),d=Math.ceil((t-nw)/86400000);document.getElementById('cdpill').textContent=d>0?'⏳ '+d+' dias para o UERJ':'🎉 Boa sorte!';}
+
+// COUNTDOWN
+function cd(){
+const t=new Date(‘2026-06-01’),nw=new Date();
+const diff=Math.ceil((t-nw)/86400000);
+const el=document.getElementById(‘cdpill’);
+if(diff>60)el.textContent=‘⏳ ‘+Math.ceil(diff/30)+’ meses para o UERJ’;
+else if(diff>0)el.textContent=‘⏳ ‘+diff+’ dias para o UERJ!’;
+else el.textContent=‘🎉 Boa sorte!’;
+}
 cd();
+
+// STREAK
+function calcStreak(){document.getElementById(‘streakpill’).textContent=‘🔥 ‘+st.streak.count+’ dias’;}
+calcStreak();
+function registrarHoje(){
+const today=new Date().toISOString().slice(0,10);
+if(st.streak.lastDate===today){document.getElementById(‘hoje-status’).textContent=‘✅ Já marcado hoje!’;return;}
+const yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+st.streak.count=st.streak.lastDate===yesterday?st.streak.count+1:1;
+st.streak.lastDate=today;sv();
+document.getElementById(‘hoje-status’).textContent=‘🎉 Streak: ‘+st.streak.count+’ dias!’;
+document.getElementById(‘streak-num’).textContent=st.streak.count;
+calcStreak();
+}
+
+// TABS
+const TABS=[‘tracker’,‘progresso’,‘erros’,‘flash’,‘simul’,‘revisao’,‘ctrl’,‘metas’,‘cron’,‘diaprova’,‘dicas’];
 function switchTab(tab){
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['tracker','erros','metas','cron'][i]===tab));
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('panel-'+tab).classList.add('active');
-  if(tab==='metas')renderMetas();
-  if(tab==='erros')renderErros();
+document.querySelectorAll(’.tab’).forEach((t,i)=>t.classList.toggle(‘active’,TABS[i]===tab));
+document.querySelectorAll(’.panel’).forEach(p=>p.classList.remove(‘active’));
+document.getElementById(‘panel-’+tab).classList.add(‘active’);
+if(tab===‘progresso’)renderProgresso();
+if(tab===‘erros’)renderErros();
+if(tab===‘flash’)renderFlash();
+if(tab===‘simul’)renderSimul();
+if(tab===‘revisao’)renderRevisao();
+if(tab===‘ctrl’)renderCtrl();
+if(tab===‘metas’)renderMetas();
+if(tab===‘diaprova’)renderDiaProva();
 }
-function stats(id){const s=S.find(x=>x.id===id);const done=s.t.filter((_,i)=>st.c[id+'_'+i]).length;return{done,total:s.t.length,pct:Math.round(done/s.t.length*100)};}
-function totals(){let d=0,t=0;S.forEach(s=>{const r=stats(s.id);d+=r.done;t+=r.total;});return{done:d,total:t,pct:t?Math.round(d/t*100):0};}
-function renderHeader(){const{done,total,pct}=totals();document.getElementById('tdone').textContent=done;document.getElementById('ttotal').textContent=total;document.getElementById('tpct').textContent=pct+'%';}
-function renderOverview(){document.getElementById('overview').innerHTML=S.slice(0,5).map(s=>{const{done,total,pct}=stats(s.id);return`<div class="ov-card"><div class="ov-top"><span class="ov-emoji">${s.e}</span><span class="ov-name">${s.n}</span></div><div class="ov-bar-bg"><div class="ov-bar" style="width:${pct}%"></div></div><div class="ov-pct">${done}/${total} · ${pct}%</div></div>`;}).join('');}
-function renderCards(){document.getElementById('cards').innerHTML=S.map(s=>{const{done,total,pct}=stats(s.id);const thtml=s.t.map((t,i)=>{const k=s.id+'_'+i,isDone=!!st.c[k];const tl=t.tg==='hot'?'🔥 Mais cobrado':t.tg==='med'?'⭐ Importante':'📖 Base';return`<div class="topic ${isDone?'done':''}" onclick="toggle('${k}')"><div class="chk">${isDone?'✓':''}</div><span class="ttext">${t.tx}</span><span class="ttag ${t.tg}">${tl}</span></div>`;}).join('');const nv=st.n[s.id]||'';return`<div class="card ${s.ac}"><div class="card-hdr"><div class="card-left"><span class="card-emoji">${s.e}</span><div><div class="card-title">${s.n}</div><div class="card-sub">${done}/${total} tópicos</div></div></div><div class="card-badge">${pct}%</div></div><div class="card-prog"><div class="card-prog-fill" style="width:${pct}%"></div></div><div class="topics">${thtml}</div><button class="note-btn" onclick="toggleNote('${s.id}')">📝 Anotações de ${s.n}</button><div class="note-wrap" id="nw-${s.id}"><textarea class="note-ta" id="nt-${s.id}" placeholder="Escreva suas anotações de ${s.n}...">${nv}</textarea><div style="display:flex;align-items:center;gap:6px;margin-top:5px"><button class="save-btn" onclick="saveNote('${s.id}')">💾 Salvar</button><span class="saved-msg" id="sv-${s.id}">✓ Salvo!</span></div></div></div>`;}).join('');}
-function toggle(k){st.c[k]=!st.c[k];sv();renderAll();}
-function toggleNote(id){document.getElementById('nw-'+id).classList.toggle('open');}
-function saveNote(id){st.n[id]=document.getElementById('nt-'+id).value;sv();const e=document.getElementById('sv-'+id);e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2000);}
-function saveGNote(){st.gn=document.getElementById('gnote').value;sv();const e=document.getElementById('gnsaved');e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2000);}
+
+// STATUS helpers
+function getStatusLabel(s){return[‘📚 Não vi’,‘📖 Estudando’,‘🔄 Revisando’,‘✅ Dominei’][s];}
+function getStatusClass(s){return[‘s0’,‘s1’,‘s2’,‘s3’][s];}
+function nextStatus(s){return(s+1)%4;}
+
+// STATS
+function subjStats(id){
+const sub=S.find(x=>x.id===id);
+const counts=[0,0,0,0];
+sub.t.forEach((*,i)=>{counts[st.s[id+’*’+i]||0]++;});
+const dominei=counts[3];
+const pct=Math.round(dominei/sub.t.length*100);
+const erroTotal=sub.t.reduce((a,*,i)=>a+(st.er[id+’*’+i]||0),0);
+return{counts,total:sub.t.length,dominei,pct,erroTotal};
+}
+function globalStats(){
+let d=0,t=0;
+S.forEach(s=>{const r=subjStats(s.id);d+=r.dominei;t+=r.total;});
+return{done:d,total:t,pct:t?Math.round(d/t*100):0};
+}
+function renderHeader(){
+const{done,total,pct}=globalStats();
+document.getElementById(‘tdone’).textContent=done;
+document.getElementById(‘ttotal’).textContent=total;
+document.getElementById(‘tpct’).textContent=pct+’%’;
+}
+
+// OVERVIEW
+function renderOverview(){
+document.getElementById(‘overview’).innerHTML=S.slice(0,5).map(s=>{
+const{pct,dominei,total}=subjStats(s.id);
+return`<div class="ov-card"><div class="ov-top"><span class="ov-emoji">${s.e}</span><span class="ov-name">${s.n}</span></div><div class="ov-bar-bg"><div class="ov-bar" style="width:${pct}%"></div></div><div class="ov-pct">${dominei}/${total} dominados · ${pct}%</div></div>`;
+}).join(’’);
+}
+
+// TRACKER CARDS
+function renderCards(){
+document.getElementById(‘cards’).innerHTML=S.map(s=>{
+const{pct,dominei,total,counts}=subjStats(s.id);
+const topicsHtml=s.t.map((t,i)=>{
+const k=s.id+’_’+i,sv2=st.s[k]||0;
+const tl=t.tg===‘hot’?‘🔥 Mais cobrado’:t.tg===‘med’?‘⭐ Importante’:‘📖 Base’;
+return`<div class="topic" data-s="${sv2}" onclick="cycleStatus('${k}',this)"> <button class="status-btn ${getStatusClass(sv2)}">${getStatusLabel(sv2)}</button> <span class="ttext">${t.tx}</span> <span class="ttag ${t.tg}">${tl}</span> </div>`;
+}).join(’’);
+const moodHistory=st.md[s.id]?st.md[s.id].slice(-3).map(m=>MOODS[m]).join(’ ‘):’’;
+const noteVal=st.n[s.id]||’’;
+return`<div class="card ${s.ac}"> <div class="card-hdr"> <div class="card-left"><span class="card-emoji">${s.e}</span><div><div class="card-title">${s.n}</div><div class="card-sub">${dominei}/${total} dominados</div></div></div> <div class="card-badge">${pct}%</div> </div> <div class="card-prog"><div class="card-prog-fill" style="width:${pct}%"></div></div> <div class="topics">${topicsHtml}</div> <button class="note-toggle" onclick="toggleNote('${s.id}')">📝 Anotações + Humor de ${s.n}</button> <div class="note-section" id="ns-${s.id}"> <div class="mood-row"> <span class="mood-label">Como foi hoje?</span> ${MOODS.map((m,i)=>`<button class="mood-opt ${(st.md[s.id]?.slice(-1)[0]===i)?'sel':''}" onclick="setMood('${s.id}',${i})" title="${MOOD_LABELS[i]}">${m}</button>`).join('')} ${moodHistory?`<span style="font-size:10px;color:#9e5070;margin-left:4px">Últimas: ${moodHistory}</span>`:''} </div> <textarea class="note-ta" id="nt-${s.id}" placeholder="Suas anotações de ${s.n}...">${noteVal}</textarea> <div style="display:flex;align-items:center;gap:5px;margin-top:4px"> <button class="save-btn" onclick="saveNote('${s.id}')">💾 Salvar</button> <span class="saved-msg" id="sv-${s.id}">✓ Salvo!</span> </div> </div> </div>`;
+}).join(’’);
+}
+
+function cycleStatus(k,el){
+const cur=st.s[k]||0;
+st.s[k]=nextStatus(cur);
+sv();
+el.setAttribute(‘data-s’,st.s[k]);
+el.querySelector(’.status-btn’).className=‘status-btn ‘+getStatusClass(st.s[k]);
+el.querySelector(’.status-btn’).textContent=getStatusLabel(st.s[k]);
+if(st.s[k]===3)el.querySelector(’.ttext’).style.textDecoration=‘line-through’;
+else el.querySelector(’.ttext’).style.textDecoration=‘none’;
+renderHeader();renderOverview();
+}
+function toggleNote(id){document.getElementById(‘ns-’+id).classList.toggle(‘open’);}
+function saveNote(id){st.n[id]=document.getElementById(‘nt-’+id).value;sv();const e=document.getElementById(‘sv-’+id);e.classList.add(‘show’);setTimeout(()=>e.classList.remove(‘show’),2000);}
+function setMood(id,val){
+if(!st.md[id])st.md[id]=[];
+st.md[id].push(val);
+if(st.md[id].length>10)st.md[id]=st.md[id].slice(-10);
+sv();renderCards();
+}
+function saveGNote(){st.gn=document.getElementById(‘gnote’).value;sv();const e=document.getElementById(‘gnsaved’);e.classList.add(‘show’);setTimeout(()=>e.classList.remove(‘show’),2000);}
+
+// PROGRESSO
+function renderProgresso(){
+// Pizza chart
+const counts=[0,0,0,0];
+S.forEach(s=>s.t.forEach((*,i)=>{counts[st.s[s.id+’*’+i]||0]++;}));
+const total=counts.reduce((a,b)=>a+b,0);
+const pizzaCanvas=document.getElementById(‘pizza-chart’);
+const ctx=pizzaCanvas.getContext(‘2d’);
+ctx.clearRect(0,0,260,260);
+const colors=[’#f9c6e0’,’#ffe0b0’,’#bbdefb’,’#c8e6c9’];
+const labels=[‘📚 Não vi’,‘📖 Estudando’,‘🔄 Revisando’,‘✅ Dominei’];
+let start=0;
+counts.forEach((c,i)=>{
+if(c===0)return;
+const slice=(c/total)*2*Math.PI;
+ctx.beginPath();ctx.moveTo(130,130);
+ctx.arc(130,130,110,start,start+slice);
+ctx.closePath();ctx.fillStyle=colors[i];ctx.fill();
+ctx.strokeStyle=‘white’;ctx.lineWidth=2;ctx.stroke();
+// percentage label
+const mid=start+slice/2;
+const lx=130+75*Math.cos(mid),ly=130+75*Math.sin(mid);
+ctx.fillStyle=’#4a1a35’;ctx.font=‘bold 12px sans-serif’;ctx.textAlign=‘center’;ctx.textBaseline=‘middle’;
+if(c/total>0.05)ctx.fillText(Math.round(c/total*100)+’%’,lx,ly);
+start+=slice;
+});
+document.getElementById(‘pizza-legend’).innerHTML=labels.map((l,i)=>`<span style="background:${colors[i]};border-radius:6px;padding:2px 8px;font-size:10px;font-weight:700;color:#4a1a35">${l}: ${counts[i]}</span>`).join(’’);
+
+// Bar chart
+const barCanvas=document.getElementById(‘bar-chart’);
+const bctx=barCanvas.getContext(‘2d’);
+bctx.clearRect(0,0,400,260);
+const barW=30,gap=10,startX=40;
+const maxVal=Math.max(…S.map(s=>subjStats(s.id).total));
+S.forEach((s,i)=>{
+const{counts:sc}=subjStats(s.id);
+const x=startX+i*(barW+gap);
+const barColors=[’#f9c6e0’,’#ffe0b0’,’#bbdefb’,’#c8e6c9’];
+let y=240;
+sc.forEach((c,j)=>{
+if(c===0)return;
+const h=Math.max((c/maxVal)*200,2);
+bctx.fillStyle=barColors[j];
+bctx.fillRect(x,y-h,barW,h);
+y-=h;
+});
+bctx.fillStyle=’#9e5070’;bctx.font=‘9px sans-serif’;bctx.textAlign=‘center’;
+bctx.fillText(s.e,x+barW/2,255);
+});
+// legend
+bctx.fillStyle=’#9e5070’;bctx.font=‘9px sans-serif’;bctx.textAlign=‘left’;
+[’#f9c6e0’,’#ffe0b0’,’#bbdefb’,’#c8e6c9’].forEach((c,i)=>{
+bctx.fillStyle=c;bctx.fillRect(5,10+i*16,12,10);
+bctx.fillStyle=’#4a1a35’;bctx.fillText([‘Não vi’,‘Estudando’,‘Revisando’,‘Dominei’][i],20,19+i*16);
+});
+
+// Priority cards
+const erroTotGlobal=Object.values(st.er).reduce((a,b)=>a+b,0)||1;
+document.getElementById(‘prio-grid’).innerHTML=S.map(s=>{
+const{pct,counts:sc,total:tot,erroTotal}=subjStats(s.id);
+const erroPct=Math.round(erroTotal/erroTotGlobal*100);
+let cls=‘prio-green’,badge=‘badge-green’,label=‘🟢 Em dia’;
+if(pct<30||erroPct>20){cls=‘prio-red’;badge=‘badge-red’;label=‘🔴 PRIORIDADE!’;}
+else if(pct<60||erroPct>10){cls=‘prio-yellow’;badge=‘badge-yellow’;label=‘🟡 Atenção’;}
+return`<div class="prio-card ${cls}"> <div class="prio-top"> <div class="prio-left"><span class="prio-emoji">${s.e}</span><span style="font-size:13px;font-weight:900">${s.n}</span></div> <span class="prio-badge ${badge}">${label}</span> </div> <div style="display:flex;flex-direction:column;gap:4px"> ${['Não vi','Estudando','Revisando','Dominei'].map((l,j)=>`
+<div style="display:flex;align-items:center;gap:6px">
+<span style="font-size:9.5px;font-weight:700;width:65px;flex-shrink:0">${[‘📚’,‘📖’,‘🔄’,‘✅’][j]} ${l}</span>
+<div style="flex:1;background:rgba(255,255,255,0.5);border-radius:999px;height:6px;overflow:hidden">
+<div style="width:${Math.round(sc[j]/tot*100)}%;height:100%;border-radius:999px;background:${ ['#f9c6e0','#ffa726','#42a5f5','#66bb6a'][j]};transition:width 0.5s"></div>
+</div>
+<span style="font-size:9px;font-weight:700;color:#9e5070;min-width:20px;text-align:right">${sc[j]}</span>
+</div>`).join('')} ${erroTotal>0?`<div style="font-size:10px;font-weight:700;color:#c62828;margin-top:3px">❌ ${erroTotal} erros registrados (${erroPct}% do total)</div>`:''} </div> </div>`;
+}).join(’’);
+}
+
 // ERROS
-function addErro(sid,idx){const k=sid+'_'+idx;if(!st.er[k])st.er[k]=0;st.er[k]++;sv();renderErros();}
-function subErro(sid,idx){const k=sid+'_'+idx;if(!st.er[k])st.er[k]=0;if(st.er[k]>0)st.er[k]--;sv();renderErros();}
-function renderErros(){
-  const totalErros=Object.values(st.er).reduce((a,b)=>a+b,0);
-  // Ranking global por assunto
-  let all=[];
-  S.forEach(s=>s.t.forEach((t,i)=>{const k=s.id+'_'+i;const cnt=st.er[k]||0;if(cnt>0)all.push({name:t.tx,subj:s.n,emoji:s.e,cnt});}));
-  all.sort((a,b)=>b.cnt-a.cnt);
-  const medals=['🥇','🥈','🥉'];
-  const rkEl=document.getElementById('ranking-list');
-  if(all.length===0){rkEl.innerHTML='<div class="empty">Nenhum erro registrado ainda. Adicione erros abaixo! 🌸</div>';}
-  else{rkEl.innerHTML=all.slice(0,10).map((x,i)=>{const pct=totalErros?Math.round(x.cnt/totalErros*100):0;return`<div class="ranking-item"><div class="rank-pos">${medals[i]||'#'+(i+1)}</div><div style="flex:1"><div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><span>${x.emoji}</span><span class="rank-name">${x.name}</span><span style="font-size:10px;color:#9e5070">${x.subj}</span></div><div class="rank-bar-bg"><div class="rank-bar" style="width:${pct}%"></div></div></div><div style="text-align:right;flex-shrink:0;margin-left:8px"><div class="rank-count">${x.cnt} erros</div><div class="rank-pct">${pct}%</div></div></div>`;}).join('');}
-  // Cards por matéria
-  document.getElementById('erros-grid').innerHTML=S.map(s=>{
-    const totalS=s.t.reduce((a,_,i)=>a+(st.er[s.id+'_'+i]||0),0);
-    const thtml=s.t.map((t,i)=>{
-      const k=s.id+'_'+i,cnt=st.er[k]||0;
-      const pct=totalErros?Math.round(cnt/totalErros*100):0;
-      return`<div class="erro-topic-row"><div style="flex:1"><div class="erro-topic-name">${t.tx}</div><div class="erro-bar-bg"><div class="erro-bar" style="width:${Math.min(pct*3,100)}%"></div></div></div><div class="erro-controls"><button class="erro-btn" onclick="subErro('${s.id}',${i})">−</button><span class="erro-count">${cnt}</span><button class="erro-btn" onclick="addErro('${s.id}',${i})">+</button></div></div>`;
-    }).join('');
-    return`<div class="erro-subj-card ${s.ac}"><div class="erro-subj-hdr"><div class="erro-subj-left"><span class="card-emoji">${s.e}</span><span class="erro-subj-name">${s.n}</span></div><div class="card-badge">${totalS} erros</div></div><div class="erro-topics-list">${thtml}</div></div>`;
-  }).join('');
+const CAUSAS=[
+{k:‘nunca’,label:‘🧠 Nunca vi’,cls:‘active-nunca’},
+{k:‘inter’,label:‘📖 Interpretação’,cls:‘active-inter’},
+{k:‘mem’,label:‘💭 Memória’,cls:‘active-mem’},
+{k:‘calc’,label:‘🔢 Cálculo’,cls:‘active-calc’},
+{k:‘tempo’,label:‘⏰ Tempo’,cls:‘active-tempo’}
+];
+function addErro(sid,idx){const k=sid+’*’+idx;st.er[k]=(st.er[k]||0)+1;sv();renderErros();}
+function subErro(sid,idx){const k=sid+’*’+idx;if(st.er[k]>0)st.er[k]–;sv();renderErros();}
+function toggleCausa(k,caus){
+if(!st.ec[k])st.ec[k]={};
+st.ec[k][caus]=!st.ec[k][caus];
+sv();renderErros();
 }
+function renderErros(){
+const tot=Object.values(st.er).reduce((a,b)=>a+b,0);
+let all=[];
+S.forEach(s=>s.t.forEach((t,i)=>{const k=s.id+’*’+i;const cnt=st.er[k]||0;if(cnt>0)all.push({name:t.tx,subj:s.n,emoji:s.e,cnt,k});}));
+all.sort((a,b)=>b.cnt-a.cnt);
+const medals=[‘🥇’,‘🥈’,‘🥉’];
+const rk=document.getElementById(‘ranking-list’);
+if(all.length===0){rk.innerHTML=’<div class="empty">Nenhum erro ainda!</div>’;}
+else{rk.innerHTML=all.slice(0,8).map((x,i)=>{const pct=tot?Math.round(x.cnt/tot*100):0;return`<div class="rank-item"><div class="rank-pos">${medals[i]||'#'+(i+1)}</div><div style="flex:1"><div style="display:flex;align-items:center;gap:5px;margin-bottom:2px"><span>${x.emoji}</span><span class="rank-name">${x.name}</span><span style="font-size:10px;color:#9e5070">${x.subj}</span></div><div class="rank-bar-bg"><div class="rank-bar" style="width:${pct}%"></div></div></div><div style="text-align:right;margin-left:7px"><div class="rank-cnt">${x.cnt}x</div><div class="rank-pct">${pct}%</div></div></div>`;}).join(’’);}
+// causa summary
+const causaCounts={};
+CAUSAS.forEach(c=>{causaCounts[c.k]=0;});
+Object.entries(st.ec).forEach(([k,causas])=>{
+const cnt=st.er[k]||0;
+if(cnt>0)Object.entries(causas).forEach(([c,v])=>{if(v&&causaCounts[c]!==undefined)causaCounts[c]+=cnt;});
+});
+document.getElementById(‘causa-summary’).innerHTML=`<div style="font-size:11px;font-weight:700;color:#9e5070;width:100%;margin-bottom:4px">📊 Por que você erra?</div>`+CAUSAS.map(c=>`<div class="cs-item"><span class="cs-num">${causaCounts[c.k]}</span>${c.label}</div>`).join(’’);
+// erro grid
+document.getElementById(‘erros-grid’).innerHTML=S.map(s=>{
+const totS=s.t.reduce((a,*,i)=>a+(st.er[s.id+’*’+i]||0),0);
+const thtml=s.t.map((t,i)=>{
+const k=s.id+’*’+i,cnt=st.er[k]||0;
+const pct=tot?Math.round(cnt/tot*100):0;
+const causasHtml=CAUSAS.map(c=>{
+const active=st.ec[k]?.[c.k];
+return`<button class="causa-btn ${active?c.cls:''}" onclick="toggleCausa('${k}','${c.k}')">${c.label}</button>`;
+}).join(’’);
+return`<div class="erro-row"> <div class="erro-row-top"> <span class="erro-name">${t.tx}</span> <button class="ebtn" onclick="subErro('${s.id}',${i})">−</button> <span class="erro-cnt">${cnt}</span> <button class="ebtn" onclick="addErro('${s.id}',${i})">+</button> </div> <div class="causa-row">${causasHtml}</div> ${cnt>0?`<div style="background:#fce4f2;border-radius:999px;height:4px;overflow:hidden;margin-top:4px"><div style="width:${Math.min(pct*4,100)}%;height:100%;background:linear-gradient(90deg,#f48cb1,#e91e8c);border-radius:999px"></div></div>`:''} </div>`;
+}).join(’’);
+return`<div class="erro-card ${s.ac}"><div class="erro-hdr"><div class="card-left"><span class="card-emoji">${s.e}</span><span class="card-title">${s.n}</span></div><div class="card-badge">${totS} erros</div></div><div class="erro-list">${thtml}</div></div>`;
+}).join(’’);
+}
+
+// FLASHCARDS
+let fcDeck=[],fcIdx=0,fcFlipped=false,fcFilter=‘all’;
+function buildDeck(f){
+fcDeck=[];
+const keys=f===‘all’?Object.keys(FC):[f];
+keys.forEach(k=>{if(FC[k])FC[k].forEach(c=>fcDeck.push({…c,subj:k}));});
+fcDeck=fcDeck.sort(()=>Math.random()-0.5);
+fcIdx=0;fcFlipped=false;
+}
+function renderFlash(){
+const snames={mat:‘Matemática’,fis:‘Física’,qui:‘Química’,bio:‘Biologia’,his:‘História’,geo:‘Geografia’,por:‘Português’};
+document.getElementById(‘fc-filter’).innerHTML=[‘all’,‘mat’,‘fis’,‘qui’,‘bio’,‘his’,‘geo’,‘por’].map(k=>`<button class="fc-filter-btn ${fcFilter===k?'active':''}" onclick="setFcFilter('${k}')">${k==='all'?'📚 Todas':snames[k]}</button>`).join(’’);
+if(fcDeck.length===0)buildDeck(fcFilter);
+showFcCard();
+document.getElementById(‘fc-total’).textContent=fcDeck.length;
+document.getElementById(‘fc-acertos’).textContent=st.fc.acertos;
+document.getElementById(‘fc-errados’).textContent=st.fc.erros;
+const t=st.fc.acertos+st.fc.erros;
+document.getElementById(‘fc-pct’).textContent=t?Math.round(st.fc.acertos/t*100)+’%’:‘0%’;
+}
+function setFcFilter(f){fcFilter=f;fcDeck=[];buildDeck(f);renderFlash();}
+function showFcCard(){
+if(!fcDeck.length)return;
+const c=fcDeck[fcIdx];
+const snames={mat:‘🔢 Matemática’,fis:‘⚡ Física’,qui:‘⚗️ Química’,bio:‘🧬 Biologia’,his:‘🌍 História’,geo:‘🗺️ Geografia’,por:‘📝 Português’};
+document.getElementById(‘fc-subj-badge’).textContent=snames[c.subj]||c.subj;
+document.getElementById(‘fc-question’).textContent=c.q;
+document.getElementById(‘fc-answer’).textContent=c.a;
+document.getElementById(‘fc-hint’).textContent=c.h?‘💡 ‘+c.h:’’;
+document.getElementById(‘fc-prog-text’).textContent=(fcIdx+1)+’ / ’+fcDeck.length;
+document.getElementById(‘fc-card’).classList.remove(‘flipped’);fcFlipped=false;
+}
+function flipCard(){document.getElementById(‘fc-card’).classList.toggle(‘flipped’);fcFlipped=!fcFlipped;}
+function fcAcerto(){if(!fcFlipped)return;st.fc.acertos++;sv();fcIdx=(fcIdx+1)%fcDeck.length;showFcCard();renderFlashStats();}
+function fcErro(){if(!fcFlipped)return;st.fc.erros++;sv();fcIdx=(fcIdx+1)%fcDeck.length;showFcCard();renderFlashStats();}
+function fcPular(){fcIdx=(fcIdx+1)%fcDeck.length;showFcCard();}
+function renderFlashStats(){
+document.getElementById(‘fc-acertos’).textContent=st.fc.acertos;
+document.getElementById(‘fc-errados’).textContent=st.fc.erros;
+const t=st.fc.acertos+st.fc.erros;
+document.getElementById(‘fc-pct’).textContent=t?Math.round(st.fc.acertos/t*100)+’%’:‘0%’;
+}
+
+// SIMULADOS
+function renderSimul(){
+const sg=document.getElementById(‘sim-inputs-grid’);
+sg.innerHTML=S.map(s=>`<div style="display:flex;align-items:center;gap:5px"><span style="font-size:12px">${s.e}</span><span style="font-size:11px;font-weight:700;flex:1">${s.n}</span><input type="number" id="sn-${s.id}" min="0" max="10" style="width:50px;border:1.5px solid #f9c6e0;border-radius:6px;padding:3px 6px;font-size:12px;font-family:sans-serif;background:#fdf0f8;outline:none" placeholder="0-10"></div>`).join(’’);
+renderSimList();
+}
+function addSim(){
+const nome=document.getElementById(‘snome’).value.trim();
+const data=document.getElementById(‘sdata’).value;
+if(!nome)return;
+const notas={};
+S.forEach(s=>{const v=document.getElementById(‘sn-’+s.id)?.value;notas[s.id]=v?parseInt(v):null;});
+st.sim.unshift({nome,data,notas,id:Date.now()});
+sv();document.getElementById(‘snome’).value=’’;document.getElementById(‘sdata’).value=’’;
+S.forEach(s=>{const el=document.getElementById(‘sn-’+s.id);if(el)el.value=’’;});
+renderSimList();
+}
+function delSim(id){st.sim=st.sim.filter(x=>x.id!==id);sv();renderSimList();}
+function renderSimList(){
+const el=document.getElementById(‘sim-list’);
+if(!st.sim.length){el.innerHTML=’<div class="empty">Nenhum simulado ainda!</div>’;return;}
+el.innerHTML=st.sim.map(s=>{
+const notasHtml=S.map(sub=>{
+const n=s.notas[sub.id];if(n===null||n===undefined)return’’;
+const cls=n>=7?‘nota-a’:n>=5?‘nota-b’:‘nota-c’;
+return`<span class="sim-nota-tag ${cls}">${sub.e} ${n}/10</span>`;
+}).join(’’);
+const total=S.reduce((a,sub)=>{const n=s.notas[sub.id];return n!==null&&n!==undefined?a+n:a;},0);
+const count=S.filter(sub=>s.notas[sub.id]!==null&&s.notas[sub.id]!==undefined).length;
+const avg=count?Math.round(total/count*10):0;
+const avgCls=avg>=70?‘nota-a’:avg>=50?‘nota-b’:‘nota-c’;
+return`<div class="sim-item"> <div class="sim-item-top"><span class="sim-nome">${s.nome}${s.data?' · '+s.data:''}</span><span class="sim-nota-tag ${avgCls}">${avg}%</span><button class="sim-del" onclick="delSim(${s.id})">✕</button></div> <div class="sim-notas-row">${notasHtml}</div> </div>`;
+}).join(’’);
+}
+
+// REVISÃO
+const REV_INTERVALS=[1,3,7,14,30];
+function addRev(){
+const inp=document.getElementById(‘rev-inp’),txt=inp.value.trim();
+if(!txt)return;
+const today=new Date().toISOString().slice(0,10);
+st.rev.push({topic:txt,added:today,reviews:[],nextRev:today,id:Date.now()});
+sv();inp.value=’’;renderRevisao();
+}
+function markReviewed(id){
+const item=st.rev.find(x=>x.id===id);
+if(!item)return;
+const today=new Date().toISOString().slice(0,10);
+item.reviews.push(today);
+const next=REV_INTERVALS[item.reviews.length]||null;
+if(next){const d=new Date(Date.now()+next*86400000);item.nextRev=d.toISOString().slice(0,10);}
+else item.nextRev=null;
+sv();renderRevisao();
+}
+function delRev(id){st.rev=st.rev.filter(x=>x.id!==id);sv();renderRevisao();}
+function renderRevisao(){
+const today=new Date().toISOString().slice(0,10);
+const soon=new Date(Date.now()+3*86400000).toISOString().slice(0,10);
+const urgent=[],s2=[],ok=[];
+st.rev.forEach(x=>{
+if(!x.nextRev){ok.push(x);return;}
+if(x.nextRev<=today)urgent.push(x);
+else if(x.nextRev<=soon)s2.push(x);
+else ok.push(x);
+});
+function itemHtml(x){
+const stage=x.reviews.length;
+const stageLabel=[‘1ª revisão’,‘2ª revisão’,‘3ª revisão’,‘4ª revisão’,‘5ª revisão’,‘✅ Concluído’][Math.min(stage,5)];
+return`<div class="rev-item ${x.nextRev&&x.nextRev<=today?'urgent':x.nextRev&&x.nextRev<=soon?'soon':'ok'}"> <div class="rev-item-top"> <span class="rev-topic-name">${x.topic}</span> <button class="rev-del" onclick="delRev(${x.id})">✕</button> </div> <div style="font-size:10px;color:#9e5070;margin-top:2px">${stageLabel}${x.nextRev?' · Próxima: '+x.nextRev:' · Completo!'}</div> ${x.nextRev?`<button class="rev-mark-btn" onclick="markReviewed(${x.id})">✅ Revisei!</button>`:''} </div>`;
+}
+document.getElementById(‘rev-list-urgent’).innerHTML=urgent.length?urgent.map(itemHtml).join(’’):’<div class="empty">Nada urgente! 🎉</div>’;
+document.getElementById(‘rev-list-soon’).innerHTML=s2.length?s2.map(itemHtml).join(’’):’<div class="empty">Nada em breve!</div>’;
+document.getElementById(‘rev-list-ok’).innerHTML=ok.length?ok.map(itemHtml).join(’’):’<div class="empty">Nenhum tópico ainda.</div>’;
+}
+
+// CONTROLE
+function addLog(){
+const data=document.getElementById(‘log-data’).value;
+const horas=parseFloat(document.getElementById(‘log-horas’).value);
+if(!data||isNaN(horas)||horas<=0)return;
+st.log.unshift({data,horas,id:Date.now()});
+sv();document.getElementById(‘log-data’).value=’’;document.getElementById(‘log-horas’).value=’’;
+renderCtrl();
+}
+function delLog(id){st.log=st.log.filter(x=>x.id!==id);sv();renderCtrl();}
+function renderCtrl(){
+document.getElementById(‘streak-num’).textContent=st.streak.count;
+const today=new Date().toISOString().slice(0,10);
+if(st.streak.lastDate===today)document.getElementById(‘hoje-status’).textContent=‘✅ Já estudou hoje!’;
+const totalH=st.log.reduce((a,b)=>a+b.horas,0);
+document.getElementById(‘log-list’).innerHTML=st.log.slice(0,10).map(l=>`<div class="log-item"><span class="log-date">📅 ${l.data}</span><span class="log-hours">${l.horas}h</span><button class="log-del" onclick="delLog(${l.id})">✕</button></div>`).join(’’)+(st.log.length?`<div style="font-size:11px;font-weight:700;color:#e91e8c;padding:5px 8px">Total: ${totalH.toFixed(1)}h</div>`:’’)||’<div class="empty">Nenhum registro ainda.</div>’;
+}
+
 // METAS
 let wk=0;
 function wkey(o=0){const n=new Date(),d=n.getDay(),m=new Date(n);m.setDate(n.getDate()-(d===0?6:d-1)+o*7);return m.toISOString().slice(0,10);}
-function wlbl(o=0){const n=new Date(),d=n.getDay(),m=new Date(n);m.setDate(n.getDate()-(d===0?6:d-1)+o*7);const s=new Date(m);s.setDate(m.getDate()+6);const f=x=>x.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});return f(m)+' – '+f(s);}
+function wlbl(o=0){const n=new Date(),d=n.getDay(),m=new Date(n);m.setDate(n.getDate()-(d===0?6:d-1)+o*7);const s=new Date(m);s.setDate(m.getDate()+6);const f=x=>x.toLocaleDateString(‘pt-BR’,{day:‘2-digit’,month:‘2-digit’});return f(m)+’ – ‘+f(s);}
 function changeWeek(dir){wk+=dir;renderMetas();}
-function addMeta(){const inp=document.getElementById('minp'),txt=inp.value.trim();if(!txt)return;const k=wkey(wk);if(!st.m[k])st.m[k]=[];st.m[k].push({tx:txt,done:false,id:Date.now()});sv();inp.value='';renderMetas();}
+function addMeta(){const inp=document.getElementById(‘minp’),txt=inp.value.trim();if(!txt)return;const k=wkey(wk);if(!st.m[k])st.m[k]=[];st.m[k].push({tx:txt,done:false,id:Date.now()});sv();inp.value=’’;renderMetas();}
 function toggleMeta(k,id){const item=st.m[k]?.find(x=>x.id===id);if(item){item.done=!item.done;sv();renderMetas();}}
 function delMeta(k,id){if(!st.m[k])return;st.m[k]=st.m[k].filter(x=>x.id!==id);sv();renderMetas();}
 function renderMetas(){
-  const k=wkey(wk);
-  document.getElementById('wlabel').textContent=wk===0?'Semana atual':wlbl(wk);
-  const its=st.m[k]||[];const done=its.filter(x=>x.done).length;const pct=its.length?Math.round(done/its.length*100):0;
-  document.getElementById('mlist').innerHTML=its.length===0?'<div class="empty">Nenhuma meta ainda 🌸</div>':its.map(m=>`<div class="meta-item ${m.done?'done-m':''}"><div class="mchk" onclick="toggleMeta('${k}',${m.id})">${m.done?'✓':''}</div><span class="mtext">${m.tx}</span><button class="mdel" onclick="delMeta('${k}',${m.id})">✕</button></div>`).join('');
-  document.getElementById('mpct').textContent=done+'/'+its.length+' · '+pct+'%';
-  document.getElementById('mfill').style.width=pct+'%';
-  document.getElementById('gnote').value=st.gn||'';
-  const allw=Object.keys(st.m).sort().reverse().slice(0,8);
-  document.getElementById('hist').innerHTML=allw.map(w=>{const it=st.m[w],d=it.filter(x=>x.done).length,p=it.length?Math.round(d/it.length*100):0;return`<div style="background:white;border-radius:12px;border:1.5px solid ${w===k?'#e91e8c':'#f9c6e0'};padding:10px 12px"><div style="font-size:10px;font-weight:700;color:#9e5070;margin-bottom:4px">📅 ${w}</div><div style="font-size:13px;font-weight:800;color:#e91e8c;margin-bottom:4px">${d}/${it.length} metas</div><div style="background:#fce4f2;border-radius:999px;height:6px;overflow:hidden"><div style="width:${p}%;height:100%;background:linear-gradient(90deg,#f48cb1,#e91e8c);border-radius:999px"></div></div><div style="font-size:10px;color:#9e5070;margin-top:3px;text-align:right">${p}%</div></div>`;}).join('')||'<div class="empty">Sem histórico ainda.</div>';
+const k=wkey(wk);
+document.getElementById(‘wlabel’).textContent=wk===0?‘Semana atual’:wlbl(wk);
+const its=st.m[k]||[];const done=its.filter(x=>x.done).length;const pct=its.length?Math.round(done/its.length*100):0;
+document.getElementById(‘mlist’).innerHTML=its.length===0?’<div class="empty">Nenhuma meta ainda 🌸</div>’:its.map(m=>`<div class="meta-item ${m.done?'done-m':''}"><div class="mchk" onclick="toggleMeta('${k}',${m.id})">${m.done?'✓':''}</div><span class="mtext">${m.tx}</span><button class="mdel" onclick="delMeta('${k}',${m.id})">✕</button></div>`).join(’’);
+document.getElementById(‘mpct’).textContent=done+’/’+its.length+’ · ‘+pct+’%’;
+document.getElementById(‘mfill’).style.width=pct+’%’;
+document.getElementById(‘gnote’).value=st.gn||’’;
+const allw=Object.keys(st.m).sort().reverse().slice(0,8);
+document.getElementById(‘hist’).innerHTML=allw.map(w=>{const it=st.m[w],d=it.filter(x=>x.done).length,p=it.length?Math.round(d/it.length*100):0;return`<div style="background:white;border-radius:11px;border:1.5px solid ${w===k?'#e91e8c':'#f9c6e0'};padding:8px 10px"><div style="font-size:10px;font-weight:700;color:#9e5070;margin-bottom:3px">📅 ${w}</div><div style="font-size:13px;font-weight:800;color:#e91e8c;margin-bottom:3px">${d}/${it.length} metas</div><div style="background:#fce4f2;border-radius:999px;height:5px;overflow:hidden"><div style="width:${p}%;height:100%;background:linear-gradient(90deg,#f48cb1,#e91e8c);border-radius:999px"></div></div><div style="font-size:10px;color:#9e5070;margin-top:2px;text-align:right">${p}%</div></div>`;}).join(’’)||’<div class="empty">Sem histórico.</div>’;
 }
-function resetAll(){if(confirm('Resetar todo o progresso? 🥺')){st={c:{},n:{},m:{},gn:'',er:{}};sv();renderAll();}}
+
+// DIA DA PROVA
+function renderDiaProva(){
+Object.keys(DP_ITEMS).forEach(section=>{
+const el=document.getElementById(‘dp-’+section);
+if(!st.dp[section])st.dp[section]={};
+el.innerHTML=DP_ITEMS[section].map((item,i)=>{
+const checked=!!st.dp[section][i];
+return`<div class="diaprova-item ${checked?'checked':''}" onclick="toggleDP('${section}',${i},this)"><div class="dp-chk">${checked?'✓':''}</div><span class="dp-text">${item}</span></div>`;
+}).join(’’);
+});
+}
+function toggleDP(section,idx,el){
+if(!st.dp[section])st.dp[section]={};
+st.dp[section][idx]=!st.dp[section][idx];
+sv();
+el.classList.toggle(‘checked’,st.dp[section][idx]);
+el.querySelector(’.dp-chk’).textContent=st.dp[section][idx]?‘✓’:’’;
+el.querySelector(’.dp-text’).style.textDecoration=st.dp[section][idx]?‘line-through’:‘none’;
+}
+function resetDP(section){st.dp[section]={};sv();renderDiaProva();}
+
+// RESET
+function resetAll(){
+if(confirm(‘Resetar TODO o progresso? 🥺\nIsso apagará tudo!’)){
+st={s:{},n:{},md:{},er:{},ec:{},m:{},gn:’’,log:[],streak:{count:0,lastDate:’’},sim:[],rev:[],dp:{},fc:{acertos:0,erros:0}};
+sv();renderAll();
+}
+}
 function renderAll(){renderHeader();renderOverview();renderCards();}
 renderAll();
 </script>
+
 </body>
 </html>
