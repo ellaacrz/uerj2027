@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -317,6 +318,7 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
 <div class="main">
 
 <!-- TRACKER -->
+
 <div class="panel active" id="panel-tracker">
   <div class="ov-grid" id="overview"></div>
   <div class="sec-title">📌 Tópicos — clique no status para alterar</div>
@@ -332,6 +334,7 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
 </div>
 
 <!-- PROGRESSO -->
+
 <div class="panel" id="panel-progresso">
   <div class="sec-title">📊 Progresso por Matéria</div>
   <div class="prog-top">
@@ -351,6 +354,7 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
 </div>
 
 <!-- ERROS -->
+
 <div class="panel" id="panel-erros">
   <div class="sec-title">❌ Controle de Erros</div>
   <div class="ranking-card">
@@ -363,6 +367,7 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
 </div>
 
 <!-- FLASHCARDS -->
+
 <div class="panel" id="panel-flash">
   <div class="sec-title">🃏 Flashcards — clique para virar</div>
   <div class="fc-filter" id="fc-filter"></div>
@@ -398,6 +403,7 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
 </div>
 
 <!-- SIMULADOS -->
+
 <div class="panel" id="panel-simul">
   <div class="sec-title">📝 Simuladômetro por Matéria</div>
   <div class="sim-layout">
@@ -421,9 +427,8 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
   <div class="footer" style="margin-top:14px"><div class="footer-q" style="font-size:13px;font-style:italic;color:#e91e8c;font-weight:700">🌷 "Simule, analise e evolua!"</div></div>
 </div>
 
-
-
 <!-- CONTROLE -->
+
 <div class="panel" id="panel-ctrl">
   <div class="sec-title">⏱️ Controle de Estudos</div>
   <div class="ctrl-layout">
@@ -453,6 +458,7 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
 </div>
 
 <!-- METAS -->
+
 <div class="panel" id="panel-metas">
   <div class="sec-title">🎯 Metas Semanais</div>
   <div class="metas-grid">
@@ -495,6 +501,7 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
 </div>
 
 <!-- CRONOGRAMA -->
+
 <div class="panel" id="panel-cron">
   <div class="sec-title">📅 Cronograma Semanal — 3 blocos · 14h–19h30</div>
   <div style="overflow-x:auto">
@@ -548,6 +555,7 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
 </div>
 
 <!-- DIA DA PROVA -->
+
 <div class="panel" id="panel-diaprova">
   <div class="sec-title">✅ Checklist do Dia da Prova</div>
   <div class="diaprova-layout">
@@ -576,6 +584,7 @@ body{font-family:sans-serif;background:#fdf0f8;color:#4a1a35;min-height:100vh}
 </div>
 
 <!-- DICAS -->
+
 <div class="panel" id="panel-dicas">
   <div class="link-card">
     <h3>🔗 Site Oficial — Vestibular UERJ 2027</h3>
@@ -772,456 +781,407 @@ function sv(){try{localStorage.setItem(K,JSON.stringify(st));}catch(e){}}
 
 // COUNTDOWN
 function cd(){
-  const t=new Date('2026-06-01'),nw=new Date();
-  const diff=Math.ceil((t-nw)/86400000);
-  const el=document.getElementById('cdpill');
-  if(diff>60)el.textContent='⏳ '+Math.ceil(diff/30)+' meses para o UERJ';
-  else if(diff>0)el.textContent='⏳ '+diff+' dias para o UERJ!';
-  else el.textContent='🎉 Boa sorte!';
+const t=new Date(‘2026-06-01’),nw=new Date();
+const diff=Math.ceil((t-nw)/86400000);
+const el=document.getElementById(‘cdpill’);
+if(diff>60)el.textContent=‘⏳ ‘+Math.ceil(diff/30)+’ meses para o UERJ’;
+else if(diff>0)el.textContent=‘⏳ ‘+diff+’ dias para o UERJ!’;
+else el.textContent=‘🎉 Boa sorte!’;
 }
 cd();
 
 // STREAK
-function calcStreak(){document.getElementById('streakpill').textContent='🔥 '+st.streak.count+' dias';}
+function calcStreak(){document.getElementById(‘streakpill’).textContent=‘🔥 ‘+st.streak.count+’ dias’;}
 calcStreak();
 function registrarHoje(){
-  const today=new Date().toISOString().slice(0,10);
-  if(st.streak.lastDate===today){document.getElementById('hoje-status').textContent='✅ Já marcado hoje!';return;}
-  const yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
-  st.streak.count=st.streak.lastDate===yesterday?st.streak.count+1:1;
-  st.streak.lastDate=today;sv();
-  document.getElementById('hoje-status').textContent='🎉 Streak: '+st.streak.count+' dias!';
-  document.getElementById('streak-num').textContent=st.streak.count;
-  calcStreak();
+const today=new Date().toISOString().slice(0,10);
+if(st.streak.lastDate===today){document.getElementById(‘hoje-status’).textContent=‘✅ Já marcado hoje!’;return;}
+const yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+st.streak.count=st.streak.lastDate===yesterday?st.streak.count+1:1;
+st.streak.lastDate=today;sv();
+document.getElementById(‘hoje-status’).textContent=‘🎉 Streak: ‘+st.streak.count+’ dias!’;
+document.getElementById(‘streak-num’).textContent=st.streak.count;
+calcStreak();
 }
 
 // TABS
-const TABS=['tracker','progresso','erros','flash','simul','ctrl','metas','cron','diaprova','dicas'];
+const TABS=[‘tracker’,‘progresso’,‘erros’,‘flash’,‘simul’,‘ctrl’,‘metas’,‘cron’,‘diaprova’,‘dicas’];
 function switchTab(tab){
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',TABS[i]===tab));
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('panel-'+tab).classList.add('active');
-  if(tab==='progresso')renderProgresso();
-  if(tab==='erros')renderErros();
-  if(tab==='flash')renderFlash();
-  if(tab==='simul')renderSimul();
-  if(tab==='ctrl')renderCtrl();
-  if(tab==='metas')renderMetas();
-  if(tab==='diaprova')renderDiaProva();
+document.querySelectorAll(’.tab’).forEach((t,i)=>t.classList.toggle(‘active’,TABS[i]===tab));
+document.querySelectorAll(’.panel’).forEach(p=>p.classList.remove(‘active’));
+document.getElementById(‘panel-’+tab).classList.add(‘active’);
+if(tab===‘progresso’)renderProgresso();
+if(tab===‘erros’)renderErros();
+if(tab===‘flash’)renderFlash();
+if(tab===‘simul’)renderSimul();
+if(tab===‘ctrl’)renderCtrl();
+if(tab===‘metas’)renderMetas();
+if(tab===‘diaprova’)renderDiaProva();
 }
 
 // STATUS helpers
-function getStatusLabel(s){return['📚 Não vi','📖 Estudando','🔄 Revisando','✅ Dominei'][s];}
-function getStatusClass(s){return['s0','s1','s2','s3'][s];}
+function getStatusLabel(s){return[‘📚 Não vi’,‘📖 Estudando’,‘🔄 Revisando’,‘✅ Dominei’][s];}
+function getStatusClass(s){return[‘s0’,‘s1’,‘s2’,‘s3’][s];}
 function nextStatus(s){return(s+1)%4;}
 
 // STATS
 function subjStats(id){
-  const sub=S.find(x=>x.id===id);
-  const counts=[0,0,0,0];
-  sub.t.forEach((_,i)=>{counts[st.s[id+'_'+i]||0]++;});
-  const dominei=counts[3];
-  const pct=Math.round(dominei/sub.t.length*100);
-  const erroTotal=sub.t.reduce((a,_,i)=>a+(st.er[id+'_'+i]||0),0);
-  return{counts,total:sub.t.length,dominei,pct,erroTotal};
+const sub=S.find(x=>x.id===id);
+const counts=[0,0,0,0];
+sub.t.forEach((*,i)=>{counts[st.s[id+’*’+i]||0]++;});
+const dominei=counts[3];
+const pct=Math.round(dominei/sub.t.length*100);
+const erroTotal=sub.t.reduce((a,*,i)=>a+(st.er[id+’*’+i]||0),0);
+return{counts,total:sub.t.length,dominei,pct,erroTotal};
 }
 function globalStats(){
-  let d=0,t=0;
-  S.forEach(s=>{const r=subjStats(s.id);d+=r.dominei;t+=r.total;});
-  return{done:d,total:t,pct:t?Math.round(d/t*100):0};
+let d=0,t=0;
+S.forEach(s=>{const r=subjStats(s.id);d+=r.dominei;t+=r.total;});
+return{done:d,total:t,pct:t?Math.round(d/t*100):0};
 }
 function renderHeader(){
-  const{done,total,pct}=globalStats();
-  document.getElementById('tdone').textContent=done;
-  document.getElementById('ttotal').textContent=total;
-  document.getElementById('tpct').textContent=pct+'%';
+const{done,total,pct}=globalStats();
+document.getElementById(‘tdone’).textContent=done;
+document.getElementById(‘ttotal’).textContent=total;
+document.getElementById(‘tpct’).textContent=pct+’%’;
 }
 
 // OVERVIEW
 function renderOverview(){
-  document.getElementById('overview').innerHTML=S.slice(0,5).map(s=>{
-    const{pct,dominei,total}=subjStats(s.id);
-    return`<div class="ov-card"><div class="ov-top"><span class="ov-emoji">${s.e}</span><span class="ov-name">${s.n}</span></div><div class="ov-bar-bg"><div class="ov-bar" style="width:${pct}%"></div></div><div class="ov-pct">${dominei}/${total} dominados · ${pct}%</div></div>`;
-  }).join('');
+document.getElementById(‘overview’).innerHTML=S.slice(0,5).map(s=>{
+const{pct,dominei,total}=subjStats(s.id);
+return`<div class="ov-card"><div class="ov-top"><span class="ov-emoji">${s.e}</span><span class="ov-name">${s.n}</span></div><div class="ov-bar-bg"><div class="ov-bar" style="width:${pct}%"></div></div><div class="ov-pct">${dominei}/${total} dominados · ${pct}%</div></div>`;
+}).join(’’);
+}
+
+// TOPIC MOOD
+function cycleMood(k,sid){
+if(!st.tm)st.tm={};
+const cur=st.tm[k];
+st.tm[k]=cur===undefined?0:(cur+1)%MOODS.length;
+sv();
+renderCards();
+}
+function moodRank(sid){
+if(!st.tm)return ‘<span style="font-size:10px;color:#ccc">clique em 😶 nos topicos</span>’;
+const s=S.find(x=>x.id===sid);
+const moods=s.t.map(function(*,i){return st.tm[sid+’*’+i];}).filter(function(m){return m!==undefined;});
+if(!moods.length)return ‘<span style="font-size:10px;color:#ccc">clique em 😶 nos topicos</span>’;
+const avg=Math.round(moods.reduce(function(a,b){return a+b;},0)/moods.length);
+const counts=[0,0,0,0,0];
+moods.forEach(function(m){counts[m]++;});
+var out=’<span style="font-size:15px">’+MOODS[avg]+’</span> <span style="font-size:10px;color:#9e5070">media</span> ‘;
+MOODS.forEach(function(m,i){if(counts[i]>0)out+=’<span style="font-size:12px">’+m+’<sup>’+counts[i]+’</sup></span> ’;});
+return out;
 }
 
 // TRACKER CARDS
 function renderCards(){
-  document.getElementById('cards').innerHTML=S.map(s=>{
-    const{pct,dominei,total,counts}=subjStats(s.id);
-    const topicsHtml=s.t.map((t,i)=>{
-      const k=s.id+'_'+i,sv2=st.s[k]||0;
-      const tl=t.tg==='hot'?'🔥 Mais cobrado':t.tg==='med'?'⭐ Importante':'📖 Base';
-      const tm=st.tm?.[k];
-      const moodIcon=tm!==undefined?MOODS[tm]:'😶';
-      return`<div class="topic" data-s="${sv2}" onclick="cycleStatus('${k}',this)">
-        <button class="status-btn ${getStatusClass(sv2)}">${getStatusLabel(sv2)}</button>
-        <span class="ttext">${t.tx}</span>
-        <span class="ttag ${t.tg}">${tl}</span>
-        <span style="font-size:15px;cursor:pointer;flex-shrink:0" onclick="event.stopPropagation();cycleMood('${k}','${s.id}')" title="Clique para registrar humor">${moodIcon}</span>
-      </div>`;
-    }).join('');
-    const noteVal=st.n[s.id]||'';
-    return`<div class="card ${s.ac}">
-      <div class="card-hdr">
-        <div class="card-left"><span class="card-emoji">${s.e}</span><div><div class="card-title">${s.n}</div><div class="card-sub">${dominei}/${total} dominados</div></div></div>
-        <div class="card-badge">${pct}%</div>
-      </div>
-      <div class="card-prog"><div class="card-prog-fill" style="width:${pct}%"></div></div>
-      <div style="padding:7px 13px 2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;border-bottom:1px solid #f9c6e0">
-        <span style="font-size:10px;font-weight:700;color:#9e5070">Humor:</span>
-        <span id="mood-rank-${s.id}">${moodRank(s.id)}</span>
-      </div>
-      <div class="topics">${topicsHtml}</div>
-      <button class="note-toggle" onclick="toggleNote('${s.id}')">📝 Anotações de ${s.n}</button>
-      <div class="note-section" id="ns-${s.id}">
-        <textarea class="note-ta" id="nt-${s.id}" placeholder="Suas anotações de ${s.n}...">${noteVal}</textarea>
-        <div style="display:flex;align-items:center;gap:5px;margin-top:4px">
-          <button class="save-btn" onclick="saveNote('${s.id}')">💾 Salvar</button>
-          <span class="saved-msg" id="sv-${s.id}">✓ Salvo!</span>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
+document.getElementById(‘cards’).innerHTML=S.map(s=>{
+const{pct,dominei,total,counts}=subjStats(s.id);
+const topicsHtml=s.t.map((t,i)=>{
+const k=s.id+’_’+i,sv2=st.s[k]||0;
+const tl=t.tg===‘hot’?‘🔥 Mais cobrado’:t.tg===‘med’?‘⭐ Importante’:‘📖 Base’;
+const tm=st.tm?.[k];
+const moodIcon=tm!==undefined?MOODS[tm]:‘😶’;
+return`<div class="topic" data-s="${sv2}" onclick="cycleStatus('${k}',this)"> <button class="status-btn ${getStatusClass(sv2)}">${getStatusLabel(sv2)}</button> <span class="ttext">${t.tx}</span> <span class="ttag ${t.tg}">${tl}</span> <span style="font-size:15px;cursor:pointer;flex-shrink:0" onclick="event.stopPropagation();cycleMood('${k}','${s.id}')" title="Clique para registrar humor">${moodIcon}</span> </div>`;
+}).join(’’);
+const noteVal=st.n[s.id]||’’;
+return`<div class="card ${s.ac}"> <div class="card-hdr"> <div class="card-left"><span class="card-emoji">${s.e}</span><div><div class="card-title">${s.n}</div><div class="card-sub">${dominei}/${total} dominados</div></div></div> <div class="card-badge">${pct}%</div> </div> <div class="card-prog"><div class="card-prog-fill" style="width:${pct}%"></div></div> <div style="padding:7px 13px 2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;border-bottom:1px solid #f9c6e0"> <span style="font-size:10px;font-weight:700;color:#9e5070">Humor:</span> <span id="mood-rank-${s.id}">${moodRank(s.id)}</span> </div> <div class="topics">${topicsHtml}</div> <button class="note-toggle" onclick="toggleNote('${s.id}')">📝 Anotações de ${s.n}</button> <div class="note-section" id="ns-${s.id}"> <textarea class="note-ta" id="nt-${s.id}" placeholder="Suas anotações de ${s.n}...">${noteVal}</textarea> <div style="display:flex;align-items:center;gap:5px;margin-top:4px"> <button class="save-btn" onclick="saveNote('${s.id}')">💾 Salvar</button> <span class="saved-msg" id="sv-${s.id}">✓ Salvo!</span> </div> </div> </div>`;
+}).join(’’);
 }
 
 function cycleStatus(k,el){
-  const cur=st.s[k]||0;
-  st.s[k]=nextStatus(cur);
-  sv();
-  el.setAttribute('data-s',st.s[k]);
-  el.querySelector('.status-btn').className='status-btn '+getStatusClass(st.s[k]);
-  el.querySelector('.status-btn').textContent=getStatusLabel(st.s[k]);
-  if(st.s[k]===3)el.querySelector('.ttext').style.textDecoration='line-through';
-  else el.querySelector('.ttext').style.textDecoration='none';
-  renderHeader();renderOverview();
+const cur=st.s[k]||0;
+st.s[k]=nextStatus(cur);
+sv();
+el.setAttribute(‘data-s’,st.s[k]);
+el.querySelector(’.status-btn’).className=‘status-btn ‘+getStatusClass(st.s[k]);
+el.querySelector(’.status-btn’).textContent=getStatusLabel(st.s[k]);
+if(st.s[k]===3)el.querySelector(’.ttext’).style.textDecoration=‘line-through’;
+else el.querySelector(’.ttext’).style.textDecoration=‘none’;
+renderHeader();renderOverview();
 }
-function toggleNote(id){document.getElementById('ns-'+id).classList.toggle('open');}
-function saveNote(id){st.n[id]=document.getElementById('nt-'+id).value;sv();const e=document.getElementById('sv-'+id);e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2000);}
+function toggleNote(id){document.getElementById(‘ns-’+id).classList.toggle(‘open’);}
+function saveNote(id){st.n[id]=document.getElementById(‘nt-’+id).value;sv();const e=document.getElementById(‘sv-’+id);e.classList.add(‘show’);setTimeout(()=>e.classList.remove(‘show’),2000);}
 function setMood(id,val){
-  if(!st.md[id])st.md[id]=[];
-  st.md[id].push(val);
-  if(st.md[id].length>10)st.md[id]=st.md[id].slice(-10);
-  sv();renderCards();
+if(!st.md[id])st.md[id]=[];
+st.md[id].push(val);
+if(st.md[id].length>10)st.md[id]=st.md[id].slice(-10);
+sv();renderCards();
 }
-function saveGNote(){st.gn=document.getElementById('gnote').value;sv();const e=document.getElementById('gnsaved');e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2000);}
+function saveGNote(){st.gn=document.getElementById(‘gnote’).value;sv();const e=document.getElementById(‘gnsaved’);e.classList.add(‘show’);setTimeout(()=>e.classList.remove(‘show’),2000);}
 
 // PROGRESSO
 function renderProgresso(){
-  // Pizza chart
-  const counts=[0,0,0,0];
-  S.forEach(s=>s.t.forEach((_,i)=>{counts[st.s[s.id+'_'+i]||0]++;}));
-  const total=counts.reduce((a,b)=>a+b,0);
-  const pizzaCanvas=document.getElementById('pizza-chart');
-  const ctx=pizzaCanvas.getContext('2d');
-  ctx.clearRect(0,0,260,260);
-  const colors=['#f9c6e0','#ffe0b0','#bbdefb','#c8e6c9'];
-  const labels=['📚 Não vi','📖 Estudando','🔄 Revisando','✅ Dominei'];
-  let start=0;
-  counts.forEach((c,i)=>{
-    if(c===0)return;
-    const slice=(c/total)*2*Math.PI;
-    ctx.beginPath();ctx.moveTo(130,130);
-    ctx.arc(130,130,110,start,start+slice);
-    ctx.closePath();ctx.fillStyle=colors[i];ctx.fill();
-    ctx.strokeStyle='white';ctx.lineWidth=2;ctx.stroke();
-    // percentage label
-    const mid=start+slice/2;
-    const lx=130+75*Math.cos(mid),ly=130+75*Math.sin(mid);
-    ctx.fillStyle='#4a1a35';ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
-    if(c/total>0.05)ctx.fillText(Math.round(c/total*100)+'%',lx,ly);
-    start+=slice;
-  });
-  document.getElementById('pizza-legend').innerHTML=labels.map((l,i)=>`<span style="background:${colors[i]};border-radius:6px;padding:2px 8px;font-size:10px;font-weight:700;color:#4a1a35">${l}: ${counts[i]}</span>`).join('');
+// Pizza chart
+const counts=[0,0,0,0];
+S.forEach(s=>s.t.forEach((*,i)=>{counts[st.s[s.id+’*’+i]||0]++;}));
+const total=counts.reduce((a,b)=>a+b,0);
+const pizzaCanvas=document.getElementById(‘pizza-chart’);
+const ctx=pizzaCanvas.getContext(‘2d’);
+ctx.clearRect(0,0,260,260);
+const colors=[’#f9c6e0’,’#ffe0b0’,’#bbdefb’,’#c8e6c9’];
+const labels=[‘📚 Não vi’,‘📖 Estudando’,‘🔄 Revisando’,‘✅ Dominei’];
+let start=0;
+counts.forEach((c,i)=>{
+if(c===0)return;
+const slice=(c/total)*2*Math.PI;
+ctx.beginPath();ctx.moveTo(130,130);
+ctx.arc(130,130,110,start,start+slice);
+ctx.closePath();ctx.fillStyle=colors[i];ctx.fill();
+ctx.strokeStyle=‘white’;ctx.lineWidth=2;ctx.stroke();
+// percentage label
+const mid=start+slice/2;
+const lx=130+75*Math.cos(mid),ly=130+75*Math.sin(mid);
+ctx.fillStyle=’#4a1a35’;ctx.font=‘bold 12px sans-serif’;ctx.textAlign=‘center’;ctx.textBaseline=‘middle’;
+if(c/total>0.05)ctx.fillText(Math.round(c/total*100)+’%’,lx,ly);
+start+=slice;
+});
+document.getElementById(‘pizza-legend’).innerHTML=labels.map((l,i)=>`<span style="background:${colors[i]};border-radius:6px;padding:2px 8px;font-size:10px;font-weight:700;color:#4a1a35">${l}: ${counts[i]}</span>`).join(’’);
 
-  // Bar chart
-  const barCanvas=document.getElementById('bar-chart');
-  const bctx=barCanvas.getContext('2d');
-  bctx.clearRect(0,0,400,260);
-  const barW=30,gap=10,startX=40;
-  const maxVal=Math.max(...S.map(s=>subjStats(s.id).total));
-  S.forEach((s,i)=>{
-    const{counts:sc}=subjStats(s.id);
-    const x=startX+i*(barW+gap);
-    const barColors=['#f9c6e0','#ffe0b0','#bbdefb','#c8e6c9'];
-    let y=240;
-    sc.forEach((c,j)=>{
-      if(c===0)return;
-      const h=Math.max((c/maxVal)*200,2);
-      bctx.fillStyle=barColors[j];
-      bctx.fillRect(x,y-h,barW,h);
-      y-=h;
-    });
-    bctx.fillStyle='#9e5070';bctx.font='9px sans-serif';bctx.textAlign='center';
-    bctx.fillText(s.e,x+barW/2,255);
-  });
-  // legend
-  bctx.fillStyle='#9e5070';bctx.font='9px sans-serif';bctx.textAlign='left';
-  ['#f9c6e0','#ffe0b0','#bbdefb','#c8e6c9'].forEach((c,i)=>{
-    bctx.fillStyle=c;bctx.fillRect(5,10+i*16,12,10);
-    bctx.fillStyle='#4a1a35';bctx.fillText(['Não vi','Estudando','Revisando','Dominei'][i],20,19+i*16);
-  });
+// Bar chart
+const barCanvas=document.getElementById(‘bar-chart’);
+const bctx=barCanvas.getContext(‘2d’);
+bctx.clearRect(0,0,400,260);
+const barW=30,gap=10,startX=40;
+const maxVal=Math.max(…S.map(s=>subjStats(s.id).total));
+S.forEach((s,i)=>{
+const{counts:sc}=subjStats(s.id);
+const x=startX+i*(barW+gap);
+const barColors=[’#f9c6e0’,’#ffe0b0’,’#bbdefb’,’#c8e6c9’];
+let y=240;
+sc.forEach((c,j)=>{
+if(c===0)return;
+const h=Math.max((c/maxVal)*200,2);
+bctx.fillStyle=barColors[j];
+bctx.fillRect(x,y-h,barW,h);
+y-=h;
+});
+bctx.fillStyle=’#9e5070’;bctx.font=‘9px sans-serif’;bctx.textAlign=‘center’;
+bctx.fillText(s.e,x+barW/2,255);
+});
+// legend
+bctx.fillStyle=’#9e5070’;bctx.font=‘9px sans-serif’;bctx.textAlign=‘left’;
+[’#f9c6e0’,’#ffe0b0’,’#bbdefb’,’#c8e6c9’].forEach((c,i)=>{
+bctx.fillStyle=c;bctx.fillRect(5,10+i*16,12,10);
+bctx.fillStyle=’#4a1a35’;bctx.fillText([‘Não vi’,‘Estudando’,‘Revisando’,‘Dominei’][i],20,19+i*16);
+});
 
-  // Priority cards
-  const erroTotGlobal=Object.values(st.er).reduce((a,b)=>a+b,0)||1;
-  document.getElementById('prio-grid').innerHTML=S.map(s=>{
-    const{pct,counts:sc,total:tot,erroTotal}=subjStats(s.id);
-    const erroPct=Math.round(erroTotal/erroTotGlobal*100);
-    let cls='prio-green',badge='badge-green',label='🟢 Em dia';
-    if(pct<30||erroPct>20){cls='prio-red';badge='badge-red';label='🔴 PRIORIDADE!';}
-    else if(pct<60||erroPct>10){cls='prio-yellow';badge='badge-yellow';label='🟡 Atenção';}
-    return`<div class="prio-card ${cls}">
-      <div class="prio-top">
-        <div class="prio-left"><span class="prio-emoji">${s.e}</span><span style="font-size:13px;font-weight:900">${s.n}</span></div>
-        <span class="prio-badge ${badge}">${label}</span>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:4px">
-        ${['Não vi','Estudando','Revisando','Dominei'].map((l,j)=>`
-          <div style="display:flex;align-items:center;gap:6px">
-            <span style="font-size:9.5px;font-weight:700;width:65px;flex-shrink:0">${['📚','📖','🔄','✅'][j]} ${l}</span>
-            <div style="flex:1;background:rgba(255,255,255,0.5);border-radius:999px;height:6px;overflow:hidden">
-              <div style="width:${Math.round(sc[j]/tot*100)}%;height:100%;border-radius:999px;background:${ ['#f9c6e0','#ffa726','#42a5f5','#66bb6a'][j]};transition:width 0.5s"></div>
-            </div>
-            <span style="font-size:9px;font-weight:700;color:#9e5070;min-width:20px;text-align:right">${sc[j]}</span>
-          </div>`).join('')}
-        ${erroTotal>0?`<div style="font-size:10px;font-weight:700;color:#c62828;margin-top:3px">❌ ${erroTotal} erros registrados (${erroPct}% do total)</div>`:''}
-      </div>
-    </div>`;
-  }).join('');
+// Priority cards
+const erroTotGlobal=Object.values(st.er).reduce((a,b)=>a+b,0)||1;
+document.getElementById(‘prio-grid’).innerHTML=S.map(s=>{
+const{pct,counts:sc,total:tot,erroTotal}=subjStats(s.id);
+const erroPct=Math.round(erroTotal/erroTotGlobal*100);
+let cls=‘prio-green’,badge=‘badge-green’,label=‘🟢 Em dia’;
+if(pct<30||erroPct>20){cls=‘prio-red’;badge=‘badge-red’;label=‘🔴 PRIORIDADE!’;}
+else if(pct<60||erroPct>10){cls=‘prio-yellow’;badge=‘badge-yellow’;label=‘🟡 Atenção’;}
+return`<div class="prio-card ${cls}"> <div class="prio-top"> <div class="prio-left"><span class="prio-emoji">${s.e}</span><span style="font-size:13px;font-weight:900">${s.n}</span></div> <span class="prio-badge ${badge}">${label}</span> </div> <div style="display:flex;flex-direction:column;gap:4px"> ${['Não vi','Estudando','Revisando','Dominei'].map((l,j)=>`
+<div style="display:flex;align-items:center;gap:6px">
+<span style="font-size:9.5px;font-weight:700;width:65px;flex-shrink:0">${[‘📚’,‘📖’,‘🔄’,‘✅’][j]} ${l}</span>
+<div style="flex:1;background:rgba(255,255,255,0.5);border-radius:999px;height:6px;overflow:hidden">
+<div style="width:${Math.round(sc[j]/tot*100)}%;height:100%;border-radius:999px;background:${ ['#f9c6e0','#ffa726','#42a5f5','#66bb6a'][j]};transition:width 0.5s"></div>
+</div>
+<span style="font-size:9px;font-weight:700;color:#9e5070;min-width:20px;text-align:right">${sc[j]}</span>
+</div>`).join('')} ${erroTotal>0?`<div style="font-size:10px;font-weight:700;color:#c62828;margin-top:3px">❌ ${erroTotal} erros registrados (${erroPct}% do total)</div>`:''} </div> </div>`;
+}).join(’’);
 }
 
 // ERROS
 const CAUSAS=[
-  {k:'nunca',label:'🧠 Nunca vi',cls:'active-nunca'},
-  {k:'inter',label:'📖 Interpretação',cls:'active-inter'},
-  {k:'mem',label:'💭 Memória',cls:'active-mem'},
-  {k:'calc',label:'🔢 Cálculo',cls:'active-calc'},
-  {k:'tempo',label:'⏰ Tempo',cls:'active-tempo'}
+{k:‘nunca’,label:‘🧠 Nunca vi’,cls:‘active-nunca’},
+{k:‘inter’,label:‘📖 Interpretação’,cls:‘active-inter’},
+{k:‘mem’,label:‘💭 Memória’,cls:‘active-mem’},
+{k:‘calc’,label:‘🔢 Cálculo’,cls:‘active-calc’},
+{k:‘tempo’,label:‘⏰ Tempo’,cls:‘active-tempo’}
 ];
-function addErro(sid,idx){const k=sid+'_'+idx;st.er[k]=(st.er[k]||0)+1;sv();renderErros();}
-function subErro(sid,idx){const k=sid+'_'+idx;if(st.er[k]>0)st.er[k]--;sv();renderErros();}
+function addErro(sid,idx){const k=sid+’*’+idx;st.er[k]=(st.er[k]||0)+1;sv();renderErros();}
+function subErro(sid,idx){const k=sid+’*’+idx;if(st.er[k]>0)st.er[k]–;sv();renderErros();}
 function toggleCausa(k,caus){
-  if(!st.ec[k])st.ec[k]={};
-  st.ec[k][caus]=!st.ec[k][caus];
-  sv();renderErros();
+if(!st.ec[k])st.ec[k]={};
+st.ec[k][caus]=!st.ec[k][caus];
+sv();renderErros();
 }
 function renderErros(){
-  const tot=Object.values(st.er).reduce((a,b)=>a+b,0);
-  let all=[];
-  S.forEach(s=>s.t.forEach((t,i)=>{const k=s.id+'_'+i;const cnt=st.er[k]||0;if(cnt>0)all.push({name:t.tx,subj:s.n,emoji:s.e,cnt,k});}));
-  all.sort((a,b)=>b.cnt-a.cnt);
-  const medals=['🥇','🥈','🥉'];
-  const rk=document.getElementById('ranking-list');
-  if(all.length===0){rk.innerHTML='<div class="empty">Nenhum erro ainda!</div>';}
-  else{rk.innerHTML=all.slice(0,8).map((x,i)=>{const pct=tot?Math.round(x.cnt/tot*100):0;return`<div class="rank-item"><div class="rank-pos">${medals[i]||'#'+(i+1)}</div><div style="flex:1"><div style="display:flex;align-items:center;gap:5px;margin-bottom:2px"><span>${x.emoji}</span><span class="rank-name">${x.name}</span><span style="font-size:10px;color:#9e5070">${x.subj}</span></div><div class="rank-bar-bg"><div class="rank-bar" style="width:${pct}%"></div></div></div><div style="text-align:right;margin-left:7px"><div class="rank-cnt">${x.cnt}x</div><div class="rank-pct">${pct}%</div></div></div>`;}).join('');}
-  // causa summary
-  const causaCounts={};
-  CAUSAS.forEach(c=>{causaCounts[c.k]=0;});
-  Object.entries(st.ec).forEach(([k,causas])=>{
-    const cnt=st.er[k]||0;
-    if(cnt>0)Object.entries(causas).forEach(([c,v])=>{if(v&&causaCounts[c]!==undefined)causaCounts[c]+=cnt;});
-  });
-  document.getElementById('causa-summary').innerHTML=`<div style="font-size:11px;font-weight:700;color:#9e5070;width:100%;margin-bottom:4px">📊 Por que você erra?</div>`+CAUSAS.map(c=>`<div class="cs-item"><span class="cs-num">${causaCounts[c.k]}</span>${c.label}</div>`).join('');
-  // erro grid
-  document.getElementById('erros-grid').innerHTML=S.map(s=>{
-    const totS=s.t.reduce((a,_,i)=>a+(st.er[s.id+'_'+i]||0),0);
-    const thtml=s.t.map((t,i)=>{
-      const k=s.id+'_'+i,cnt=st.er[k]||0;
-      const pct=tot?Math.round(cnt/tot*100):0;
-      const causasHtml=CAUSAS.map(c=>{
-        const active=st.ec[k]?.[c.k];
-        return`<button class="causa-btn ${active?c.cls:''}" onclick="toggleCausa('${k}','${c.k}')">${c.label}</button>`;
-      }).join('');
-      return`<div class="erro-row">
-        <div class="erro-row-top">
-          <span class="erro-name">${t.tx}</span>
-          <button class="ebtn" onclick="subErro('${s.id}',${i})">−</button>
-          <span class="erro-cnt">${cnt}</span>
-          <button class="ebtn" onclick="addErro('${s.id}',${i})">+</button>
-        </div>
-        <div class="causa-row">${causasHtml}</div>
-        ${cnt>0?`<div style="background:#fce4f2;border-radius:999px;height:4px;overflow:hidden;margin-top:4px"><div style="width:${Math.min(pct*4,100)}%;height:100%;background:linear-gradient(90deg,#f48cb1,#e91e8c);border-radius:999px"></div></div>`:''}
-      </div>`;
-    }).join('');
-    return`<div class="erro-card ${s.ac}"><div class="erro-hdr"><div class="card-left"><span class="card-emoji">${s.e}</span><span class="card-title">${s.n}</span></div><div class="card-badge">${totS} erros</div></div><div class="erro-list">${thtml}</div></div>`;
-  }).join('');
+const tot=Object.values(st.er).reduce((a,b)=>a+b,0);
+let all=[];
+S.forEach(s=>s.t.forEach((t,i)=>{const k=s.id+’*’+i;const cnt=st.er[k]||0;if(cnt>0)all.push({name:t.tx,subj:s.n,emoji:s.e,cnt,k});}));
+all.sort((a,b)=>b.cnt-a.cnt);
+const medals=[‘🥇’,‘🥈’,‘🥉’];
+const rk=document.getElementById(‘ranking-list’);
+if(all.length===0){rk.innerHTML=’<div class="empty">Nenhum erro ainda!</div>’;}
+else{rk.innerHTML=all.slice(0,8).map((x,i)=>{const pct=tot?Math.round(x.cnt/tot*100):0;return`<div class="rank-item"><div class="rank-pos">${medals[i]||'#'+(i+1)}</div><div style="flex:1"><div style="display:flex;align-items:center;gap:5px;margin-bottom:2px"><span>${x.emoji}</span><span class="rank-name">${x.name}</span><span style="font-size:10px;color:#9e5070">${x.subj}</span></div><div class="rank-bar-bg"><div class="rank-bar" style="width:${pct}%"></div></div></div><div style="text-align:right;margin-left:7px"><div class="rank-cnt">${x.cnt}x</div><div class="rank-pct">${pct}%</div></div></div>`;}).join(’’);}
+// causa summary
+const causaCounts={};
+CAUSAS.forEach(c=>{causaCounts[c.k]=0;});
+Object.entries(st.ec).forEach(([k,causas])=>{
+const cnt=st.er[k]||0;
+if(cnt>0)Object.entries(causas).forEach(([c,v])=>{if(v&&causaCounts[c]!==undefined)causaCounts[c]+=cnt;});
+});
+document.getElementById(‘causa-summary’).innerHTML=`<div style="font-size:11px;font-weight:700;color:#9e5070;width:100%;margin-bottom:4px">📊 Por que você erra?</div>`+CAUSAS.map(c=>`<div class="cs-item"><span class="cs-num">${causaCounts[c.k]}</span>${c.label}</div>`).join(’’);
+// erro grid
+document.getElementById(‘erros-grid’).innerHTML=S.map(s=>{
+const totS=s.t.reduce((a,*,i)=>a+(st.er[s.id+’*’+i]||0),0);
+const thtml=s.t.map((t,i)=>{
+const k=s.id+’*’+i,cnt=st.er[k]||0;
+const pct=tot?Math.round(cnt/tot*100):0;
+const causasHtml=CAUSAS.map(c=>{
+const active=st.ec[k]?.[c.k];
+return`<button class="causa-btn ${active?c.cls:''}" onclick="toggleCausa('${k}','${c.k}')">${c.label}</button>`;
+}).join(’’);
+return`<div class="erro-row"> <div class="erro-row-top"> <span class="erro-name">${t.tx}</span> <button class="ebtn" onclick="subErro('${s.id}',${i})">−</button> <span class="erro-cnt">${cnt}</span> <button class="ebtn" onclick="addErro('${s.id}',${i})">+</button> </div> <div class="causa-row">${causasHtml}</div> ${cnt>0?`<div style="background:#fce4f2;border-radius:999px;height:4px;overflow:hidden;margin-top:4px"><div style="width:${Math.min(pct*4,100)}%;height:100%;background:linear-gradient(90deg,#f48cb1,#e91e8c);border-radius:999px"></div></div>`:''} </div>`;
+}).join(’’);
+return`<div class="erro-card ${s.ac}"><div class="erro-hdr"><div class="card-left"><span class="card-emoji">${s.e}</span><span class="card-title">${s.n}</span></div><div class="card-badge">${totS} erros</div></div><div class="erro-list">${thtml}</div></div>`;
+}).join(’’);
 }
 
 // FLASHCARDS
-let fcDeck=[],fcIdx=0,fcFlipped=false,fcFilter='all';
+let fcDeck=[],fcIdx=0,fcFlipped=false,fcFilter=‘all’;
 function buildDeck(f){
-  fcDeck=[];
-  const keys=f==='all'?Object.keys(FC):[f];
-  keys.forEach(k=>{if(FC[k])FC[k].forEach(c=>fcDeck.push({...c,subj:k}));});
-  fcDeck=fcDeck.sort(()=>Math.random()-0.5);
-  fcIdx=0;fcFlipped=false;
+fcDeck=[];
+const keys=f===‘all’?Object.keys(FC):[f];
+keys.forEach(k=>{if(FC[k])FC[k].forEach(c=>fcDeck.push({…c,subj:k}));});
+fcDeck=fcDeck.sort(()=>Math.random()-0.5);
+fcIdx=0;fcFlipped=false;
 }
 function renderFlash(){
-  const snames={mat:'Matemática',fis:'Física',qui:'Química',bio:'Biologia',his:'História',geo:'Geografia',por:'Português'};
-  document.getElementById('fc-filter').innerHTML=['all','mat','fis','qui','bio','his','geo','por'].map(k=>`<button class="fc-filter-btn ${fcFilter===k?'active':''}" onclick="setFcFilter('${k}')">${k==='all'?'📚 Todas':snames[k]}</button>`).join('');
-  if(fcDeck.length===0)buildDeck(fcFilter);
-  showFcCard();
-  document.getElementById('fc-total').textContent=fcDeck.length;
-  document.getElementById('fc-acertos').textContent=st.fc.acertos;
-  document.getElementById('fc-errados').textContent=st.fc.erros;
-  const t=st.fc.acertos+st.fc.erros;
-  document.getElementById('fc-pct').textContent=t?Math.round(st.fc.acertos/t*100)+'%':'0%';
+const snames={mat:‘Matemática’,fis:‘Física’,qui:‘Química’,bio:‘Biologia’,his:‘História’,geo:‘Geografia’,por:‘Português’};
+document.getElementById(‘fc-filter’).innerHTML=[‘all’,‘mat’,‘fis’,‘qui’,‘bio’,‘his’,‘geo’,‘por’].map(k=>`<button class="fc-filter-btn ${fcFilter===k?'active':''}" onclick="setFcFilter('${k}')">${k==='all'?'📚 Todas':snames[k]}</button>`).join(’’);
+if(fcDeck.length===0)buildDeck(fcFilter);
+showFcCard();
+document.getElementById(‘fc-total’).textContent=fcDeck.length;
+document.getElementById(‘fc-acertos’).textContent=st.fc.acertos;
+document.getElementById(‘fc-errados’).textContent=st.fc.erros;
+const t=st.fc.acertos+st.fc.erros;
+document.getElementById(‘fc-pct’).textContent=t?Math.round(st.fc.acertos/t*100)+’%’:‘0%’;
 }
 function setFcFilter(f){fcFilter=f;fcDeck=[];buildDeck(f);renderFlash();}
 function showFcCard(){
-  if(!fcDeck.length)return;
-  const c=fcDeck[fcIdx];
-  const snames={mat:'🔢 Matemática',fis:'⚡ Física',qui:'⚗️ Química',bio:'🧬 Biologia',his:'🌍 História',geo:'🗺️ Geografia',por:'📝 Português'};
-  document.getElementById('fc-subj-badge').textContent=snames[c.subj]||c.subj;
-  document.getElementById('fc-question').textContent=c.q;
-  document.getElementById('fc-answer').textContent=c.a;
-  document.getElementById('fc-hint').textContent=c.h?'💡 '+c.h:'';
-  document.getElementById('fc-prog-text').textContent=(fcIdx+1)+' / '+fcDeck.length;
-  document.getElementById('fc-card').classList.remove('flipped');fcFlipped=false;
+if(!fcDeck.length)return;
+const c=fcDeck[fcIdx];
+const snames={mat:‘🔢 Matemática’,fis:‘⚡ Física’,qui:‘⚗️ Química’,bio:‘🧬 Biologia’,his:‘🌍 História’,geo:‘🗺️ Geografia’,por:‘📝 Português’};
+document.getElementById(‘fc-subj-badge’).textContent=snames[c.subj]||c.subj;
+document.getElementById(‘fc-question’).textContent=c.q;
+document.getElementById(‘fc-answer’).textContent=c.a;
+document.getElementById(‘fc-hint’).textContent=c.h?‘💡 ‘+c.h:’’;
+document.getElementById(‘fc-prog-text’).textContent=(fcIdx+1)+’ / ’+fcDeck.length;
+document.getElementById(‘fc-card’).classList.remove(‘flipped’);fcFlipped=false;
 }
-function flipCard(){document.getElementById('fc-card').classList.toggle('flipped');fcFlipped=!fcFlipped;}
+function flipCard(){document.getElementById(‘fc-card’).classList.toggle(‘flipped’);fcFlipped=!fcFlipped;}
 function fcAcerto(){if(!fcFlipped)return;st.fc.acertos++;sv();fcIdx=(fcIdx+1)%fcDeck.length;showFcCard();renderFlashStats();}
 function fcErro(){if(!fcFlipped)return;st.fc.erros++;sv();fcIdx=(fcIdx+1)%fcDeck.length;showFcCard();renderFlashStats();}
 function fcPular(){fcIdx=(fcIdx+1)%fcDeck.length;showFcCard();}
 function renderFlashStats(){
-  document.getElementById('fc-acertos').textContent=st.fc.acertos;
-  document.getElementById('fc-errados').textContent=st.fc.erros;
-  const t=st.fc.acertos+st.fc.erros;
-  document.getElementById('fc-pct').textContent=t?Math.round(st.fc.acertos/t*100)+'%':'0%';
+document.getElementById(‘fc-acertos’).textContent=st.fc.acertos;
+document.getElementById(‘fc-errados’).textContent=st.fc.erros;
+const t=st.fc.acertos+st.fc.erros;
+document.getElementById(‘fc-pct’).textContent=t?Math.round(st.fc.acertos/t*100)+’%’:‘0%’;
 }
 
 // SIMULADOS
 function renderSimul(){
-  const sg=document.getElementById('sim-inputs-grid');
-  sg.innerHTML=S.map(s=>`<div style="display:flex;align-items:center;gap:5px"><span style="font-size:12px">${s.e}</span><span style="font-size:11px;font-weight:700;flex:1">${s.n}</span><input type="number" id="sn-${s.id}" min="0" max="10" style="width:50px;border:1.5px solid #f9c6e0;border-radius:6px;padding:3px 6px;font-size:12px;font-family:sans-serif;background:#fdf0f8;outline:none" placeholder="0-10"></div>`).join('');
-  renderSimList();
+const sg=document.getElementById(‘sim-inputs-grid’);
+sg.innerHTML=S.map(s=>`<div style="display:flex;align-items:center;gap:5px"><span style="font-size:12px">${s.e}</span><span style="font-size:11px;font-weight:700;flex:1">${s.n}</span><input type="number" id="sn-${s.id}" min="0" max="10" style="width:50px;border:1.5px solid #f9c6e0;border-radius:6px;padding:3px 6px;font-size:12px;font-family:sans-serif;background:#fdf0f8;outline:none" placeholder="0-10"></div>`).join(’’);
+renderSimList();
 }
 function addSim(){
-  const nome=document.getElementById('snome').value.trim();
-  const data=document.getElementById('sdata').value;
-  if(!nome)return;
-  const notas={};
-  S.forEach(s=>{const v=document.getElementById('sn-'+s.id)?.value;notas[s.id]=v?parseInt(v):null;});
-  st.sim.unshift({nome,data,notas,id:Date.now()});
-  sv();document.getElementById('snome').value='';document.getElementById('sdata').value='';
-  S.forEach(s=>{const el=document.getElementById('sn-'+s.id);if(el)el.value='';});
-  renderSimList();
+const nome=document.getElementById(‘snome’).value.trim();
+const data=document.getElementById(‘sdata’).value;
+if(!nome)return;
+const notas={};
+S.forEach(s=>{const v=document.getElementById(‘sn-’+s.id)?.value;notas[s.id]=v?parseInt(v):null;});
+st.sim.unshift({nome,data,notas,id:Date.now()});
+sv();document.getElementById(‘snome’).value=’’;document.getElementById(‘sdata’).value=’’;
+S.forEach(s=>{const el=document.getElementById(‘sn-’+s.id);if(el)el.value=’’;});
+renderSimList();
 }
 function delSim(id){st.sim=st.sim.filter(x=>x.id!==id);sv();renderSimList();}
 function renderSimList(){
-  const el=document.getElementById('sim-list');
-  if(!st.sim.length){el.innerHTML='<div class="empty">Nenhum simulado ainda!</div>';return;}
-  el.innerHTML=st.sim.map(s=>{
-    const notasHtml=S.map(sub=>{
-      const n=s.notas[sub.id];if(n===null||n===undefined)return'';
-      const cls=n>=7?'nota-a':n>=5?'nota-b':'nota-c';
-      return`<span class="sim-nota-tag ${cls}">${sub.e} ${n}/10</span>`;
-    }).join('');
-    const total=S.reduce((a,sub)=>{const n=s.notas[sub.id];return n!==null&&n!==undefined?a+n:a;},0);
-    const count=S.filter(sub=>s.notas[sub.id]!==null&&s.notas[sub.id]!==undefined).length;
-    const avg=count?Math.round(total/count*10):0;
-    const avgCls=avg>=70?'nota-a':avg>=50?'nota-b':'nota-c';
-    return`<div class="sim-item">
-      <div class="sim-item-top"><span class="sim-nome">${s.nome}${s.data?' · '+s.data:''}</span><span class="sim-nota-tag ${avgCls}">${avg}%</span><button class="sim-del" onclick="delSim(${s.id})">✕</button></div>
-      <div class="sim-notas-row">${notasHtml}</div>
-    </div>`;
-  }).join('');
+const el=document.getElementById(‘sim-list’);
+if(!st.sim.length){el.innerHTML=’<div class="empty">Nenhum simulado ainda!</div>’;return;}
+el.innerHTML=st.sim.map(s=>{
+const notasHtml=S.map(sub=>{
+const n=s.notas[sub.id];if(n===null||n===undefined)return’’;
+const cls=n>=7?‘nota-a’:n>=5?‘nota-b’:‘nota-c’;
+return`<span class="sim-nota-tag ${cls}">${sub.e} ${n}/10</span>`;
+}).join(’’);
+const total=S.reduce((a,sub)=>{const n=s.notas[sub.id];return n!==null&&n!==undefined?a+n:a;},0);
+const count=S.filter(sub=>s.notas[sub.id]!==null&&s.notas[sub.id]!==undefined).length;
+const avg=count?Math.round(total/count*10):0;
+const avgCls=avg>=70?‘nota-a’:avg>=50?‘nota-b’:‘nota-c’;
+return`<div class="sim-item"> <div class="sim-item-top"><span class="sim-nome">${s.nome}${s.data?' · '+s.data:''}</span><span class="sim-nota-tag ${avgCls}">${avg}%</span><button class="sim-del" onclick="delSim(${s.id})">✕</button></div> <div class="sim-notas-row">${notasHtml}</div> </div>`;
+}).join(’’);
 }
-
-
 
 // CONTROLE
 function addLog(){
-  const data=document.getElementById('log-data').value;
-  const horas=parseFloat(document.getElementById('log-horas').value);
-  if(!data||isNaN(horas)||horas<=0)return;
-  st.log.unshift({data,horas,id:Date.now()});
-  sv();document.getElementById('log-data').value='';document.getElementById('log-horas').value='';
-  renderCtrl();
+const data=document.getElementById(‘log-data’).value;
+const horas=parseFloat(document.getElementById(‘log-horas’).value);
+if(!data||isNaN(horas)||horas<=0)return;
+st.log.unshift({data,horas,id:Date.now()});
+sv();document.getElementById(‘log-data’).value=’’;document.getElementById(‘log-horas’).value=’’;
+renderCtrl();
 }
 function delLog(id){st.log=st.log.filter(x=>x.id!==id);sv();renderCtrl();}
 function renderCtrl(){
-  document.getElementById('streak-num').textContent=st.streak.count;
-  const today=new Date().toISOString().slice(0,10);
-  if(st.streak.lastDate===today)document.getElementById('hoje-status').textContent='✅ Já estudou hoje!';
-  const totalH=st.log.reduce((a,b)=>a+b.horas,0);
-  document.getElementById('log-list').innerHTML=st.log.slice(0,10).map(l=>`<div class="log-item"><span class="log-date">📅 ${l.data}</span><span class="log-hours">${l.horas}h</span><button class="log-del" onclick="delLog(${l.id})">✕</button></div>`).join('')+(st.log.length?`<div style="font-size:11px;font-weight:700;color:#e91e8c;padding:5px 8px">Total: ${totalH.toFixed(1)}h</div>`:'')||'<div class="empty">Nenhum registro ainda.</div>';
+document.getElementById(‘streak-num’).textContent=st.streak.count;
+const today=new Date().toISOString().slice(0,10);
+if(st.streak.lastDate===today)document.getElementById(‘hoje-status’).textContent=‘✅ Já estudou hoje!’;
+const totalH=st.log.reduce((a,b)=>a+b.horas,0);
+document.getElementById(‘log-list’).innerHTML=st.log.slice(0,10).map(l=>`<div class="log-item"><span class="log-date">📅 ${l.data}</span><span class="log-hours">${l.horas}h</span><button class="log-del" onclick="delLog(${l.id})">✕</button></div>`).join(’’)+(st.log.length?`<div style="font-size:11px;font-weight:700;color:#e91e8c;padding:5px 8px">Total: ${totalH.toFixed(1)}h</div>`:’’)||’<div class="empty">Nenhum registro ainda.</div>’;
 }
 
 // METAS
 let wk=0;
 function wkey(o=0){const n=new Date(),d=n.getDay(),m=new Date(n);m.setDate(n.getDate()-(d===0?6:d-1)+o*7);return m.toISOString().slice(0,10);}
-function wlbl(o=0){const n=new Date(),d=n.getDay(),m=new Date(n);m.setDate(n.getDate()-(d===0?6:d-1)+o*7);const s=new Date(m);s.setDate(m.getDate()+6);const f=x=>x.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});return f(m)+' – '+f(s);}
+function wlbl(o=0){const n=new Date(),d=n.getDay(),m=new Date(n);m.setDate(n.getDate()-(d===0?6:d-1)+o*7);const s=new Date(m);s.setDate(m.getDate()+6);const f=x=>x.toLocaleDateString(‘pt-BR’,{day:‘2-digit’,month:‘2-digit’});return f(m)+’ – ‘+f(s);}
 function changeWeek(dir){wk+=dir;renderMetas();}
-function addMeta(){const inp=document.getElementById('minp'),txt=inp.value.trim();if(!txt)return;const k=wkey(wk);if(!st.m[k])st.m[k]=[];st.m[k].push({tx:txt,done:false,id:Date.now()});sv();inp.value='';renderMetas();}
+function addMeta(){const inp=document.getElementById(‘minp’),txt=inp.value.trim();if(!txt)return;const k=wkey(wk);if(!st.m[k])st.m[k]=[];st.m[k].push({tx:txt,done:false,id:Date.now()});sv();inp.value=’’;renderMetas();}
 function toggleMeta(k,id){const item=st.m[k]?.find(x=>x.id===id);if(item){item.done=!item.done;sv();renderMetas();}}
 function delMeta(k,id){if(!st.m[k])return;st.m[k]=st.m[k].filter(x=>x.id!==id);sv();renderMetas();}
 function renderMetas(){
-  const k=wkey(wk);
-  document.getElementById('wlabel').textContent=wk===0?'Semana atual':wlbl(wk);
-  const its=st.m[k]||[];const done=its.filter(x=>x.done).length;const pct=its.length?Math.round(done/its.length*100):0;
-  document.getElementById('mlist').innerHTML=its.length===0?'<div class="empty">Nenhuma meta ainda 🌸</div>':its.map(m=>`<div class="meta-item ${m.done?'done-m':''}"><div class="mchk" onclick="toggleMeta('${k}',${m.id})">${m.done?'✓':''}</div><span class="mtext">${m.tx}</span><button class="mdel" onclick="delMeta('${k}',${m.id})">✕</button></div>`).join('');
-  document.getElementById('mpct').textContent=done+'/'+its.length+' · '+pct+'%';
-  document.getElementById('mfill').style.width=pct+'%';
-  document.getElementById('gnote').value=st.gn||'';
-  const allw=Object.keys(st.m).sort().reverse().slice(0,8);
-  document.getElementById('hist').innerHTML=allw.map(w=>{const it=st.m[w],d=it.filter(x=>x.done).length,p=it.length?Math.round(d/it.length*100):0;return`<div style="background:white;border-radius:11px;border:1.5px solid ${w===k?'#e91e8c':'#f9c6e0'};padding:8px 10px"><div style="font-size:10px;font-weight:700;color:#9e5070;margin-bottom:3px">📅 ${w}</div><div style="font-size:13px;font-weight:800;color:#e91e8c;margin-bottom:3px">${d}/${it.length} metas</div><div style="background:#fce4f2;border-radius:999px;height:5px;overflow:hidden"><div style="width:${p}%;height:100%;background:linear-gradient(90deg,#f48cb1,#e91e8c);border-radius:999px"></div></div><div style="font-size:10px;color:#9e5070;margin-top:2px;text-align:right">${p}%</div></div>`;}).join('')||'<div class="empty">Sem histórico.</div>';
+const k=wkey(wk);
+document.getElementById(‘wlabel’).textContent=wk===0?‘Semana atual’:wlbl(wk);
+const its=st.m[k]||[];const done=its.filter(x=>x.done).length;const pct=its.length?Math.round(done/its.length*100):0;
+document.getElementById(‘mlist’).innerHTML=its.length===0?’<div class="empty">Nenhuma meta ainda 🌸</div>’:its.map(m=>`<div class="meta-item ${m.done?'done-m':''}"><div class="mchk" onclick="toggleMeta('${k}',${m.id})">${m.done?'✓':''}</div><span class="mtext">${m.tx}</span><button class="mdel" onclick="delMeta('${k}',${m.id})">✕</button></div>`).join(’’);
+document.getElementById(‘mpct’).textContent=done+’/’+its.length+’ · ‘+pct+’%’;
+document.getElementById(‘mfill’).style.width=pct+’%’;
+document.getElementById(‘gnote’).value=st.gn||’’;
+const allw=Object.keys(st.m).sort().reverse().slice(0,8);
+document.getElementById(‘hist’).innerHTML=allw.map(w=>{const it=st.m[w],d=it.filter(x=>x.done).length,p=it.length?Math.round(d/it.length*100):0;return`<div style="background:white;border-radius:11px;border:1.5px solid ${w===k?'#e91e8c':'#f9c6e0'};padding:8px 10px"><div style="font-size:10px;font-weight:700;color:#9e5070;margin-bottom:3px">📅 ${w}</div><div style="font-size:13px;font-weight:800;color:#e91e8c;margin-bottom:3px">${d}/${it.length} metas</div><div style="background:#fce4f2;border-radius:999px;height:5px;overflow:hidden"><div style="width:${p}%;height:100%;background:linear-gradient(90deg,#f48cb1,#e91e8c);border-radius:999px"></div></div><div style="font-size:10px;color:#9e5070;margin-top:2px;text-align:right">${p}%</div></div>`;}).join(’’)||’<div class="empty">Sem histórico.</div>’;
 }
 
 // DIA DA PROVA
 function renderDiaProva(){
-  Object.keys(DP_ITEMS).forEach(section=>{
-    const el=document.getElementById('dp-'+section);
-    if(!st.dp[section])st.dp[section]={};
-    el.innerHTML=DP_ITEMS[section].map((item,i)=>{
-      const checked=!!st.dp[section][i];
-      return`<div class="diaprova-item ${checked?'checked':''}" onclick="toggleDP('${section}',${i},this)"><div class="dp-chk">${checked?'✓':''}</div><span class="dp-text">${item}</span></div>`;
-    }).join('');
-  });
+Object.keys(DP_ITEMS).forEach(section=>{
+const el=document.getElementById(‘dp-’+section);
+if(!st.dp[section])st.dp[section]={};
+el.innerHTML=DP_ITEMS[section].map((item,i)=>{
+const checked=!!st.dp[section][i];
+return`<div class="diaprova-item ${checked?'checked':''}" onclick="toggleDP('${section}',${i},this)"><div class="dp-chk">${checked?'✓':''}</div><span class="dp-text">${item}</span></div>`;
+}).join(’’);
+});
 }
 function toggleDP(section,idx,el){
-  if(!st.dp[section])st.dp[section]={};
-  st.dp[section][idx]=!st.dp[section][idx];
-  sv();
-  el.classList.toggle('checked',st.dp[section][idx]);
-  el.querySelector('.dp-chk').textContent=st.dp[section][idx]?'✓':'';
-  el.querySelector('.dp-text').style.textDecoration=st.dp[section][idx]?'line-through':'none';
+if(!st.dp[section])st.dp[section]={};
+st.dp[section][idx]=!st.dp[section][idx];
+sv();
+el.classList.toggle(‘checked’,st.dp[section][idx]);
+el.querySelector(’.dp-chk’).textContent=st.dp[section][idx]?‘✓’:’’;
+el.querySelector(’.dp-text’).style.textDecoration=st.dp[section][idx]?‘line-through’:‘none’;
 }
 function resetDP(section){st.dp[section]={};sv();renderDiaProva();}
 
-
-// TOPIC MOOD
-if(!st.tm)st.tm={};
-function cycleMood(k,sid){
-  if(!st.tm)st.tm={};
-  const cur=st.tm[k];
-  st.tm[k]=cur===undefined?0:(cur+1)%MOODS.length;
-  sv();
-  // update just the mood icon in the topic
-  renderCards();
-}
-function moodRank(sid){
-  if(!st.tm)return '<span style="font-size:10px;color:#ccc">clique em 😶 nos topicos</span>';
-  const s=S.find(x=>x.id===sid);
-  const moods=s.t.map(function(_,i){return st.tm[sid+'_'+i];}).filter(function(m){return m!==undefined;});
-  if(!moods.length)return '<span style="font-size:10px;color:#ccc">clique em 😶 nos topicos</span>';
-  const avg=Math.round(moods.reduce(function(a,b){return a+b;},0)/moods.length);
-  const counts=[0,0,0,0,0];
-  moods.forEach(function(m){counts[m]++;});
-  var out='<span style="font-size:15px">'+MOODS[avg]+'</span> <span style="font-size:10px;color:#9e5070">media</span> ';
-  MOODS.forEach(function(m,i){if(counts[i]>0)out+='<span style="font-size:12px">'+m+'<sup>'+counts[i]+'</sup></span> ';});
-  return out;
-}
-
 // RESET
 function resetAll(){
-  if(confirm('Resetar TODO o progresso? 🥺\nIsso apagará tudo!')){
-    st={s:{},n:{},md:{},er:{},ec:{},m:{},gn:'',log:[],streak:{count:0,lastDate:''},sim:[],rev:[],tm:{},dp:{},fc:{acertos:0,erros:0}};
-    sv();renderAll();
-  }
+if(confirm(‘Resetar TODO o progresso? 🥺\nIsso apagará tudo!’)){
+st={s:{},n:{},md:{},er:{},ec:{},m:{},gn:’’,log:[],streak:{count:0,lastDate:’’},sim:[],rev:[],tm:{},dp:{},fc:{acertos:0,erros:0}};
+sv();renderAll();
+}
 }
 function renderAll(){renderHeader();renderOverview();renderCards();}
 renderAll();
 </script>
+
 </body>
 </html>
